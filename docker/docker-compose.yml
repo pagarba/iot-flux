@@ -128,14 +128,23 @@ services:
     networks:
       - mainflux-base-net
 
-  dashflux:
-    image: mainflux/dashflux:latest
-    container_name: mainflux-dashflux
-    restart: on-failure
-    ports:
-      - 3000:3000
-    networks:
-      - mainflux-base-net
+  device-app:
+      image: smupyknight/device-app:latest
+      container_name: mainflux-device-app
+      restart: 'no'
+      ports:
+        - 3000:3000
+      networks:
+        - mainflux-base-net
+
+#  dashflux:
+#    image: mainflux/dashflux:latest
+#    container_name: mainflux-dashflux
+#    restart: on-failure
+#    ports:
+#      - 3000:3000
+#    networks:
+#      - mainflux-base-net
 
   ws-adapter:
     image: mainflux/ws:latest
