@@ -97,3 +97,20 @@ In this Tutorial we will :
        mosquitto_pub -t "test/topic" -m "Hello, TrigX IOT World!"
        
        ```
+
+ - Messages published in one terminal window will pop up on other one
+ - These messages are exchanging on localhost of Raspberry Pi now 
+     - goal is for these messages to be sent to TrigX IOT platform in cloud
+     
+### Create & Register Devices
+
+ - You can there create users, channel and Devices on the TrigXIOT Dasboard
+    - We will register over dashboard
+    - Create two devices 
+        - named 
+           - Cool-IOT-Device-1
+           - Cool-IOT-Device-2
+    - Create a Channel 
+        - named 
+           - Cool-IOT-Channel-1 
+    - Connect these devices to the channel
