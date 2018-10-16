@@ -2,7 +2,8 @@
  
 # TrigXIOT Portal -  Connect your Rasperry Pi to TrigX IOT
 
-## Setting up MQTT on a Raspberry Pi & connect it to TrigX IOT platform
+
+## Set up MQTT on a Raspberry Pi & connect it to TrigX IOT platform
 
 In this Tutorial we will : 
 
