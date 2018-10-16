@@ -56,8 +56,8 @@ In this Tutorial we will :
     ```
        
 
-    - File with namessh 
-         - should remain empty and without any extension
+  - File with namessh 
+    - should remain empty and without any extension
           
           
  - Eject the microSD card from your computer and insert it into your Raspberry Pi
