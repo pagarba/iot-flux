@@ -50,8 +50,8 @@ In this Tutorial we will :
         ssid="WiFiNetworkName"
         psk="WiFiPassword"
         key_mgmt=WPA-PSK
-        }
-   ```
+       }  ```
+       
 
      - File with namessh 
           - should remain empty and without any extension.
