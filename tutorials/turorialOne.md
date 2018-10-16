@@ -56,19 +56,19 @@ In this Tutorial we will :
     ```
        
 
-     - File with namessh 
-          - should remain empty and without any extension
+    - File with namessh 
+         - should remain empty and without any extension
           
           
-  - Eject the microSD card from your computer and insert it into your Raspberry Pi
-  - Power up your Pi and after a few moments your Pi should be up and connected to WiFi
-  - But we don’t see that until we connect from PC to Raspberry Pi
-  - For that, we must find out local IP address of Raspberry Pi
-      - find out the local IP address of your PC by using ipconfig
-      - log into your router and scan devices
-      - usually ipv4 info
+ - Eject the microSD card from your computer and insert it into your Raspberry Pi
+ - Power up your Pi and after a few moments your Pi should be up and connected to WiFi  
+ - But we don’t see that until we connect from PC to Raspberry Pi
+ - For that, we must find out local IP address of Raspberry Pi
+    - find out the local IP address of your PC by using ipconfig
+    - log into your router and scan devices
+     - usually ipv4 info
       
-  - On your computer, open up PuTTY and connect to IP address of Pi
+ - On your computer, open up PuTTY and connect to IP address of Pi
       - Login as pi 
       - password raspberry
       
