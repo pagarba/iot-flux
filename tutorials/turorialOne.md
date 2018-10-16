@@ -104,7 +104,7 @@ In this Tutorial we will :
      
 ### Create & Register Devices
 
- - You can there create users, channel and Devices on the TrigXIOT Dasboard
+ - You can  create users, channels and Devices on the TrigXIOT Dasboard
     - We will register over dashboard
     - Create two devices 
         - named 
