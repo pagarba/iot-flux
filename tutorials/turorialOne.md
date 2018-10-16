@@ -50,12 +50,13 @@ In this Tutorial we will :
         ssid="WiFiNetworkName"
         psk="WiFiPassword"
         key_mgmt=WPA-PSK
-       }  ```
+       } 
+       
+    ```
        
 
      - File with namessh 
-          - should remain empty and without any extension.
-
+          - should remain empty and without any extension
       - Eject the microSD card from your computer and insert it into your Raspberry Pi
       - Power up your Pi and after a few moments your Pi should be up and connected to WiFi
       - But we don’t see that until we connect from PC to Raspberry Pi
