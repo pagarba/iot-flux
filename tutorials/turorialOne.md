@@ -51,6 +51,16 @@ In this Tutorial we will :
         psk="WiFiPassword"
         key_mgmt=WPA-PSK
         }
-     ```
+   ```
 
+     - File with namessh 
+          - should remain empty and without any extension.
+
+      - Eject the microSD card from your computer and insert it into your Raspberry Pi
+      - Power up your Pi and after a few moments your Pi should be up and connected to WiFi
+      - But we don’t see that until we connect from PC to Raspberry Pi
+      - For that, we must find out local IP address of Raspberry Pi
+      - One way to find that is to log into your router and find attached devices
+      - Another way is to first find out the local IP address of your PC
+      - or use ipconfig
 
