@@ -78,16 +78,22 @@ In this Tutorial we will :
  - It's designed to provide lightweight publish/subscribe communication to “Internet of Things” devices
  
   - Install MQTT on Raspbery Pi with this command:
-
-   ``` sudo apt-get install mosquitto mosquitto-clients ```
+ 
+     ``` 
+      sudo apt-get install mosquitto mosquitto-clients 
+     ```
    
-   - Test it with two SSH connections to Pi
+  - Test it with two SSH connections to Pi
+  
+  - In one window we will subscribe to messages on “test/topic” channel:
 
-    - In one window we will subscribe to messages on “test/topic” channel:
+      ```
+      mosquitto_sub -v -t "test/topic"  
+      ```
+    
+  - In the other window  publish messages on same chanell:
 
-         ``` mosquitto_sub -v -t "test/topic"  ```
-
-    - In other window we will publish messages on same chanell:
-
-         ``` mosquitto_pub -t "test/topic" -m "Hello, TrigX IOT World!"  ```
-
+       ```
+       mosquitto_pub -t "test/topic" -m "Hello, TrigX IOT World!"
+       
+       ```
