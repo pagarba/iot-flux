@@ -37,6 +37,9 @@ In this Tutorial we will :
      - wpa_supplicant.conf
      - ssh
 
-- In wpa_supplicant.conf enter this text and edit your details: country code, WiFi name and password:
+- In wpa_supplicant.conf enter this text and edit your details: 
+     - country code
+     - WiFi name
+     - password
 
 
