@@ -41,5 +41,16 @@ In this Tutorial we will :
      - country code
      - WiFi name
      - password
+     
+   ``` 
+       country=US
+       ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+       update_config=1
+       network={
+        ssid="WiFiNetworkName"
+        psk="WiFiPassword"
+        key_mgmt=WPA-PSK
+        }
+     ```
 
 
