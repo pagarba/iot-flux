@@ -34,11 +34,24 @@ Before proceeding, install the following prerequisites:
 - [Docker compose](https://docs.docker.com/compose/install/)
 
 
+Create a linux user 
+
+```
+    adduser IOTUSER
+```
+
+
 Clone the repository to get started ...
 
 ```
 sudo git clone https://github.com/pagarba/iot-flux.git
 ```
+
+Enter the subdirectory ...
+```
+ cd iot-flux
+ ```
+ 
 
 Once everything is installed, execute the following commands from project root:
 
