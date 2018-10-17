@@ -6,6 +6,13 @@ Before proceeding, install the following prerequisites:
 - [Docker compose](https://docs.docker.com/compose/install/)
 - [jsonpp](https://jmhodges.github.io/jsonpp/) (optional)
 
+Clone the repository ...
+
+```
+   sudo git clone 
+  
+```
+
 Once everything is installed, execute the following commands from project root:
 
 ```bash
