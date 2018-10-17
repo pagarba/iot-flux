@@ -22,6 +22,7 @@ import { withStyles } from "@material-ui/core/styles/index";
 
 import DevicesTable from '../../components/Tables/DevicesTable';
 import { createDevice, getDevices, deleteDevice } from '../../core/actions/device';
+import qs from 'stringquery'
 
 const styles = theme => ({
   root: {
@@ -56,6 +57,13 @@ class Devices extends Component {
 
   componentWillMount() {
     this.props.getDevices();
+  }
+
+  componentDidMount() {
+    const obj = qs(this.props.location.search);
+    this.setState({
+      expanded: obj.mode === 'create' ? 'panel2' : 'panel1'
+    })
   }
 
   handleChange = panel => (event, expanded) => {
@@ -104,6 +112,18 @@ class Devices extends Component {
       <div className={classes.root}>
         <ExpansionPanel expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')}>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography className={classes.heading}>My Devices</Typography>
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails>
+            <DevicesTable
+              history={history}
+              data={this.props.devices ? this.props.devices.things : []}
+              onDeleteDevice={this.deleteDevice}
+            />
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
+        <ExpansionPanel expanded={expanded === 'panel2'} onChange={this.handleChange('panel2')}>
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
             <Typography className={classes.heading}>Add a New Device</Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className={classes.root}>
@@ -143,18 +163,6 @@ class Devices extends Component {
             >
               Add Device
             </Button>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-        <ExpansionPanel expanded={expanded === 'panel2'} onChange={this.handleChange('panel2')}>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>My Devices</Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <DevicesTable
-              history={history}
-              data={this.props.devices ? this.props.devices.things : []}
-              onDeleteDevice={this.deleteDevice}
-            />
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </div>

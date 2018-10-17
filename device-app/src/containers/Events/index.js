@@ -20,6 +20,7 @@ import Select from '@material-ui/core/Select';
 import { withStyles } from "@material-ui/core/styles/index";
 
 import EventsTable from '../../components/Tables/EventsTable';
+import qs from 'stringquery'
 
 const styles = theme => ({
   root: {
@@ -52,6 +53,13 @@ class Events extends Component {
     data: '',
   };
 
+  componentDidMount() {
+    const obj = qs(this.props.location.search);
+    this.setState({
+      expanded: obj.mode === 'create' ? 'panel2' : 'panel1'
+    })
+  }
+
   handleChange = panel => (event, expanded) => {
     this.setState({
       expanded: expanded ? panel : false,
@@ -73,6 +81,16 @@ class Events extends Component {
     return (
       <div className={classes.root}>
         <ExpansionPanel expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')}>
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography className={classes.heading}>My Events</Typography>
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails>
+            <EventsTable
+              history={history}
+            />
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
+        <ExpansionPanel expanded={expanded === 'panel2'} onChange={this.handleChange('panel2')}>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
             <Typography className={classes.heading}>Add a New Event</Typography>
           </ExpansionPanelSummary>
@@ -98,16 +116,6 @@ class Events extends Component {
             <Button variant="contained" color="primary" className={classes.button}>
               Add Event
             </Button>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-        <ExpansionPanel expanded={expanded === 'panel2'} onChange={this.handleChange('panel2')}>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>My Events</Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <EventsTable
-              history={history}
-            />
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </div>

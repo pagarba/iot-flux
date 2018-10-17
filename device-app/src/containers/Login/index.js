@@ -57,7 +57,7 @@ class Login extends Component {
         await axios.post('/users', data);
         await this.login(account);
       } catch(e) {
-        if (e.response.status === 409) {
+        if (e && e.response && e.response.status === 409) {
           await this.login(account);
         }
       }

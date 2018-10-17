@@ -199,16 +199,16 @@ class MainLayout extends React.Component {
               text="Dashboard"
             />
             <SideMenuItem
-              to="/devices"
-              icon={<DevicesIcon/>}
-              selected={pathname === 'devices' || pathname === 'deviceDetail'}
-              text="Device Manager"
-            />
-            <SideMenuItem
               to="/channels"
               icon={<ChannelsIcon/>}
               selected={pathname === 'channels' || pathname === 'channelDetail'}
               text="Channels"
+            />
+            <SideMenuItem
+              to="/devices"
+              icon={<DevicesIcon/>}
+              selected={pathname === 'devices' || pathname === 'deviceDetail'}
+              text="Device Manager"
             />
             <SideMenuItem
               to="/events"

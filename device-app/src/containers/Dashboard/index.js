@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { withStyles } from '@material-ui/core/styles';
-import { Grid, Paper, Typography } from '@material-ui/core';
+import { Grid, Hidden, Paper, Typography } from '@material-ui/core';
 
 import { Link } from 'react-router-dom';
 
+import ChannelsIcon from '@material-ui/icons/Radio';
 import AddDeviceIcon from '@material-ui/icons/AddToQueue';
 import ViewEventsIcon from '@material-ui/icons/Visibility';
 import AddIntegration from '@material-ui/icons/SettingsInputComponent';
@@ -39,8 +40,24 @@ class Dashboard extends Component {
     return (
       <div className={classes.dashboard}>
         <Grid container spacing={24}>
-          <Grid item xs={6} sm={3}>
-            <Link className={classes.link} to="/devices">
+          <Hidden xsDown>
+            <Grid item sm={1}>
+            </Grid>
+          </Hidden>
+          <Grid item xs={4} sm={2}>
+            <Link className={classes.link} to="/channels?mode=create">
+              <Grid item xs container direction="column" spacing={16}>
+                <Grid item>
+                  <ChannelsIcon className={classes.icon}/>
+                </Grid>
+                <Grid item>
+                  <Typography gutterBottom>Add Channel</Typography>
+                </Grid>
+              </Grid>
+            </Link>
+          </Grid>
+          <Grid item xs={4} sm={2}>
+            <Link className={classes.link} to="/devices?mode=create">
               <Grid item xs container direction="column" spacing={16}>
                 <Grid item>
                   <AddDeviceIcon className={classes.icon}/>
@@ -51,8 +68,8 @@ class Dashboard extends Component {
               </Grid>
             </Link>
           </Grid>
-          <Grid item xs={6} sm={3}>
-            <Link className={classes.link} to="/events">
+          <Grid item xs={4} sm={2}>
+            <Link className={classes.link} to="/events?mode=create">
               <Grid item xs container direction="column" spacing={16}>
                 <Grid item>
                   <ViewEventsIcon className={classes.icon}/>
@@ -63,8 +80,8 @@ class Dashboard extends Component {
               </Grid>
             </Link>
           </Grid>
-          <Grid item xs={6} sm={3}>
-            <Link className={classes.link} to="/integrations">
+          <Grid item xs={6} sm={2}>
+            <Link className={classes.link} to="/integrations?mode=create">
               <Grid item xs container direction="column" spacing={16}>
                 <Grid item>
                   <AddIntegration className={classes.icon}/>
@@ -75,8 +92,8 @@ class Dashboard extends Component {
               </Grid>
             </Link>
           </Grid>
-          <Grid item xs={6} sm={3}>
-            <Link className={classes.link} to="/tutorials">
+          <Grid item xs={6} sm={2}>
+            <Link className={classes.link} to="/tutorials?mode=create">
               <Grid item xs container direction="column" spacing={16}>
                 <Grid item>
                   <TutorialIcon className={classes.icon}/>

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import qs from 'stringquery';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -54,6 +55,13 @@ class Channels extends Component {
     this.props.getChannels();
   }
 
+  componentDidMount() {
+    const obj = qs(this.props.location.search);
+    this.setState({
+      expanded: obj.mode === 'create' ? 'panel2' : 'panel1'
+    })
+  }
+
   handleChange = panel => (event, expanded) => {
     this.setState({
       expanded: expanded ? panel : false,
@@ -99,6 +107,18 @@ class Channels extends Component {
       <div className={classes.root}>
         <ExpansionPanel expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')}>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography className={classes.heading}>My Channels</Typography>
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails>
+            <ChannelsTable
+              history={history}
+              data={this.props.channels ? this.props.channels.channels : []}
+              onDeleteChannel={this.deleteChannel}
+            />
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
+        <ExpansionPanel expanded={expanded === 'panel2'} onChange={this.handleChange('panel2')}>
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
             <Typography className={classes.heading}>Add a New Channel</Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className={classes.root}>
@@ -117,18 +137,6 @@ class Channels extends Component {
             >
               Add Channel
             </Button>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-        <ExpansionPanel expanded={expanded === 'panel2'} onChange={this.handleChange('panel2')}>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>My Channels</Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <ChannelsTable
-              history={history}
-              data={this.props.channels ? this.props.channels.channels : []}
-              onDeleteChannel={this.deleteChannel}
-            />
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </div>

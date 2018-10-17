@@ -21,6 +21,7 @@ import rootReducer from './core/reducers';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
+import './App.css';
 const persistConfig = {
   key: 'root',
   storage: storage,

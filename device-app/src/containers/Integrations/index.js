@@ -23,6 +23,7 @@ import GuniaryLogo from '../../assets/img/guniary.png';
 
 import { integrations } from '../../constants';
 import { newIntegrations } from '../../constants';
+import qs from 'stringquery'
 
 const logos = {
   justifire: JustifireLogo,
@@ -74,6 +75,13 @@ class Integrations extends Component {
     newIntegrations: newIntegrations,
   };
 
+  componentDidMount() {
+    const obj = qs(this.props.location.search);
+    this.setState({
+      expanded: obj.mode === 'create' ? 'panel2' : 'panel1'
+    })
+  }
+
   handleChange = panel => (event, expanded) => {
     this.setState({
       expanded: expanded ? panel : false,
@@ -99,8 +107,18 @@ class Integrations extends Component {
       integrations,
       newIntegrations
     });
+  }
 
-    console.log(integrations, newIntegrations);
+  deleteIntegration = integration => {
+    let { integrations, newIntegrations } = this.state;
+
+    newIntegrations.push(integration);
+    integrations = integrations.filter(e => e !== integration);
+
+    this.setState({
+      integrations,
+      newIntegrations
+    });
   }
 
   render() {
@@ -108,7 +126,7 @@ class Integrations extends Component {
     const { expanded } = this.state;
     return (
       <div className={classes.root}>
-        <ExpansionPanel expanded={expanded === 'panel2'} onChange={this.handleChange('panel2')}>
+        <ExpansionPanel expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')}>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
             <Typography className={classes.heading}>My Integrations</Typography>
           </ExpansionPanelSummary>
@@ -118,13 +136,21 @@ class Integrations extends Component {
                 this.state.integrations.map(integration => (
                   <div className={classes.imgContainer}>
                     <img src={logos[integration]} />
+                    <Button
+                      color="primary"
+                      className={classes.button}
+                      onClick={() => this.deleteIntegration(integration)}
+                      variant="contained"
+                    >
+                      + Delete {integration}
+                    </Button>
                   </div>
                 ))
               }
             </div>
           </ExpansionPanelDetails>
         </ExpansionPanel>
-        <ExpansionPanel expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')}>
+        <ExpansionPanel expanded={expanded === 'panel2'} onChange={this.handleChange('panel2')}>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
             <Typography className={classes.heading}>Add a New Integration</Typography>
           </ExpansionPanelSummary>

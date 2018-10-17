@@ -64,8 +64,8 @@ function getSorting(order, orderBy) {
 }
 
 const rows = [
-  { id: 'id', numeric: false, disablePadding: true, label: 'Device ID' },
-  { id: 'name', numeric: false, disablePadding: true, label: 'Device Name' },
+  { id: 'id', numeric: false, disablePadding: true, label: 'Channel ID' },
+  { id: 'name', numeric: false, disablePadding: true, label: 'Channel Name' },
   { id: 'action', numeric: false, disablePadding: true, label: 'Actions' },
 ];
 
