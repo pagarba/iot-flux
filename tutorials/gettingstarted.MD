@@ -36,7 +36,7 @@ If you do not have access to a wired network cable, you will need to connect you
 ## Download and install Raspbian
 Before you boot up your Pi for the first time, you'll need to make sure you have the latest Raspbian image from the Raspberry Pi Foundation. Note that flashing a fresh version of Raspbian Jessie with Pixel (GUI) can take as long as 10-15 minutes.
 
-Do you already have a Pi with Raspbian installed? Click [here](/guide/getting-started/start/raspberry-pi/#i-have-an-sd-card-with-raspbian) to skip the download and setup steps and update your existing Raspbian image.
+Do you already have a Pi with Raspbian installed? Skip the Setup below.
 
 ### I don't have an SD card with Raspbian
 
