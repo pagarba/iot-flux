@@ -21,7 +21,7 @@ In order to connect your Raspberry Pi to the TrigX-IOT Portal,  you'll need the 
 - Micro SD card and SD adapter
 - Ethernet cable (for wired connections)
 
-(/assets/images/rasppi3-1.jpg)
+![alt text](/assets/images/rasppi3-1.jpg)
 
 If you do not have access to a wired network cable, you will need to connect your Pi to an active Wi-Fi network, which will require the following:
 
