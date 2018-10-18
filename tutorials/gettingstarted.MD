@@ -1,17 +1,27 @@
-# Getting Started
+# Getting Started with TrigX-IOT Portal
+
+## Set up MQTT on a Raspberry Pi 
+
+In this Tutorial we will : 
+
+- Install Raspbian Strech Lite on headless Raspberry Pi 3 Model B
+- Set up WiFi on Raspberry Pi
+- Install Mosquitto (MQTT Server) on Raspberry Pi
+- Register Devices & Channles on the TrigXIOT platform
+- Connect Raspberry Pi with TrigX IOT Platform
 
 
 ### Quick install
 
 ## What You'll Need
-In order to connect your Raspberry Pi to the Particle Device Cloud you'll need the following things. Note that these are all included in the [Particle Pi Starter Kit with Raspberry Pi v3](https://store.particle.io/#particle-pi-starter-kit), which is available for purchase in the [Particle Store](https://store.particle.io/#particle-pi-starter-kit).
+In order to connect your Raspberry Pi to the TrigX-IOT Portal,  you'll need the following things.
 
 - Raspberry Pi (Raspberry Pi v2 and v3 preferred)
 - Power supply (5V, 2A+ preferred)
 - Micro SD card and SD adapter
 - Ethernet cable (for wired connections)
 
-![](/assets/images/raspberry-pi-kit.jpg)
+/assets/images/raspberry-pi-kit.jpg
 
 If you do not have access to a wired network cable, you will need to connect your Pi to an active Wi-Fi network, which will require the following:
 
@@ -106,12 +116,10 @@ Your Pi's IP Address should be displayed next to the label, `inet addr` and look
 
 ![](/assets/images/raspberry-pi-ip-address.png)
 
-## Install Particle Pi software
 
-Now that your Pi is online, it's finally time to download and install the Particle Pi software. If your Pi has a monitor and keyboard connected, you can skip directly to [Install the Particle Agent](/guide/getting-started/start/raspberry-pi/#install-the-particle-agent). If would like to install the Particle Pi software without using a monitor and keyboard, please read the following section, [Instructions for headless setup](/guide/getting-started/start/raspberry-pi/#instructions-for-headless-setup).
 
 ### Instructions for headless setup
-Note that if you are using a wired connection without a monitor and keyboard (headless) you will have to SSH (secure shell) into your Pi in order to install the Particle software. If you are using a keyboard and monitor, you can head directly to [Install the Particle Agent](/guide/getting-started/start/raspberry-pi/#install-the-particle-agent).
+Note that if you are using a wired connection without a monitor and keyboard (headless) you will have to SSH (secure shell) into your Pi in order to install the software. If you are using a keyboard and monitor, you can head directly to 
 
 - The first step is to obtain the IP address for your Raspberry Pi once it is connected to the Internet. You can find instructions for obtaining your Pi's IP address using Raspberry Pi's official tutorial, [here](https://www.raspberrypi.org/documentation/remote-access/ip-address.md).
 
@@ -154,43 +162,107 @@ ssh pi@192.168.X.XXX
 ```
 </p>
 
-### Install the Particle Agent
 
-You will not be able to complete this step of the process if you have not already received your beta activation email. If that's the case, hang tight--you'll receive your email in the upcoming weeks as we expand access to the Raspberry Pi provisioning endpoint. For more information, visit [particle.io/particle-pi](http://particle.io/particle-pi)
+ 
 
-To connect your Raspberry pi to the Particle Device Cloud, you need to install the Particle Agent. The Particle Agent is a software service that runs in the background on the Raspberry Pi and allows you to write and run firmware (software that interacts with the GPIO pins on the Pi).
 
-Install the agent by pasting this command in a terminal on your
-Raspberry Pi, either while connected remotely through SSH or locally
-with a keyboard and monitor.
+### Install Raspbian
 
-```
-bash <( curl -sL https://particle.io/install-pi )
-```
+- If this is the first time you’re using Raspberry Pi
+- we must install operating system on it
+- Since we will use headless (without monitor) Raspberry Pi, minimal-lite version of Raspbian will be sufficient
+- Download Raspbian Strech Lite and download Etcher
+- Put microSD card in your PC and run Etcher.
 
-The installation process should look like this:
+- Choose Raspbian image (you don’t need to unpack it), choose drive where is your microSD card and click Flash!
 
-<script type="text/javascript" src="https://asciinema.org/a/93209.js" id="asciicast-93209" async data-poster="npt:1:20"></script>
 
-When the installation is over, the Particle Agent setup will ask you to
-sign in to your Particle account. If you don't have one yet, [create a
-Particle account at https://login.particle.io/signup](https://login.particle.io/signup).
+### Setup Raspbian
 
-Once the Particle Agent is installed, you will have a number of commands available to you to start firmware, stop firmware, and manage your connection to the Cloud. For a full list of available `particle-agent` commands, type `particle-agent help` into your terminal.
+- We must connect PC to Raspberry Pi and connect Pi to WiFi
+- For this task, both our PC and Raspberry Pi must connect on the same WiFi network
+- While your microSD card is in your PC
+- create two files in it’s root:
+     - wpa_supplicant.conf
+     - ssh
 
-<p class = "boxedHead">`particle-agent setup`</p>
-<p class = "boxed">
+- In wpa_supplicant.conf enter this text and edit your details: 
+     - country code
+     - WiFi name
+     - password
+     
+   ``` 
+       country=US
+       ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+       update_config=1
+       network={
+        ssid="WiFiNetworkName"
+        psk="WiFiPassword"
+        key_mgmt=WPA-PSK
+       } 
+       
+    ```
+       
 
-This is a super useful command! If you find yourself in an unknown or unintended device state at any point in development, you can type this command to reset your device and return it to "factory conditions" running **Tinker**, our default device firmware. The Pi will remain claimed to your Particle account.
+  - File with namessh 
+    - should remain empty and without any extension
+          
+          
+ - Eject the microSD card from your computer and insert it into your Raspberry Pi
+ - Power up your Pi and after a few moments your Pi should be up and connected to WiFi  
+ - But we don’t see that until we connect from PC to Raspberry Pi
+ - For that, we must find out local IP address of Raspberry Pi
+    - find out the local IP address of your PC by using ipconfig
+    - log into your router and scan devices
+     - usually ipv4 info
+      
+ - On your computer, open up PuTTY and connect to IP address of Pi
+      - Login as pi 
+      - password raspberry
+      
+### Install MQTT on rasperry
 
-</p>
+ - MQTT is a machine-to-machine messaging protocol
+ - It's designed to provide lightweight publish/subscribe communication to “Internet of Things” devices
+ 
+  - Install MQTT on Raspbery Pi with this command:
+ 
+     ``` 
+      sudo apt-get install mosquitto mosquitto-clients 
+     ```
+   
+  - Test it with two SSH connections to Pi
+  
+  - In one window we will subscribe to messages on “test/topic” channel:
 
-When you have successfully completed setup of your Pi, you will see the following confirmation message:
+      ```
+      mosquitto_sub -v -t "test/topic"  
+      ```
+    
+  - In the other window  publish messages on same chanell:
 
-![](/assets/images/pi-setup-done.png)
+       ```
+       mosquitto_pub -t "test/topic" -m "Hello, TrigX IOT World!"
+       
+       ```
 
-If you see the message above, **congratulations!** You've successfully
-connected your Pi to the Particle Device Cloud!
+ - Messages published in one terminal window will pop up on other one
+ - These messages are exchanging on localhost of Raspberry Pi now 
+     - goal is for these messages to be sent to TrigX IOT platform in cloud
+     
+### Create & Register Devices
+
+ - You can  create users, channels and Devices on the TrigXIOT Dasboard
+    - We will register over dashboard
+    - Create two devices 
+        - named 
+           - Cool-IOT-Device-1
+           - Cool-IOT-Device-2
+    - Create a Channel 
+        - named 
+           - Cool-IOT-Channel-1 
+    - Connect these devices to the channel
+
 
 ## Development Resources
 
