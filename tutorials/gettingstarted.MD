@@ -88,10 +88,13 @@ You can put the Wi-Fi connection information to the SD card before starting the 
 3. Add a file named `wpa_supplicant.conf` with this content:
 
   ```
-  network={
-      ssid="YOUR_SSID"
-      psk="YOUR_PASSWORD"
-      key_mgmt=WPA-PSK
+  country=US
+       ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+       update_config=1
+       network={
+        ssid="WiFiNetworkName"
+        psk="WiFiPassword"
+        key_mgmt=WPA-PSK
   }
   ```
 
@@ -103,21 +106,16 @@ You can put the Wi-Fi connection information to the SD card before starting the 
 1. Connect a USB keyboard, USB mouse and monitor to your Raspberry Pi.
 2. Click on the icon on the left of the volume symbol to scan for Wi-Fi networks and start the Wi-Fi configuration process.
 
-  ![](/assets/images/raspberry-pi-wifi-ssid.png)
 
 3. Enter your network's Wi-Fi password.
 
-  ![](/assets/images/raspberry-pi-wifi-password.png)
 
 4. When your Pi has successfully connected to the Wi-Fi network, you will see a blue Wi-Fi icon next to the volume icon at the top right hand corner of your screen.
-
-  ![](/assets/images/raspberry-pi-wifi-connected.png)
 
 Note that it's also possible to obtain the IP Address of your Raspberry Pi after you've connected it to the Internet. To do so, click on the black terminal icon at the top left hand side of your screen, and type `ifconfig wlan0`.
 
 Your Pi's IP Address should be displayed next to the label, `inet addr` and look something like `192.168.X.XXX`.
 
-![](/assets/images/raspberry-pi-ip-address.png)
 
 
 
@@ -165,63 +163,6 @@ ssh pi@192.168.X.XXX
 ```
 </p>
 
-
- 
-
-
-### Install Raspbian
-
-- If this is the first time you’re using Raspberry Pi
-- we must install operating system on it
-- Since we will use headless (without monitor) Raspberry Pi, minimal-lite version of Raspbian will be sufficient
-- Download Raspbian Strech Lite and download Etcher
-- Put microSD card in your PC and run Etcher.
-
-- Choose Raspbian image (you don’t need to unpack it), choose drive where is your microSD card and click Flash!
-
-
-### Setup Raspbian
-
-- We must connect PC to Raspberry Pi and connect Pi to WiFi
-- For this task, both our PC and Raspberry Pi must connect on the same WiFi network
-- While your microSD card is in your PC
-- create two files in it’s root:
-     - wpa_supplicant.conf
-     - ssh
-
-- In wpa_supplicant.conf enter this text and edit your details: 
-     - country code
-     - WiFi name
-     - password
-     
-   ``` 
-       country=US
-       ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
-       update_config=1
-       network={
-        ssid="WiFiNetworkName"
-        psk="WiFiPassword"
-        key_mgmt=WPA-PSK
-       } 
-       
-    ```
-       
-
-  - File with namessh 
-    - should remain empty and without any extension
-          
-          
- - Eject the microSD card from your computer and insert it into your Raspberry Pi
- - Power up your Pi and after a few moments your Pi should be up and connected to WiFi  
- - But we don’t see that until we connect from PC to Raspberry Pi
- - For that, we must find out local IP address of Raspberry Pi
-    - find out the local IP address of your PC by using ipconfig
-    - log into your router and scan devices
-     - usually ipv4 info
-      
- - On your computer, open up PuTTY and connect to IP address of Pi
-      - Login as pi 
-      - password raspberry
       
 ### Install MQTT on rasperry
 
