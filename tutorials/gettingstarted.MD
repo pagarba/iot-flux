@@ -1,5 +1,8 @@
 # Getting Started with TrigX-IOT Portal
 
+
+![alt text](/assets/images/blocksafe.png)
+
 ## Set up MQTT on a Raspberry Pi 
 
 In this Tutorial we will : 
