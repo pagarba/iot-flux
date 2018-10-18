@@ -21,7 +21,7 @@ In order to connect your Raspberry Pi to the TrigX-IOT Portal,  you'll need the 
 - Micro SD card and SD adapter
 - Ethernet cable (for wired connections)
 
-/assets/images/raspberry-pi-kit.jpg
+(/assets/images/rasppi3-1.jpg)
 
 If you do not have access to a wired network cable, you will need to connect your Pi to an active Wi-Fi network, which will require the following:
 
@@ -595,8 +595,3 @@ Tap `D7` then `digitalWrite` in the popup. Now when you tap the D7 circle the ti
 Keep in mind that with Tinker, you can communicate with any of the pins, not just with the D7 LED. You can wire things to the pins to run motors, read sensors, and much more. The real fun part comes when you write your own firmware, of course. We'll go over that in later sections.
 
 If you don't have your smartphone with you, go ahead and move to the next lesson on [connecting over USB.](/guide/getting-started/connect). If you've successfully connected with your smartphone and you'd like to keep playing around with Tinker, skip ahead to learn [device modes](/guide/getting-started/modes) and then do some [Tinker examples](/guide/getting-started/tinker).
-
-Otherwise, go to the next section to learn to connect over USB.
-{{/if}} {{!-- has-wifi --}}
-
-{{/if}}{{!-- raspberry-pi --}}
