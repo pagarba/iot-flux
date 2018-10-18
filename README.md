@@ -1,5 +1,7 @@
 # TrigX-IOT
 
+![alt text](/assets/images/rasppi3-1.jpg)
+
 ## using Mainflux
 
 [![build][ci-badge]][ci-url]
