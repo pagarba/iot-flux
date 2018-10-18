@@ -1,34 +1,7 @@
----
-title: Getting started - trigxiot portal
-layout: guide.hbs
-columns: two
-devices: [ trigxiot, raspberry-pi ]
-order: 2
----
-
 # Getting Started
 
-{{#if raspberry-pi}}
-
-![](/assets/images/raspberry-pi-hero.png)
-
-## Particle Pi Discontinued
-<p class="boxedHead">Please read me!</p>
-<p class="boxed">
-**The Particle Raspberry Pi project has been discontinued. You can still follow these instructions to configure, connect, and flash your Pi, but future new releases of the Particle Agent software are unlikely.**
-<br>
-<br>
-If you need support and can't find the answer in our docs, head over to our [community forums](https://community.particle.io/c/raspberry-pi) and chat with the Particle team.
-<br>
-<br>
-Have fun!
-
-</p>
 
 ### Quick install
-
-*If you've read this guide before and are just looking for the install command, we'll save you some scrolling:*<br>
-`bash <( curl -sL https://particle.io/install-pi )`
 
 ## What You'll Need
 In order to connect your Raspberry Pi to the Particle Device Cloud you'll need the following things. Note that these are all included in the [Particle Pi Starter Kit with Raspberry Pi v3](https://store.particle.io/#particle-pi-starter-kit), which is available for purchase in the [Particle Store](https://store.particle.io/#particle-pi-starter-kit).
