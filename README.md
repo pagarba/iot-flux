@@ -1,5 +1,7 @@
 # TrigX-IOT
 
+![alt text](/assets/images/blocksafe.png)
+
 ## using Mainflux
 
 [![build][ci-badge]][ci-url]
