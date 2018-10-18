@@ -1,6 +1,6 @@
 # TrigX-IOT
 
-![alt text](/assets/images/rasppi3-1.jpg)
+![alt text](/assets/images/blocksafe.png)
 
 ## using Mainflux
 
