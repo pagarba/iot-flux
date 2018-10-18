@@ -13,6 +13,9 @@ import ChannelDetail from '../containers/Channels/detail';
 import Events from '../containers/Events';
 import EventDetail from '../containers/Events/detail';
 import Integrations from '../containers/Integrations';
+import Tutorials from '../containers/Tutorials';
+import GettingStartedTutorial from '../containers/Tutorials/GettingStarted';
+import ExamplesTemplatesTutorial from '../containers/Tutorials/ExamplesTemplates';
 
 const userPaths = [
   'dashboard',
@@ -102,7 +105,7 @@ class Routes extends Component {
             <Route
               location={location}
               exact
-              path="/events/:deviceId"
+              path="/events/channels/:channelId/messages"
               component={EventDetail}
             />
             <Route
@@ -110,6 +113,24 @@ class Routes extends Component {
               exact
               path="/integrations"
               component={Integrations}
+            />
+            <Route
+              location={location}
+              exact
+              path="/tutorials"
+              component={Tutorials}
+            />
+            <Route
+              location={location}
+              exact
+              path="/tutorials/getting-started"
+              component={GettingStartedTutorial}
+            />
+            <Route
+              location={location}
+              exact
+              path="/tutorials/examples-templates"
+              component={ExamplesTemplatesTutorial}
             />
             {pathname === '' && <Redirect to="/dashboard"/>}
           </MainLayout>

@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 import { Link } from 'react-router-dom';
 import { withStyles } from "@material-ui/core/styles/index";
-import moment from 'moment';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -13,12 +12,18 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
+import DeleteIcon from '@material-ui/icons/Delete';
+
 import EnhancedTableHead from '../EnhancedTableHead';
-import { events } from '../../../constants/index';
+import ConfirmDialog from '../../Dialogs/ConfirmDialog';
+import { devices } from '../../../constants/index';
 
 const styles = theme => ({
   root: {
     width: '100%',
+  },
+  deleteIcon: {
+    cursor: 'pointer',
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
@@ -31,6 +36,8 @@ const styles = theme => ({
     color: theme.palette.text.secondary,
   },
 });
+
+let counter = 0;
 
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -57,22 +64,20 @@ function getSorting(order, orderBy) {
 }
 
 const rows = [
-  { id: 'name', numeric: false, disablePadding: true, label: 'Event Name' },
-  { id: 'publishedBy', numeric: false, disablePadding: true, label: 'Published By' },
-  { id: 'protocol', numeric: false, disablePadding: true, label: 'Protocol' },
-  { id: 'unit', numeric: false, disablePadding: true, label: 'Unit' },
-  { id: 'value', numeric: false, disablePadding: true, label: 'Value' },
-  { id: 'postTime', numeric: false, disablePadding: true, label: 'Post Time' },
+  { id: 'id', numeric: false, disablePadding: true, label: 'Channel ID' },
+  { id: 'name', numeric: false, disablePadding: true, label: 'Channel Name' },
 ];
 
-class EventsTable extends Component {
+class EventChannelsTable extends Component {
   state = {
     order: 'asc',
     orderBy: 'calories',
     selected: [],
-    data: events,
+    data: devices,
     page: 0,
     rowsPerPage: 5,
+    isConfirmDialogOpen: false,
+    deleteChannelId: -1,
   };
 
   handleRequestSort = (event, property) => {
@@ -86,10 +91,6 @@ class EventsTable extends Component {
     this.setState({ order, orderBy });
   };
 
-  handleClick = (event, eventId) => {
-    this.props.history.push(`/events/${eventId}`);
-  };
-
   handleChangePage = (event, page) => {
     this.setState({ page });
   };
@@ -98,10 +99,36 @@ class EventsTable extends Component {
     this.setState({ rowsPerPage: event.target.value });
   };
 
+  handleClickConfirm = event => {
+    this.props.onDeleteChannel(this.state.deleteChannelId);
+    this.setState({
+      isConfirmDialogOpen: false,
+      deleteChannelId: -1,
+    })
+  }
+
+  handleClickDismiss = event => {
+    this.setState({
+      isConfirmDialogOpen: false,
+      deleteChannelId: -1,
+    })
+  }
+
+  handleClick = (event, channelId) => {
+    this.props.history.push(`/events/channels/${channelId}/messages`);
+  };
+
+  handleDeleteIconClick = deleteChannelId => {
+    this.setState({
+      deleteChannelId,
+      isConfirmDialogOpen: true,
+    });
+  }
+
   isSelected = id => this.state.selected.indexOf(id) !== -1;
 
   render() {
-    const { classes, data, devices } = this.props;
+    const { classes, data } = this.props;
     const { order, orderBy, selected, rowsPerPage, page } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
@@ -126,17 +153,14 @@ class EventsTable extends Component {
                     <TableRow
                       hover
                       role="checkbox"
+                      onClick={event => this.handleClick(event, n.id)}
                       aria-checked={isSelected}
                       tabIndex={-1}
                       key={n.deviceId}
                       selected={isSelected}
                     >
-                      <TableCell component="th" scope="row">{n.Name}</TableCell>
-                      <TableCell>{devices && devices.things ? (devices.things.find((device) => device.id === n.Publisher) || {}).name : ''}</TableCell>
-                      <TableCell>{n.Protocol}</TableCell>
-                      <TableCell>{n.Unit}</TableCell>
-                      <TableCell>{n.Value}</TableCell>
-                      <TableCell>{moment(n.Time).format('YYYY-MM-DD HH:mm:ss')}</TableCell>
+                      <TableCell component="th" scope="row">{n.id}</TableCell>
+                      <TableCell>{n.name}</TableCell>
                     </TableRow>
                   );
                 })}
@@ -162,14 +186,21 @@ class EventsTable extends Component {
           onChangePage={this.handleChangePage}
           onChangeRowsPerPage={this.handleChangeRowsPerPage}
         />
+        <ConfirmDialog
+          contentText="Do you want to delete this channel?"
+          onClickConfirm={this.handleClickConfirm}
+          onClickDismiss={this.handleClickDismiss}
+          open={this.state.isConfirmDialogOpen}
+          titleText="Confirm"
+        />
       </Paper>
     );
   }
 }
 
-EventsTable.propTypes = {
+EventChannelsTable.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(EventsTable);
+export default withStyles(styles, { withTheme: true })(EventChannelsTable);

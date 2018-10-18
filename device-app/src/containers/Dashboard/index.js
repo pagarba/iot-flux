@@ -29,7 +29,7 @@ const styles = theme => ({
   },
 });
 
-class Dashboard extends Component {
+class Tutorial extends Component {
   constructor() {
     super();
   }
@@ -110,8 +110,8 @@ class Dashboard extends Component {
   }
 }
 
-Dashboard.propTypes = {
+Tutorial.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Dashboard);
+export default withStyles(styles)(Tutorial);

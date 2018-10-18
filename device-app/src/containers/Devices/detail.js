@@ -13,7 +13,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 
 import { withStyles } from "@material-ui/core/styles/index";
-import { getDevice, editDevice } from '../../core/actions/device'
+import { getDevice, editDevice } from '../../core/actions/device';
 
 const styles = theme => ({
   root: {

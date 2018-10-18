@@ -2,25 +2,19 @@ import React, { Component } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import qs from 'stringquery';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-import Button from '@material-ui/core/Button';
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-
 import { withStyles } from "@material-ui/core/styles/index";
 
-import EventsTable from '../../components/Tables/EventsTable';
-import qs from 'stringquery'
+import EventChannelsTable from '../../components/Tables/EventChannelsTable';
+import { createChannel, getChannels, deleteChannel } from '../../core/actions/channel';
 
 const styles = theme => ({
   root: {
@@ -45,18 +39,20 @@ const styles = theme => ({
   },
 });
 
-class Events extends Component {
+class Channels extends Component {
   state = {
     expanded: null,
-    eventName: '',
-    deviceId: '',
-    data: '',
+    channelName: '',
   };
+
+  componentWillMount() {
+    this.props.getChannels();
+  }
 
   componentDidMount() {
     const obj = qs(this.props.location.search);
     this.setState({
-      expanded: obj.mode === 'create' ? 'panel2' : 'panel1'
+      expanded: 'panel1'
     })
   }
 
@@ -75,47 +71,43 @@ class Events extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  addChannel = () => {
+    const { channelName } = this.state;
+
+    if (channelName) {
+      this.props.createChannel({
+        name: channelName,
+      }).then(() => {
+        this.props.getChannels();
+      });
+    }
+  };
+
+  deleteChannel = (id) => {
+    this.props.deleteChannel(id)
+      .then(() => {
+        this.props.getChannels();
+      })
+      .catch(() => {
+        alert('Error while deleting channel');
+      });
+  }
+
   render() {
     const { classes, history } = this.props;
     const { expanded } = this.state;
+
     return (
       <div className={classes.root}>
         <ExpansionPanel expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')}>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>My Events</Typography>
+            <Typography className={classes.heading}>My Channels</Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
-            <EventsTable
+            <EventChannelsTable
               history={history}
+              data={this.props.channels ? this.props.channels.channels : []}
             />
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-        <ExpansionPanel expanded={expanded === 'panel2'} onChange={this.handleChange('panel2')}>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>Add a New Event</Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails className={classes.root}>
-            <FormControl className={classes.formControl} error={this.state.eventName === null} fullWidth aria-describedby="component-error-text">
-              <InputLabel htmlFor="component-error">Event Name*</InputLabel>
-              <Input name="eventName" value={this.state.eventName} onChange={this.handleInputChange} onBlur={this.handleBlur} />
-              <FormHelperText id="component-error-text">This field is required</FormHelperText>
-            </FormControl>
-
-            <FormControl className={classes.formControl} error={this.state.deviceId === null} fullWidth aria-describedby="component-error-text">
-              <InputLabel htmlFor="component-error">Device ID*</InputLabel>
-              <Input name="deviceId" value={this.state.deviceId} onChange={this.handleInputChange} onBlur={this.handleBlur} />
-              <FormHelperText id="component-error-text">This field is required</FormHelperText>
-            </FormControl>
-
-            <FormControl className={classes.formControl} fullWidth aria-describedby="component-error-text">
-              <InputLabel htmlFor="component-error">Data</InputLabel>
-              <Input name="data" value={this.state.data} onChange={this.handleInputChange} onBlur={this.handleBlur} />
-              <FormHelperText id="component-error-text">This field is required</FormHelperText>
-            </FormControl>
-
-            <Button variant="contained" color="primary" className={classes.button}>
-              Add Event
-            </Button>
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </div>
@@ -123,9 +115,25 @@ class Events extends Component {
   }
 }
 
-Events.propTypes = {
+Channels.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(Events);
+function mapStateToProps(state) {
+  return {
+    channels: state.rootReducer.channel.channels,
+    isCreatingDevice: state.rootReducer.device.isCreatingDevice,
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    getChannels: () => dispatch(getChannels()),
+    createChannel: data => dispatch(createChannel(data)),
+    deleteChannel: id => dispatch(deleteChannel(id)),
+  }
+}
+
+const WithStyles =  withStyles(styles, { withTheme: true })(Channels);
+export default connect(mapStateToProps, mapDispatchToProps)(WithStyles);
