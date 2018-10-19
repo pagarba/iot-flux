@@ -33,6 +33,9 @@ const styles = theme => ({
     marginTop: '2em',
     color: '#fff',
   },
+  channelDevicesListPanel: {
+    backgroundColor: '#52cee8',
+  },
   heading: {
     fontSize: theme.typography.pxToRem(15),
     flexBasis: '33.33%',
@@ -51,7 +54,7 @@ const styles = theme => ({
 
 class Devices extends Component {
   state = {
-    expanded: null,
+    expanded: 'panel1',
     deviceId: '',
   };
 
@@ -114,9 +117,13 @@ class Devices extends Component {
 
     return (
       <div className={classes.root}>
-        <ExpansionPanel expanded={expanded === 'panel2'} onChange={this.handleChange('panel2')}>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>Connected Devices</Typography>
+        <ExpansionPanel
+          className={classes.channelDevicesListPanel}
+          expanded={expanded === 'panel1'}
+          onChange={this.handleChange('panel1')}
+        >
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon color="primary"/>}>
+            <Typography color="primary" className={classes.heading}>Connected Devices</Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
             <ChannelDevicesTable
@@ -126,7 +133,7 @@ class Devices extends Component {
             />
           </ExpansionPanelDetails>
         </ExpansionPanel>
-        <ExpansionPanel expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')}>
+        <ExpansionPanel expanded={expanded === 'panel2'} onChange={this.handleChange('panel2')}>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
             <Typography className={classes.heading}>Connect a New Device</Typography>
           </ExpansionPanelSummary>

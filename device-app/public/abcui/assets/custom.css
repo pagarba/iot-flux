@@ -1,0 +1,103 @@
+/* Change header color */
+.theme__appBar___wbg0y.theme__fixed___3rLFE {
+    background: #52cee8;
+}
+
+/* Hide header texts */
+.Header-webStyle__appBar___1XL7f .Header-webStyle__navigation___1mvdl {
+    display: none;
+}
+
+/* Hide modal backdrop */
+.theme__active___2oZU5 > .theme__backdrop___WbaQn {
+    display: none;
+}
+
+/* Change background */
+.theme__active___2oZU5 {
+    background: url('./background.jpg');
+    background-size: cover;
+}
+
+/* Hide close button */
+.Container-style__exitTooltip___2Kz1W {
+    display: none;
+}
+
+/* Hide footer text */
+.Footer-webStyle__appBar___2mplJ {
+    display: none;
+}
+
+/* Change username dropdown color */
+.LoginWithPin-style__usernameContainer___EcZsh a {
+    color: #52cee8;
+}
+
+/* Change username dropdown arrow color */
+.LoginWithPin-style__usernameContainer___EcZsh a:after {
+    border-top: 5px solid #52cee8 !important;
+}
+
+/* Change selected username color */
+.CachedUsers-webStyle__useritemSelected___10gmf {
+    color: #52cee8;
+}
+
+/* Change exit pin login button color */
+.neutralButtonWithBlueText__neutral___1AIeP:not([disabled]).neutralButtonWithBlueText__flat___cWepa, .neutralButtonWithBlueText__neutral___1AIeP:not([disabled]).neutralButtonWithBlueText__raised___bDJgU {
+    background-color: #52cee8;
+    color: #fff;
+}
+
+/* Change password input border bottom color */
+.theme__bar___2GHeb:after, .theme__bar___2GHeb:before {
+    background-color: #52cee8;
+}
+
+/* Change delete user modal cancel button color */
+.neutralButtons__neutral___FJ-j4:not([disabled]).neutralButtons__flat___296XB, .neutralButtons__neutral___FJ-j4:not([disabled]).neutralButtons__raised___1rsOv {
+    color: #52cee8;
+}
+
+/* Change delete user modal delete button color */
+.warningButtons__neutral___1NprF:not([disabled]).warningButtons__flat___eA-_n, .warningButtons__neutral___1NprF:not([disabled]).warningButtons__raised___1uodD {
+    color: #fff;
+    background-color: #52cee8;
+}
+
+/* Change signin button color */
+.theme__primary___2NhN1:not([disabled]).theme__floating___1mZ5E, .theme__primary___2NhN1:not([disabled]).theme__raised___ONZv6 {
+    background-color: #52cee8;
+}
+
+/* Change input floating text color */
+.theme__inputElement___27dyY:focus:not([disabled]):not([readonly]) ~ .theme__label___tqKDt:not(.theme__fixed___2pXa4) {
+    color: #52cee8;
+}
+
+/* Change password right icon color */
+.Password-webStyle__inputPasswordFieldDiv___Qz2Wr .Password-webStyle__inputPasswordFieldImg___KJO_p {
+    color: #52cee8;
+}
+
+/* Show username, password, pincode button color */
+.ReviewDetails-webStyle__buttonSection___3c4G1 .ReviewDetails-webStyle__buttonShow___2j1lW {
+    border: 1px solid #52cee8;
+    color: #52cee8 !important;
+}
+
+a {
+    color: #52cee8;
+}
+
+@font-face {
+    font-family: 'Nudista';
+    font-weight: normal;
+    font-style: normal;
+    src: url('./Nudista/Nudista.otf');
+}
+
+.theme__dialog___1f3Zg.theme__active___3rz6t {
+    font-family: 'Nudista';
+}

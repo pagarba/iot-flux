@@ -24,6 +24,7 @@ import SideMenuItem from '../components/SideMenuItem';
 import { logout, resetAccount } from '../core/actions/auth';
 import { apiKey, appId } from '../config';
 
+import BackgroundImage from '../assets/img/background.jpg';
 import Logo from '../assets/img/logo.png';
 
 const drawerWidth = 240;
@@ -38,6 +39,9 @@ const overallTheme = createMuiTheme({
       default: '#f7f7f7'
     }
   },
+  typography: {
+    "fontFamily": "\"Nudista\", \"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
+  }
 });
 
 const styles = theme => ({
@@ -111,6 +115,7 @@ const styles = theme => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing.unit * 3,
+    background: `url(${BackgroundImage})`,
     backgroundSize: 'cover',
     overflowY: 'scroll',
   },

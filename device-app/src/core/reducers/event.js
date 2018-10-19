@@ -17,6 +17,7 @@ export default (state = {}, action) => {
       return {
         ...state,
         loadingEvents: false,
+        events: { messages: [] },
       }
     case constants.GET_EVENT_REQUEST:
       return {

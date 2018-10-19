@@ -17,13 +17,14 @@ import EditIcon from '@material-ui/icons/Create';
 
 import EnhancedTableHead from '../EnhancedTableHead';
 import ConfirmDialog from '../../Dialogs/ConfirmDialog';
+import EditDeviceDialog from '../../Dialogs/EditDeviceDialog';
 import { devices } from '../../../constants/index';
 
 const styles = theme => ({
   root: {
     width: '100%',
   },
-  deleteIcon: {
+  actionIcon: {
     cursor: 'pointer',
   },
   heading: {
@@ -85,7 +86,9 @@ class DevicesTable extends Component {
     page: 0,
     rowsPerPage: 5,
     deleteDeviceId: -1,
+    deviceToEdit: null,
     isConfirmDialogOpen: false,
+    isEditDialogOpen: false,
   };
 
   handleRequestSort = (event, property) => {
@@ -107,7 +110,7 @@ class DevicesTable extends Component {
     this.setState({ rowsPerPage: event.target.value });
   };
 
-  handleClickConfirm = event => {
+  handleClickConfirmDelete = event => {
     this.props.onDeleteDevice(this.state.deleteDeviceId);
     this.setState({
       isConfirmDialogOpen: false,
@@ -115,10 +118,35 @@ class DevicesTable extends Component {
     })
   }
 
-  handleClickDismiss = event => {
+  handleClickConfirmEdit = deviceName => {
+    const { deviceToEdit } = this.state;
+    const deviceId = (deviceToEdit || {}).id;
+    const deviceType = (deviceToEdit || {}).type;
+
+    this.setState({
+      isEditDialogOpen: false,
+      deviceToEdit: null,
+    });
+
+    this.props.editDevice(deviceId, {
+      name: deviceName,
+      type: deviceType,
+    }).then(() => {
+      this.props.getDevices()
+    });
+  }
+
+  handleHideConfirmDialog = event => {
     this.setState({
       isConfirmDialogOpen: false,
       deleteDeviceId: -1,
+    })
+  }
+
+  handleHideEditDialog = event => {
+    this.setState({
+      isEditDialogOpen: false,
+      deviceToEdit: -1,
     })
   }
 
@@ -131,6 +159,13 @@ class DevicesTable extends Component {
       deleteDeviceId,
       isConfirmDialogOpen: true,
     });
+  }
+
+  handleEditIconClick = deviceToEdit => {
+    this.setState({
+      deviceToEdit,
+      isEditDialogOpen: true,
+    })
   }
 
   isSelected = id => this.state.selected.indexOf(id) !== -1;
@@ -176,9 +211,10 @@ class DevicesTable extends Component {
                       >
                         <EditIcon
                           className={classes.actionIcon}
+                          onClick={() => { this.handleEditIconClick(n) }}
                         />
                         <DeleteIcon
-                          className={classes.deleteIcon}
+                          className={classes.actionIcon}
                           onClick={() => { this.handleDeleteIconClick(n.id) }}
                         />
                       </TableCell>
@@ -209,10 +245,17 @@ class DevicesTable extends Component {
         />
         <ConfirmDialog
           contentText="Do you want to delete this device?"
-          onClickConfirm={this.handleClickConfirm}
-          onClickDismiss={this.handleClickDismiss}
+          onClickConfirm={this.handleClickConfirmDelete}
+          onClickDismiss={this.handleHideConfirmDialog}
           open={this.state.isConfirmDialogOpen}
           titleText="Confirm"
+        />
+        <EditDeviceDialog
+          onClickConfirm={this.handleClickConfirmEdit}
+          onClickDismiss={this.handleHideEditDialog}
+          device={this.state.deviceToEdit}
+          open={this.state.isEditDialogOpen}
+          titleText="Edit Device"
         />
       </Paper>
     );

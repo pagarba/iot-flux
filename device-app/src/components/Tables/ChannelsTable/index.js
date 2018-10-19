@@ -82,7 +82,7 @@ class ChannelsTable extends Component {
     isConfirmDialogOpen: false,
     isEditDialogOpen: false,
     deleteChannelId: -1,
-    editChannelId: -1,
+    channelToEdit: null,
   };
 
   handleRequestSort = (event, property) => {
@@ -104,12 +104,28 @@ class ChannelsTable extends Component {
     this.setState({ rowsPerPage: event.target.value });
   };
 
-  handleClickConfirm = event => {
+  handleClickConfirmEdit = channelName => {
+    const { channelToEdit } = this.state;
+    const channelId = (channelToEdit || {}).id;
+
+    this.setState({
+      isEditDialogOpen: false,
+      channelToEdit: null,
+    });
+
+    this.props.editChannel(channelId, {
+      name: channelName
+    }).then(() => {
+      this.props.getChannels()
+    });
+  }
+
+  handleClickConfirmDelete = event => {
     this.props.onDeleteChannel(this.state.deleteChannelId);
     this.setState({
       isConfirmDialogOpen: false,
       deleteChannelId: -1,
-    })
+    });
   }
 
   handleHideConfirmDialog = event => {
@@ -122,8 +138,8 @@ class ChannelsTable extends Component {
   handleHideEditDialog = event => {
     this.setState({
       isEditDialogOpen: false,
-      deleteChannelId: -1,
-    })
+      channelToEdit: null,
+    });
   }
 
   handleClick = (event, deviceId) => {
@@ -137,9 +153,9 @@ class ChannelsTable extends Component {
     });
   }
 
-  handleEditIconClick = editChannelId => {
+  handleEditIconClick = channelToEdit => {
     this.setState({
-      editChannelId,
+      channelToEdit,
       isEditDialogOpen: true,
     });
   }
@@ -185,7 +201,7 @@ class ChannelsTable extends Component {
                       >
                         <EditIcon
                           className={classes.actionIcon}
-                          onClick={() => { this.handleEditIconClick(n.id)}}
+                          onClick={() => { this.handleEditIconClick(n)}}
                         />
                         <DeleteIcon
                           className={classes.actionIcon}
@@ -219,14 +235,15 @@ class ChannelsTable extends Component {
         />
         <ConfirmDialog
           contentText="Do you want to delete this channel?"
-          onClickConfirm={this.handleClickConfirm}
+          onClickConfirm={this.handleClickConfirmDelete}
           onClickDismiss={this.handleHideConfirmDialog}
           open={this.state.isConfirmDialogOpen}
           titleText="Confirm"
         />
         <EditChannelDialog
-          onClickConfirm={this.handleClickConfirm}
+          onClickConfirm={this.handleClickConfirmEdit}
           onClickDismiss={this.handleHideEditDialog}
+          channel={this.state.channelToEdit}
           open={this.state.isEditDialogOpen}
           titleText="Edit Channel"
         />

@@ -24,6 +24,9 @@ const styles = theme => ({
     textDecoration: 'none',
     color: 'rgba(0, 0, 0, 0.87)'
   },
+  text: {
+    fontSize: '16px',
+  },
   root: {
     flexGrow: 1,
   },
@@ -51,7 +54,7 @@ class Tutorial extends Component {
                   <ChannelsIcon className={classes.icon}/>
                 </Grid>
                 <Grid item>
-                  <Typography gutterBottom>Add Channel</Typography>
+                  <Typography className={classes.text} color="secondary" gutterBottom>Add Channel</Typography>
                 </Grid>
               </Grid>
             </Link>
@@ -63,7 +66,7 @@ class Tutorial extends Component {
                   <AddDeviceIcon className={classes.icon}/>
                 </Grid>
                 <Grid item>
-                  <Typography gutterBottom>Add Device</Typography>
+                  <Typography className={classes.text} color="secondary" gutterBottom>Add Device</Typography>
                 </Grid>
               </Grid>
             </Link>
@@ -75,7 +78,7 @@ class Tutorial extends Component {
                   <ViewEventsIcon className={classes.icon}/>
                 </Grid>
                 <Grid item>
-                  <Typography gutterBottom>View Events</Typography>
+                  <Typography className={classes.text} color="secondary" gutterBottom>View Events</Typography>
                 </Grid>
               </Grid>
             </Link>
@@ -87,7 +90,7 @@ class Tutorial extends Component {
                   <AddIntegration className={classes.icon}/>
                 </Grid>
                 <Grid item>
-                  <Typography gutterBottom>Add Integration</Typography>
+                  <Typography className={classes.text} color="secondary" gutterBottom>Add Integration</Typography>
                 </Grid>
               </Grid>
             </Link>
@@ -99,7 +102,7 @@ class Tutorial extends Component {
                   <TutorialIcon className={classes.icon}/>
                 </Grid>
                 <Grid item>
-                  <Typography gutterBottom>Tutorial</Typography>
+                  <Typography className={classes.text} color="secondary" gutterBottom>Tutorial</Typography>
                 </Grid>
               </Grid>
             </Link>

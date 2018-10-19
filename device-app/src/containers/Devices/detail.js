@@ -132,38 +132,38 @@ class DeviceDetail extends Component {
           </tbody>
         </table>
 
-        {
-          isEditMode ? (
-            <div>
-              <Button
-                className={classes.button}
-                color="secondary"
-                onClick={this.editDevice}
-                variant="contained"
-                disabled={this.props.isEditingDevice}
-              >
-                Save
-              </Button>
-              <Button
-                className={classes.button}
-                color="secondary"
-                onClick={() => this.enableEdit(false)}
-                variant="contained"
-              >
-                Cancel
-              </Button>
-            </div>
-          ) : (
-            <Button
-              className={classes.button}
-              color="secondary"
-              onClick={() => this.enableEdit(true)}
-              variant="contained"
-            >
-              Edit
-            </Button>
-          )
-        }
+        {/*{*/}
+          {/*isEditMode ? (*/}
+            {/*<div>*/}
+              {/*<Button*/}
+                {/*className={classes.button}*/}
+                {/*color="secondary"*/}
+                {/*onClick={this.editDevice}*/}
+                {/*variant="contained"*/}
+                {/*disabled={this.props.isEditingDevice}*/}
+              {/*>*/}
+                {/*Save*/}
+              {/*</Button>*/}
+              {/*<Button*/}
+                {/*className={classes.button}*/}
+                {/*color="secondary"*/}
+                {/*onClick={() => this.enableEdit(false)}*/}
+                {/*variant="contained"*/}
+              {/*>*/}
+                {/*Cancel*/}
+              {/*</Button>*/}
+            {/*</div>*/}
+          {/*) : (*/}
+            {/*<Button*/}
+              {/*className={classes.button}*/}
+              {/*color="secondary"*/}
+              {/*onClick={() => this.enableEdit(true)}*/}
+              {/*variant="contained"*/}
+            {/*>*/}
+              {/*Edit*/}
+            {/*</Button>*/}
+          {/*)*/}
+        {/*}*/}
       </div>
     )
   }

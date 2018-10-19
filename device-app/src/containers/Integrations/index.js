@@ -56,12 +56,19 @@ const styles = theme => ({
   imgList: {
     alignItems: 'center',
     display: 'flex',
+    background: '#fff',
+    width: '100%',
+    padding: '1em',
+    borderRadius: '4px',
   },
   imgLogo: {
     height: '50px',
   },
   formControl: {
     margin: theme.spacing.unit,
+  },
+  myIntegrationsPanel: {
+    backgroundColor: '#52cee8',
   },
   secondaryHeading: {
     fontSize: theme.typography.pxToRem(15),
@@ -127,16 +134,20 @@ class Integrations extends Component {
     const { expanded } = this.state;
     return (
       <div className={classes.root}>
-        <ExpansionPanel expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')}>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>My Integrations</Typography>
+        <ExpansionPanel
+          className={classes.myIntegrationsPanel}
+          expanded={expanded === 'panel1'}
+          onChange={this.handleChange('panel1')}
+        >
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon color="primary" />}>
+            <Typography color="primary" className={classes.heading}>My Integrations</Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
             <div className={classes.imgList}>
               {
                 this.state.integrations.map(integration => (
                   <div className={classes.imgContainer}>
-                    <img src={logos[integration]} />
+                    <img className={classes.imgLogo} src={logos[integration]} />
                     <Button
                       color="secondary"
                       className={classes.button}

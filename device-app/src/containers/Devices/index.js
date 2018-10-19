@@ -21,7 +21,7 @@ import Select from '@material-ui/core/Select';
 import { withStyles } from "@material-ui/core/styles/index";
 
 import DevicesTable from '../../components/Tables/DevicesTable';
-import { createDevice, getDevices, deleteDevice } from '../../core/actions/device';
+import { createDevice, getDevices, deleteDevice, editDevice } from '../../core/actions/device'
 import qs from 'stringquery'
 
 const styles = theme => ({
@@ -94,6 +94,10 @@ class Devices extends Component {
         name: deviceName,
       }).then(() => {
         this.props.getDevices();
+        this.setState({
+          deviceName: '',
+          deviceType: '',
+        })
       });
     }
   };
@@ -126,6 +130,8 @@ class Devices extends Component {
             <DevicesTable
               history={history}
               data={this.props.devices ? this.props.devices.things : []}
+              editDevice={this.props.editDevice}
+              getDevices={this.props.getDevices}
               onDeleteDevice={this.deleteDevice}
             />
           </ExpansionPanelDetails>
@@ -195,6 +201,7 @@ function mapDispatchToProps(dispatch) {
     getDevices: () => dispatch(getDevices()),
     createDevice: data => dispatch(createDevice(data)),
     deleteDevice: id => dispatch(deleteDevice(id)),
+    editDevice: (id, data) => dispatch(editDevice(id, data)),
   }
 }
 

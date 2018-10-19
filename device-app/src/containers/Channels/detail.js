@@ -94,63 +94,63 @@ class ChannelDetail extends Component {
 
     return (
       <div className={classes.root}>
-        <table>
-          <tbody>
-            <tr>
-              <td><b>Channel ID: </b></td>
-              <td>
-                {channel.id}
-              </td>
-            </tr>
-            <tr>
-              <td><b>Channel Name: </b></td>
-              <td>
-                {
-                  isEditMode ? (
-                    <FormControl className={classes.formControl} error={this.state.channelName === null} fullWidth aria-describedby="component-error-text">
-                      <Input name="name" value={this.state.name} onChange={this.handleInputChange} />
-                    </FormControl>
-                  ) : channel.name
-                }
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        {/*<table>*/}
+          {/*<tbody>*/}
+            {/*<tr>*/}
+              {/*<td><b>Channel ID: </b></td>*/}
+              {/*<td>*/}
+                {/*{channel.id}*/}
+              {/*</td>*/}
+            {/*</tr>*/}
+            {/*<tr>*/}
+              {/*<td><b>Channel Name: </b></td>*/}
+              {/*<td>*/}
+                {/*{*/}
+                  {/*isEditMode ? (*/}
+                    {/*<FormControl className={classes.formControl} error={this.state.channelName === null} fullWidth aria-describedby="component-error-text">*/}
+                      {/*<Input name="name" value={this.state.name} onChange={this.handleInputChange} />*/}
+                    {/*</FormControl>*/}
+                  {/*) : channel.name*/}
+                {/*}*/}
+              {/*</td>*/}
+            {/*</tr>*/}
+          {/*</tbody>*/}
+        {/*</table>*/}
 
-        {
-          isEditMode ? (
-            <div>
-              <Button
-                className={classes.button}
-                color="secondary"
-                onClick={this.editChannel}
-                variant="contained"
-                disabled={this.props.isEditingChannel}
-              >
-                Save
-              </Button>
-              <Button
-                className={classes.button}
-                color="secondary"
-                onClick={() => this.enableEdit(false)}
-                variant="contained"
-              >
-                Cancel
-              </Button>
-            </div>
-          ) : (
-            <Button
-              className={classes.button}
-              color="secondary"
-              onClick={() => this.enableEdit(true)}
-              variant="contained"
-            >
-              Edit
-            </Button>
-          )
-        }
+        {/*{*/}
+          {/*isEditMode ? (*/}
+            {/*<div>*/}
+              {/*<Button*/}
+                {/*className={classes.button}*/}
+                {/*color="secondary"*/}
+                {/*onClick={this.editChannel}*/}
+                {/*variant="contained"*/}
+                {/*disabled={this.props.isEditingChannel}*/}
+              {/*>*/}
+                {/*Save*/}
+              {/*</Button>*/}
+              {/*<Button*/}
+                {/*className={classes.button}*/}
+                {/*color="secondary"*/}
+                {/*onClick={() => this.enableEdit(false)}*/}
+                {/*variant="contained"*/}
+              {/*>*/}
+                {/*Cancel*/}
+              {/*</Button>*/}
+            {/*</div>*/}
+          {/*) : (*/}
+            {/*<Button*/}
+              {/*className={classes.button}*/}
+              {/*color="secondary"*/}
+              {/*onClick={() => this.enableEdit(true)}*/}
+              {/*variant="contained"*/}
+            {/*>*/}
+              {/*Edit*/}
+            {/*</Button>*/}
+          {/*)*/}
+        {/*}*/}
 
-        <br/> <br/> <br/>
+        {/*<br/> <br/> <br/>*/}
 
         <ChannelDevices
           channel={channel}

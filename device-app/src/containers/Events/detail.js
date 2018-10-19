@@ -35,6 +35,9 @@ const styles = theme => ({
     marginTop: '2em',
     color: '#fff',
   },
+  eventsListPanel: {
+    backgroundColor: '#52cee8',
+  },
   heading: {
     fontSize: theme.typography.pxToRem(15),
     flexBasis: '33.33%',
@@ -73,6 +76,14 @@ class EventsDetail extends Component {
             .then(() => {
               console.log(this.props.events)
             })
+        } else {
+          this.props.getEvents(channelId, 'random key')
+            .then(() => {
+              console.log(this.props.events)
+            })
+            .catch(() => {
+              console.log(this.props.events)
+            })
         }
       })
   }
@@ -81,14 +92,16 @@ class EventsDetail extends Component {
     const { channelId } = this.props.match.params;
     const { deviceKey, data } = this.state;
 
-    this.props.createEvent(channelId, deviceKey, data)
-      .then(() => {
-        this.props.getEvents(channelId, deviceKey);
-        this.setState({
-          deviceKey: '',
-          data: '',
-        })
-      })
+    if (data && deviceKey) {
+      this.props.createEvent(channelId, deviceKey, data)
+        .then(() => {
+          this.props.getEvents(channelId, deviceKey);
+          this.setState({
+            deviceKey: '',
+            data: '',
+          })
+        });
+    }
   }
 
   handleChange = panel => (event, expanded) => {
@@ -111,9 +124,13 @@ class EventsDetail extends Component {
     const { expanded } = this.state;
     return (
       <div className={classes.root}>
-        <ExpansionPanel expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')}>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>My Events</Typography>
+        <ExpansionPanel
+          className={classes.eventsListPanel}
+          expanded={expanded === 'panel1'}
+          onChange={this.handleChange('panel1')}
+        >
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon color="primary" />}>
+            <Typography className={classes.heading} color="primary">My Events</Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
             <EventsTable
@@ -152,7 +169,7 @@ class EventsDetail extends Component {
               </Select>
             </FormControl>
 
-            <FormControl className={classes.formControl} fullWidth aria-describedby="component-error-text">
+            <FormControl className={classes.formControl} error={this.state.data === null} fullWidth aria-describedby="component-error-text">
               <InputLabel htmlFor="component-error">Data</InputLabel>
               <Input name="data" value={this.state.data} onChange={this.handleInputChange} onBlur={this.handleBlur} />
               <FormHelperText id="component-error-text">This field is required</FormHelperText>

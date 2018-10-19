@@ -57,12 +57,12 @@ function getSorting(order, orderBy) {
 }
 
 const rows = [
-  { id: 'name', numeric: false, disablePadding: true, label: 'Event Name' },
-  { id: 'publishedBy', numeric: false, disablePadding: true, label: 'Published By' },
-  { id: 'protocol', numeric: false, disablePadding: true, label: 'Protocol' },
-  { id: 'unit', numeric: false, disablePadding: true, label: 'Unit' },
-  { id: 'value', numeric: false, disablePadding: true, label: 'Value' },
-  { id: 'postTime', numeric: false, disablePadding: true, label: 'Post Time' },
+  { id: 'Name', numeric: false, disablePadding: true, label: 'Event Name' },
+  { id: 'Publisher', numeric: false, disablePadding: true, label: 'Published By' },
+  { id: 'Protocol', numeric: false, disablePadding: true, label: 'Protocol' },
+  { id: 'Unit', numeric: false, disablePadding: true, label: 'Unit' },
+  { id: 'Value', numeric: false, disablePadding: true, label: 'Value' },
+  { id: 'Time', numeric: false, disablePadding: true, label: 'Post Time' },
 ];
 
 class EventsTable extends Component {

@@ -35,4 +35,11 @@ body {
   to { transform: rotate(360deg); }
 }
 
+@font-face {
+  font-family: 'Nudista';
+  font-weight: normal;
+  font-style: normal;
+  src: url('./assets/fonts/Nudista/Nudista.otf');
+}
+
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');

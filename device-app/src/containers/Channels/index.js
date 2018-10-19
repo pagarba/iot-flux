@@ -20,7 +20,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import { withStyles } from "@material-ui/core/styles/index";
 
 import ChannelsTable from '../../components/Tables/ChannelsTable';
-import { createChannel, getChannels, deleteChannel } from '../../core/actions/channel';
+import { createChannel, getChannels, deleteChannel, editChannel } from '../../core/actions/channel'
 
 const styles = theme => ({
   root: {
@@ -89,6 +89,9 @@ class Channels extends Component {
         name: channelName,
       }).then(() => {
         this.props.getChannels();
+        this.setState({
+          channelName: '',
+        })
       });
     }
   };
@@ -122,6 +125,8 @@ class Channels extends Component {
               history={history}
               data={this.props.channels ? this.props.channels.channels : []}
               onDeleteChannel={this.deleteChannel}
+              editChannel={this.props.editChannel}
+              getChannels={this.props.getChannels}
             />
           </ExpansionPanelDetails>
         </ExpansionPanel>
@@ -141,7 +146,7 @@ class Channels extends Component {
               color="secondary"
               onClick={this.addChannel}
               variant="contained"
-              disabled={this.props.isCreatingDevice}
+              disabled={this.props.isCreatingChannel}
             >
               Add Channel
             </Button>
@@ -160,7 +165,7 @@ Channels.propTypes = {
 function mapStateToProps(state) {
   return {
     channels: state.rootReducer.channel.channels,
-    isCreatingDevice: state.rootReducer.device.isCreatingDevice,
+    isCreatingChannel: state.rootReducer.channel.isCreatingChannel,
   }
 }
 
@@ -169,6 +174,7 @@ function mapDispatchToProps(dispatch) {
     getChannels: () => dispatch(getChannels()),
     createChannel: data => dispatch(createChannel(data)),
     deleteChannel: id => dispatch(deleteChannel(id)),
+    editChannel: (id, data) => dispatch(editChannel(id, data)),
   }
 }
 

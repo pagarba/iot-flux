@@ -17,7 +17,7 @@ import { withStyles } from "@material-ui/core/styles/index";
 
 const styles = theme => ({
   root: {
-    display: 'block',
+    display: 'block'
   },
   dialogContent: {
     minWidth: '400px',
@@ -28,16 +28,15 @@ const styles = theme => ({
   },
 });
 
-class EditChannelDialog extends Component {
+class EditDeviceDialog extends Component {
   state = {
     expanded: null,
-    deviceId: '',
     name: '',
   };
 
   componentWillReceiveProps(props) {
     this.setState({
-      name: props.channel ? props.channel.name : '',
+      name: props.device ? props.device.name : '',
     })
   }
 
@@ -46,7 +45,7 @@ class EditChannelDialog extends Component {
   };
 
   render() {
-    const { classes, titleText } = this.props;
+    const { classes } = this.props;
 
     return (
       <Dialog
@@ -75,9 +74,9 @@ class EditChannelDialog extends Component {
   }
 }
 
-EditChannelDialog.propTypes = {
+EditDeviceDialog.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(EditChannelDialog);
+export default withStyles(styles, { withTheme: true })(EditDeviceDialog);
