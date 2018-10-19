@@ -39,7 +39,8 @@ const styles = theme => ({
   },
   button: {
     margin: theme.spacing.unit,
-    marginTop: '2em'
+    marginTop: '2em',
+    color: '#fff',
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
@@ -137,7 +138,7 @@ class Integrations extends Component {
                   <div className={classes.imgContainer}>
                     <img src={logos[integration]} />
                     <Button
-                      color="primary"
+                      color="secondary"
                       className={classes.button}
                       onClick={() => this.deleteIntegration(integration)}
                       variant="contained"

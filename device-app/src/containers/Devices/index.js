@@ -30,7 +30,11 @@ const styles = theme => ({
   },
   button: {
     margin: theme.spacing.unit,
-    marginTop: '2em'
+    marginTop: '2em',
+    color: '#fff',
+  },
+  devicesListPanel: {
+    backgroundColor: '#52cee8',
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
@@ -110,9 +114,13 @@ class Devices extends Component {
 
     return (
       <div className={classes.root}>
-        <ExpansionPanel expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')}>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>My Devices</Typography>
+        <ExpansionPanel
+          className={classes.devicesListPanel}
+          expanded={expanded === 'panel1'}
+          onChange={this.handleChange('panel1')}
+        >
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon color="primary"/>}>
+            <Typography color="primary" className={classes.heading}>My Devices</Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
             <DevicesTable
@@ -156,7 +164,7 @@ class Devices extends Component {
 
             <Button
               className={classes.button}
-              color="primary"
+              color="secondary"
               onClick={this.addDevice}
               variant="contained"
               disabled={this.props.isCreatingDevice}

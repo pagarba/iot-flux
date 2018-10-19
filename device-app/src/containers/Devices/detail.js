@@ -21,7 +21,8 @@ const styles = theme => ({
   },
   button: {
     margin: theme.spacing.unit,
-    marginTop: '2em'
+    marginTop: '2em',
+    color: '#fff',
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
@@ -136,7 +137,7 @@ class DeviceDetail extends Component {
             <div>
               <Button
                 className={classes.button}
-                color="primary"
+                color="secondary"
                 onClick={this.editDevice}
                 variant="contained"
                 disabled={this.props.isEditingDevice}
@@ -145,7 +146,7 @@ class DeviceDetail extends Component {
               </Button>
               <Button
                 className={classes.button}
-                color="primary"
+                color="secondary"
                 onClick={() => this.enableEdit(false)}
                 variant="contained"
               >
@@ -155,7 +156,7 @@ class DeviceDetail extends Component {
           ) : (
             <Button
               className={classes.button}
-              color="primary"
+              color="secondary"
               onClick={() => this.enableEdit(true)}
               variant="contained"
             >

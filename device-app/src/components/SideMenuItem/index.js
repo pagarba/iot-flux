@@ -3,16 +3,29 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
 import { Link } from 'react-router-dom';
-import { MenuItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import { MenuItem, ListItemIcon, ListItemText, Typography } from '@material-ui/core';
 import {withStyles} from "@material-ui/core/styles/index";
 
 const styles = theme => ({
+  icon: {
+    color: '#fff',
+  },
   link: {
     textDecoration: 'none',
   },
   menuItem: {
-    color: 'rgba(0, 0, 0, 0.87)',
+    paddingLeft: '22px',
+    paddingRight: '22px'
   },
+  menuItemRipple: {
+    color: 'rgb(82, 206, 232)',
+  },
+  menuItemSelected: {
+    background: '#52cee8 !important',
+  },
+  text: {
+    color: '#fff !important',
+  }
 });
 
 class SideMenuItem extends Component {
@@ -25,13 +38,22 @@ class SideMenuItem extends Component {
       >
         <MenuItem
           button
-          className={classes.menuItem}
+          classes={{
+            root: classes.menuItem,
+            selected: classes.menuItemSelected
+          }}
+          focusRippleColor="darkRed"
+          touchRipple="darkRed"
           selected={selected}
+          TouchRippleProps={{ classes: { root: classes.menuItemRipple } }}
         >
-          <ListItemIcon>
+          <ListItemIcon className={selected ? classes.icon : null}>
             {icon}
           </ListItemIcon>
-          <ListItemText primary={text} />
+          <ListItemText
+            className={selected ? classes.text: null}
+            primary={<Typography className={selected ? classes.text : null} variant="h5">{text}</Typography>}
+          />
         </MenuItem>
       </Link>
     )

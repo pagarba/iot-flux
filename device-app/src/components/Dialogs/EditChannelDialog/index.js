@@ -9,21 +9,28 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
+import FormControl from '@material-ui/core/FormControl';
+import Input from '@material-ui/core/Input';
+
 import { withStyles } from "@material-ui/core/styles/index";
 
 const styles = theme => ({
   root: {
     display: 'block'
   },
+  formControl: {
+    margin: theme.spacing.unit,
+  },
 });
 
-class ConfirmDialog extends Component {
+class EditChannelDialog extends Component {
   state = {
     expanded: null,
     deviceId: '',
   };
 
   render() {
+    const { classes, titleText } = this.props;
 
     return (
       <Dialog
@@ -34,9 +41,9 @@ class ConfirmDialog extends Component {
       >
         <DialogTitle id="alert-dialog-title">{this.props.titleText}</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            {this.props.contentText}
-          </DialogContentText>
+          <FormControl className={classes.formControl} error={this.state.channelName === null} fullWidth aria-describedby="component-error-text">
+            <Input name="name" value={this.state.name} onChange={this.handleInputChange} />
+          </FormControl>
         </DialogContent>
         <DialogActions>
           <Button onClick={this.props.onClickDismiss} color="secondary">
@@ -51,9 +58,9 @@ class ConfirmDialog extends Component {
   }
 }
 
-ConfirmDialog.propTypes = {
+EditChannelDialog.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(ConfirmDialog);
+export default withStyles(styles, { withTheme: true })(EditChannelDialog);

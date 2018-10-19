@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 
 import { AppBar, Button, Divider, Drawer, IconButton, List, Toolbar, Typography } from '@material-ui/core';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -22,7 +24,21 @@ import SideMenuItem from '../components/SideMenuItem';
 import { logout, resetAccount } from '../core/actions/auth';
 import { apiKey, appId } from '../config';
 
+import Logo from '../assets/img/logo.png';
+
 const drawerWidth = 240;
+
+const overallTheme = createMuiTheme({
+  palette: {
+    primary: { main: '#fff' }, // Purple and green play nicely together.
+    secondary: {
+      main: '#52cee8',
+    }, // This is just green.A700 as hex.
+    background: {
+      default: '#f7f7f7'
+    }
+  },
+});
 
 const styles = theme => ({
   root: {
@@ -31,6 +47,7 @@ const styles = theme => ({
     overflow: 'hidden',
     position: 'relative',
     display: 'flex',
+    height: '100%',
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -48,7 +65,10 @@ const styles = theme => ({
     }),
   },
   btnLogout: {
-    color: '#fff',
+    color: '#52cee8',
+  },
+  logo: {
+    width: '160px',
   },
   menuButton: {
     marginLeft: 12,
@@ -90,8 +110,9 @@ const styles = theme => ({
   },
   content: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.default,
     padding: theme.spacing.unit * 3,
+    backgroundSize: 'cover',
+    overflowY: 'scroll',
   },
 });
 
@@ -151,89 +172,96 @@ class MainLayout extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar
-          position="absolute"
-          className={classNames(classes.appBar, this.state.open && classes.appBarShift)}
-        >
-          <Toolbar
-            className={classes.titleBar}
-            disableGutters={!this.state.open}
+        <MuiThemeProvider theme={overallTheme}>
+          <CssBaseline />
+          <AppBar
+            position="absolute"
+            className={classNames(classes.appBar, this.state.open && classes.appBarShift)}
           >
-            <IconButton
-              color="inherit"
-              aria-label="Open drawer"
-              onClick={this.handleDrawerOpen}
-              className={classNames(classes.menuButton, this.state.open && classes.hide)}
+            <Toolbar
+              className={classes.titleBar}
+              disableGutters={!this.state.open}
             >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="title" color="inherit" noWrap>
-              { pageTitles[pathname] }
-            </Typography>
-            <Button
-              className={classes.btnLogout}
-              onClick={this.logout}
-            >
-              Logout
-            </Button>
-          </Toolbar>
-        </AppBar>
-        <Drawer
-          variant="permanent"
-          classes={{
-            paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose),
-          }}
-          open={this.state.open}
-        >
-          <div className={classes.toolbar}>
-            <IconButton onClick={this.handleDrawerClose}>
-              {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-            </IconButton>
-          </div>
-          <Divider />
-          <List>
-            <SideMenuItem
-              to="/dashboard"
-              icon={<DashboardIcon/>}
-              selected={pathname === 'dashboard'}
-              text="Dashboard"
-            />
-            <SideMenuItem
-              to="/channels"
-              icon={<ChannelsIcon/>}
-              selected={pathname === 'channels' || pathname === 'channelDetail'}
-              text="Channels"
-            />
-            <SideMenuItem
-              to="/devices"
-              icon={<DevicesIcon/>}
-              selected={pathname === 'devices' || pathname === 'deviceDetail'}
-              text="Device Manager"
-            />
-            <SideMenuItem
-              to="/events"
-              icon={<EventIcon/>}
-              selected={pathname === 'events'}
-              text="Event Viewer"
-            />
-            <SideMenuItem
-              to="/integrations"
-              icon={<IntegrationsIcon/>}
-              selected={pathname === 'integrations'}
-              text="Integrations"
-            />
-            <SideMenuItem
-              to="/tutorials"
-              icon={<TutorialsIcon/>}
-              selected={pathname === 'tutorials'}
-              text="Tutorials"
-            />
-          </List>
-        </Drawer>
-        <main className={classes.content}>
-          <div className={classes.toolbar} />
-          {this.props.children}
-        </main>
+              <IconButton
+                color="inherit"
+                aria-label="Open drawer"
+                onClick={this.handleDrawerOpen}
+                className={classNames(classes.menuButton, this.state.open && classes.hide)}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Typography variant="title" color="secondary" noWrap>
+                { pageTitles[pathname] }
+              </Typography>
+              <Button
+                className={classes.btnLogout}
+                onClick={this.logout}
+              >
+                Logout
+              </Button>
+            </Toolbar>
+          </AppBar>
+          <Drawer
+            variant="permanent"
+            classes={{
+              paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose),
+            }}
+            open={this.state.open}
+          >
+            <div className={classes.toolbar}>
+              <img
+                className={classes.logo}
+                src={Logo}
+              />
+              <IconButton onClick={this.handleDrawerClose}>
+                {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+              </IconButton>
+            </div>
+            <Divider />
+            <List>
+              <SideMenuItem
+                to="/dashboard"
+                icon={<DashboardIcon/>}
+                selected={pathname === 'dashboard'}
+                text="Dashboard"
+              />
+              <SideMenuItem
+                to="/channels"
+                icon={<ChannelsIcon/>}
+                selected={pathname === 'channels' || pathname === 'channelDetail'}
+                text="Channels"
+              />
+              <SideMenuItem
+                to="/devices"
+                icon={<DevicesIcon/>}
+                selected={pathname === 'devices' || pathname === 'deviceDetail'}
+                text="Device Manager"
+              />
+              <SideMenuItem
+                to="/events"
+                icon={<EventIcon/>}
+                selected={pathname === 'events'}
+                text="Event Viewer"
+              />
+              <SideMenuItem
+                to="/integrations"
+                icon={<IntegrationsIcon/>}
+                selected={pathname === 'integrations'}
+                text="Integrations"
+              />
+              <SideMenuItem
+                to="/tutorials"
+                icon={<TutorialsIcon/>}
+                selected={pathname === 'tutorials'}
+                text="Tutorials"
+              />
+            </List>
+          </Drawer>
+          <main className={classes.content}>
+            <div className={classes.toolbar} />
+            {this.props.children}
+          </main>
+        </MuiThemeProvider>
       </div>
     );
   }

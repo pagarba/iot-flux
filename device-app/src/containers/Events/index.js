@@ -24,6 +24,9 @@ const styles = theme => ({
     margin: theme.spacing.unit,
     marginTop: '2em'
   },
+  eventsListPanel: {
+    backgroundColor: '#52cee8',
+  },
   heading: {
     fontSize: theme.typography.pxToRem(15),
     flexBasis: '33.33%',
@@ -99,9 +102,13 @@ class Channels extends Component {
 
     return (
       <div className={classes.root}>
-        <ExpansionPanel expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')}>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>My Channels</Typography>
+        <ExpansionPanel
+          className={classes.eventsListPanel}
+          expanded={expanded === 'panel1'}
+          onChange={this.handleChange('panel1')}
+        >
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon color="primary" />}>
+            <Typography color="primary" className={classes.heading}>My Channels</Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
             <EventChannelsTable

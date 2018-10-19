@@ -32,7 +32,8 @@ const styles = theme => ({
   },
   button: {
     margin: theme.spacing.unit,
-    marginTop: '2em'
+    marginTop: '2em',
+    color: '#fff',
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
@@ -159,7 +160,7 @@ class EventsDetail extends Component {
 
             <Button
               className={classes.button}
-              color="primary"
+              color="secondary"
               onClick={this.addEvent}
               variant="contained"
               disabled={this.props.isCreatingEvent}

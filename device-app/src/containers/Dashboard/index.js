@@ -15,7 +15,7 @@ import TutorialIcon from '@material-ui/icons/School';
 const styles = theme => ({
   dashboard: {
     textAlign: 'center',
-    marginTop: '50px',
+    marginTop: '50px'
   },
   icon: {
     fontSize: '80px',

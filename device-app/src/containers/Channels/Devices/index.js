@@ -30,7 +30,8 @@ const styles = theme => ({
   },
   button: {
     margin: theme.spacing.unit,
-    marginTop: '2em'
+    marginTop: '2em',
+    color: '#fff',
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
@@ -113,6 +114,18 @@ class Devices extends Component {
 
     return (
       <div className={classes.root}>
+        <ExpansionPanel expanded={expanded === 'panel2'} onChange={this.handleChange('panel2')}>
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography className={classes.heading}>Connected Devices</Typography>
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails>
+            <ChannelDevicesTable
+              data={connectedDevices}
+              history={history}
+              onDeleteDeviceFromChannel={this.deleteDeviceFromChannel}
+            />
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
         <ExpansionPanel expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')}>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
             <Typography className={classes.heading}>Connect a New Device</Typography>
@@ -139,25 +152,13 @@ class Devices extends Component {
             </div>
             <Button
               className={classes.button}
-              color="primary"
+              color="secondary"
               onClick={this.addDeviceToChannel}
               variant="contained"
               disabled={this.props.isAddingDeviceToChannel}
             >
               Connect Device
             </Button>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-        <ExpansionPanel expanded={expanded === 'panel2'} onChange={this.handleChange('panel2')}>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>Connected Devices</Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <ChannelDevicesTable
-              data={connectedDevices}
-              history={history}
-              onDeleteDeviceFromChannel={this.deleteDeviceFromChannel}
-            />
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </div>

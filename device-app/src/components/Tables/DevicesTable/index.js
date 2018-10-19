@@ -13,6 +13,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
 import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Create';
 
 import EnhancedTableHead from '../EnhancedTableHead';
 import ConfirmDialog from '../../Dialogs/ConfirmDialog';
@@ -173,6 +174,9 @@ class DevicesTable extends Component {
                       <TableCell
                         onClick={(e) => e.stopPropagation()}
                       >
+                        <EditIcon
+                          className={classes.actionIcon}
+                        />
                         <DeleteIcon
                           className={classes.deleteIcon}
                           onClick={() => { this.handleDeleteIconClick(n.id) }}

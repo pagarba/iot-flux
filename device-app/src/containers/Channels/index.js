@@ -28,7 +28,11 @@ const styles = theme => ({
   },
   button: {
     margin: theme.spacing.unit,
-    marginTop: '2em'
+    marginTop: '2em',
+    color: '#fff',
+  },
+  channelsListPanel: {
+    backgroundColor: '#52cee8',
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
@@ -105,9 +109,13 @@ class Channels extends Component {
 
     return (
       <div className={classes.root}>
-        <ExpansionPanel expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')}>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>My Channels</Typography>
+        <ExpansionPanel
+          className={classes.channelsListPanel}
+          expanded={expanded === 'panel1'}
+          onChange={this.handleChange('panel1')}
+        >
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon color="primary"/>}>
+            <Typography color="primary" className={classes.heading}>My Channels</Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
             <ChannelsTable
@@ -130,7 +138,7 @@ class Channels extends Component {
 
             <Button
               className={classes.button}
-              color="primary"
+              color="secondary"
               onClick={this.addChannel}
               variant="contained"
               disabled={this.props.isCreatingDevice}

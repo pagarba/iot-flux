@@ -13,16 +13,18 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
 import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Create';
 
 import EnhancedTableHead from '../EnhancedTableHead';
 import ConfirmDialog from '../../Dialogs/ConfirmDialog';
+import EditChannelDialog from '../../Dialogs/EditChannelDialog';
 import { devices } from '../../../constants/index';
 
 const styles = theme => ({
   root: {
     width: '100%',
   },
-  deleteIcon: {
+  actionIcon: {
     cursor: 'pointer',
   },
   heading: {
@@ -78,7 +80,9 @@ class ChannelsTable extends Component {
     page: 0,
     rowsPerPage: 5,
     isConfirmDialogOpen: false,
+    isEditDialogOpen: false,
     deleteChannelId: -1,
+    editChannelId: -1,
   };
 
   handleRequestSort = (event, property) => {
@@ -108,9 +112,16 @@ class ChannelsTable extends Component {
     })
   }
 
-  handleClickDismiss = event => {
+  handleHideConfirmDialog = event => {
     this.setState({
       isConfirmDialogOpen: false,
+      deleteChannelId: -1,
+    })
+  }
+
+  handleHideEditDialog = event => {
+    this.setState({
+      isEditDialogOpen: false,
       deleteChannelId: -1,
     })
   }
@@ -123,6 +134,13 @@ class ChannelsTable extends Component {
     this.setState({
       deleteChannelId,
       isConfirmDialogOpen: true,
+    });
+  }
+
+  handleEditIconClick = editChannelId => {
+    this.setState({
+      editChannelId,
+      isEditDialogOpen: true,
     });
   }
 
@@ -165,8 +183,12 @@ class ChannelsTable extends Component {
                       <TableCell
                         onClick={(e) => e.stopPropagation()}
                       >
+                        <EditIcon
+                          className={classes.actionIcon}
+                          onClick={() => { this.handleEditIconClick(n.id)}}
+                        />
                         <DeleteIcon
-                          className={classes.deleteIcon}
+                          className={classes.actionIcon}
                           onClick={() => { this.handleDeleteIconClick(n.id) }}
                         />
                       </TableCell>
@@ -198,9 +220,15 @@ class ChannelsTable extends Component {
         <ConfirmDialog
           contentText="Do you want to delete this channel?"
           onClickConfirm={this.handleClickConfirm}
-          onClickDismiss={this.handleClickDismiss}
+          onClickDismiss={this.handleHideConfirmDialog}
           open={this.state.isConfirmDialogOpen}
           titleText="Confirm"
+        />
+        <EditChannelDialog
+          onClickConfirm={this.handleClickConfirm}
+          onClickDismiss={this.handleHideEditDialog}
+          open={this.state.isEditDialogOpen}
+          titleText="Edit Channel"
         />
       </Paper>
     );

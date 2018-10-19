@@ -22,7 +22,8 @@ const styles = theme => ({
   },
   button: {
     margin: theme.spacing.unit,
-    marginTop: '2em'
+    marginTop: '2em',
+    color: '#fff',
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
@@ -121,7 +122,7 @@ class ChannelDetail extends Component {
             <div>
               <Button
                 className={classes.button}
-                color="primary"
+                color="secondary"
                 onClick={this.editChannel}
                 variant="contained"
                 disabled={this.props.isEditingChannel}
@@ -130,7 +131,7 @@ class ChannelDetail extends Component {
               </Button>
               <Button
                 className={classes.button}
-                color="primary"
+                color="secondary"
                 onClick={() => this.enableEdit(false)}
                 variant="contained"
               >
@@ -140,7 +141,7 @@ class ChannelDetail extends Component {
           ) : (
             <Button
               className={classes.button}
-              color="primary"
+              color="secondary"
               onClick={() => this.enableEdit(true)}
               variant="contained"
             >
