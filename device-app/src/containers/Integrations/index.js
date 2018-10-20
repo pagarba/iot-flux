@@ -140,7 +140,7 @@ class Integrations extends Component {
           onChange={this.handleChange('panel1')}
         >
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon color="primary" />}>
-            <Typography color="primary" className={classes.heading}>My Integrations</Typography>
+            <Typography color="primary" className={classes.heading}>MY INTEGRATIONS</Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
             <div className={classes.imgList}>
@@ -164,7 +164,7 @@ class Integrations extends Component {
         </ExpansionPanel>
         <ExpansionPanel expanded={expanded === 'panel2'} onChange={this.handleChange('panel2')}>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>Add a New Integration</Typography>
+            <Typography className={classes.heading}>ADD A NEW INTEGRATION</Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className={classes.root}>
             <div className={classes.imgList}>

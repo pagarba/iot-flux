@@ -108,7 +108,7 @@ class Channels extends Component {
           onChange={this.handleChange('panel1')}
         >
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon color="primary" />}>
-            <Typography color="primary" className={classes.heading}>My Channels</Typography>
+            <Typography color="primary" className={classes.heading}>MY CHANNELS</Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
             <EventChannelsTable

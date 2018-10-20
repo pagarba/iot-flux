@@ -12,7 +12,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-import DeleteIcon from '@material-ui/icons/Delete';
+import DeleteIcon from '@material-ui/icons/DeleteOutline';
 
 import EnhancedTableHead from '../EnhancedTableHead';
 import ConfirmDialog from '../../Dialogs/ConfirmDialog';

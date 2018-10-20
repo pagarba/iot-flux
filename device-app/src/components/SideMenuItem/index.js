@@ -52,7 +52,7 @@ class SideMenuItem extends Component {
           </ListItemIcon>
           <ListItemText
             className={selected ? classes.text: null}
-            primary={<Typography className={selected ? classes.text : null} variant="h5">{text}</Typography>}
+            primary={<Typography className={selected ? classes.text : null} variant="h5">{text.toUpperCase()}</Typography>}
           />
         </MenuItem>
       </Link>

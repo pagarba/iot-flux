@@ -87,6 +87,11 @@
     color: #52cee8 !important;
 }
 
+/* Back, next button margin */
+.neutralButtonWithBlueText__neutral___1AIeP:not([disabled]).neutralButtonWithBlueText__flat___cWepa, .neutralButtonWithBlueText__neutral___1AIeP:not([disabled]).neutralButtonWithBlueText__raised___bDJgU {
+    margin: 0px 20px;
+}
+
 a {
     color: #52cee8;
 }

@@ -6,11 +6,11 @@ import { Grid, Hidden, Paper, Typography } from '@material-ui/core';
 
 import { Link } from 'react-router-dom';
 
-import ChannelsIcon from '@material-ui/icons/Radio';
+import ChannelsIcon from '@material-ui/icons/GridOnOutlined';
 import AddDeviceIcon from '@material-ui/icons/AddToQueue';
-import ViewEventsIcon from '@material-ui/icons/Visibility';
-import AddIntegration from '@material-ui/icons/SettingsInputComponent';
-import TutorialIcon from '@material-ui/icons/School';
+import ViewEventsIcon from '@material-ui/icons/VisibilityOutlined';
+import AddIntegration from '@material-ui/icons/TransformOutlined';
+import TutorialIcon from '@material-ui/icons/SchoolOutlined';
 
 const styles = theme => ({
   dashboard: {
@@ -26,6 +26,7 @@ const styles = theme => ({
   },
   text: {
     fontSize: '16px',
+    textTransform: 'uppercase',
   },
   root: {
     flexGrow: 1,

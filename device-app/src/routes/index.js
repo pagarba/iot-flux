@@ -15,7 +15,8 @@ import EventDetail from '../containers/Events/detail';
 import Integrations from '../containers/Integrations';
 import Tutorials from '../containers/Tutorials';
 import GettingStartedTutorial from '../containers/Tutorials/GettingStarted';
-import ExamplesTemplatesTutorial from '../containers/Tutorials/ExamplesTemplates';
+import IoTBasicsTutorial from '../containers/Tutorials/IoTBasics';
+import IntroToTrigxIoTTutorial from '../containers/Tutorials/IntroToTrigxIoT';
 
 const userPaths = [
   'dashboard',
@@ -123,14 +124,20 @@ class Routes extends Component {
             <Route
               location={location}
               exact
+              path="/tutorials/iot-basics"
+              component={IoTBasicsTutorial}
+            />
+            <Route
+              location={location}
+              exact
               path="/tutorials/getting-started"
               component={GettingStartedTutorial}
             />
             <Route
               location={location}
               exact
-              path="/tutorials/examples-templates"
-              component={ExamplesTemplatesTutorial}
+              path="/tutorials/intro-to-trigx-iot"
+              component={IntroToTrigxIoTTutorial}
             />
             {pathname === '' && <Redirect to="/dashboard"/>}
           </MainLayout>

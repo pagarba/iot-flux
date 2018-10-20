@@ -6,8 +6,9 @@ import { Grid, Hidden, Paper, Typography } from '@material-ui/core';
 
 import { Link } from 'react-router-dom';
 
+import IoTBasicsIcon from '@material-ui/icons/DeviceHub';
 import GettingStartedIcon from '@material-ui/icons/PlayCircleOutline';
-import ExamplesTemplatesIcon from '@material-ui/icons/Subtitles';
+import ExamplesTemplatesIcon from '@material-ui/icons/SubtitlesOutlined';
 
 const styles = theme => ({
   dashboard: {
@@ -24,6 +25,9 @@ const styles = theme => ({
   root: {
     flexGrow: 1,
   },
+  text: {
+    fontSize: '16px',
+  },
 });
 
 class Dashboard extends Component {
@@ -37,10 +41,30 @@ class Dashboard extends Component {
     return (
       <div className={classes.dashboard}>
         <Grid container spacing={24}>
-          <Hidden xsDown>
-            <Grid item sm={1}>
-            </Grid>
-          </Hidden>
+          <Grid item xs={4}>
+            <Link className={classes.link} to="/tutorials/iot-basics">
+              <Grid item xs container direction="column" spacing={16}>
+                <Grid item>
+                  <IoTBasicsIcon className={classes.icon}/>
+                </Grid>
+                <Grid item>
+                  <Typography className={classes.text} color="secondary" gutterBottom>IOT BASICS</Typography>
+                </Grid>
+              </Grid>
+            </Link>
+          </Grid>
+          <Grid item xs={4}>
+            <Link className={classes.link} to="/tutorials/intro-to-trigx-iot">
+              <Grid item xs container direction="column" spacing={16}>
+                <Grid item>
+                  <ExamplesTemplatesIcon className={classes.icon}/>
+                </Grid>
+                <Grid item>
+                  <Typography className={classes.text} color="secondary" gutterBottom>INTRO TO TRIGX IOT</Typography>
+                </Grid>
+              </Grid>
+            </Link>
+          </Grid>
           <Grid item xs={4}>
             <Link className={classes.link} to="/tutorials/getting-started">
               <Grid item xs container direction="column" spacing={16}>
@@ -48,19 +72,7 @@ class Dashboard extends Component {
                   <GettingStartedIcon className={classes.icon}/>
                 </Grid>
                 <Grid item>
-                  <Typography gutterBottom>Getting Started</Typography>
-                </Grid>
-              </Grid>
-            </Link>
-          </Grid>
-          <Grid item xs={4}>
-            <Link className={classes.link} to="/tutorials/examples-templates">
-              <Grid item xs container direction="column" spacing={16}>
-                <Grid item>
-                  <ExamplesTemplatesIcon className={classes.icon}/>
-                </Grid>
-                <Grid item>
-                  <Typography gutterBottom>Examples & Templates</Typography>
+                  <Typography className={classes.text} color="secondary" gutterBottom>GETTING STARTED</Typography>
                 </Grid>
               </Grid>
             </Link>

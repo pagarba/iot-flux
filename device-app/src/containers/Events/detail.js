@@ -23,6 +23,7 @@ import { getChannel } from '../../core/actions/channel';
 import { createEvent, getEvents } from '../../core/actions/event';
 import { getDevices } from '../../core/actions/device';
 import EventsTable from '../../components/Tables/EventsTable';
+import CreateConfirmDialog from '../../components/Dialogs/CreateConfirmDialog';
 import qs from 'stringquery'
 import { connect } from 'react-redux'
 
@@ -60,6 +61,7 @@ class EventsDetail extends Component {
     eventName: '',
     deviceKey: '',
     data: '',
+    isCreateConfirmDialogOpen: false,
   };
 
   componentDidMount() {
@@ -99,6 +101,7 @@ class EventsDetail extends Component {
           this.setState({
             deviceKey: '',
             data: '',
+            isCreateConfirmDialogOpen: true,
           })
         });
     }
@@ -115,9 +118,29 @@ class EventsDetail extends Component {
       this.setState({ [event.target.name]: null });
   };
 
+  handleHideCreateConfirmDialog = () => {
+    this.setState({
+      isCreateConfirmDialogOpen: false,
+    })
+  }
+
   handleInputChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
+
+  navigateToView = () => {
+    this.setState({
+      isCreateConfirmDialogOpen: false,
+      expanded: 'panel1'
+    });
+  }
+
+  navigateToCreate = () => {
+    this.setState({
+      isCreateConfirmDialogOpen: false,
+      expanded: 'panel2'
+    });
+  }
 
   render() {
     const { classes, history, channel, devices, events } = this.props;
@@ -130,7 +153,7 @@ class EventsDetail extends Component {
           onChange={this.handleChange('panel1')}
         >
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon color="primary" />}>
-            <Typography className={classes.heading} color="primary">My Events</Typography>
+            <Typography className={classes.heading} color="primary">MY EVENTS</Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
             <EventsTable
@@ -142,7 +165,7 @@ class EventsDetail extends Component {
         </ExpansionPanel>
         <ExpansionPanel expanded={expanded === 'panel2'} onChange={this.handleChange('panel2')}>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>Add a New Event</Typography>
+            <Typography className={classes.heading}>ADD A NEW EVENT</Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className={classes.root}>
             {/*<FormControl className={classes.formControl} error={this.state.eventName === null} fullWidth aria-describedby="component-error-text">*/}
@@ -186,6 +209,16 @@ class EventsDetail extends Component {
             </Button>
           </ExpansionPanelDetails>
         </ExpansionPanel>
+        <CreateConfirmDialog
+          open={this.state.isCreateConfirmDialogOpen}
+          onClickDismiss={this.handleHideCreateConfirmDialog}
+          onClickView={this.navigateToView}
+          onClickCreate={this.navigateToCreate}
+          contentText="A new event has been created"
+          titleText="Confirm"
+          viewButtonText="View Events"
+          createButtonText="Create Event"
+        />
       </div>
     )
   }

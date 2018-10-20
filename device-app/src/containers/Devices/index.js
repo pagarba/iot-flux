@@ -21,6 +21,7 @@ import Select from '@material-ui/core/Select';
 import { withStyles } from "@material-ui/core/styles/index";
 
 import DevicesTable from '../../components/Tables/DevicesTable';
+import CreateConfirmDialog from '../../components/Dialogs/CreateConfirmDialog';
 import { createDevice, getDevices, deleteDevice, editDevice } from '../../core/actions/device'
 import qs from 'stringquery'
 
@@ -57,6 +58,7 @@ class Devices extends Component {
     deviceType: '',
     deviceName: '',
     deviceKey: '',
+    isCreateConfirmDialogOpen: false,
   };
 
   componentWillMount() {
@@ -81,9 +83,29 @@ class Devices extends Component {
       this.setState({ [event.target.name]: null });
   };
 
+  handleHideCreateConfirmDialog = () => {
+    this.setState({
+      isCreateConfirmDialogOpen: false,
+    })
+  }
+
   handleInputChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
+
+  navigateToView = () => {
+    this.setState({
+      isCreateConfirmDialogOpen: false,
+      expanded: 'panel1'
+    });
+  }
+
+  navigateToCreate = () => {
+    this.setState({
+      isCreateConfirmDialogOpen: false,
+      expanded: 'panel2'
+    });
+  }
 
   addDevice = () => {
     const { deviceName, deviceType } = this.state;
@@ -97,6 +119,7 @@ class Devices extends Component {
         this.setState({
           deviceName: '',
           deviceType: '',
+          isCreateConfirmDialogOpen: true,
         })
       });
     }
@@ -124,7 +147,7 @@ class Devices extends Component {
           onChange={this.handleChange('panel1')}
         >
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon color="primary"/>}>
-            <Typography color="primary" className={classes.heading}>My Devices</Typography>
+            <Typography color="primary" className={classes.heading}>MY DEVICES</Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
             <DevicesTable
@@ -138,7 +161,7 @@ class Devices extends Component {
         </ExpansionPanel>
         <ExpansionPanel expanded={expanded === 'panel2'} onChange={this.handleChange('panel2')}>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>Add a New Device</Typography>
+            <Typography className={classes.heading}>ADD A NEW DEVICE</Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className={classes.root}>
             <FormControl className={classes.formControl} error={this.state.deviceName === null} fullWidth aria-describedby="component-error-text">
@@ -179,6 +202,16 @@ class Devices extends Component {
             </Button>
           </ExpansionPanelDetails>
         </ExpansionPanel>
+        <CreateConfirmDialog
+          open={this.state.isCreateConfirmDialogOpen}
+          onClickDismiss={this.handleHideCreateConfirmDialog}
+          onClickView={this.navigateToView}
+          onClickCreate={this.navigateToCreate}
+          contentText="A new device has been created"
+          titleText="Confirm"
+          viewButtonText="View Devices"
+          createButtonText="Create Device"
+        />
       </div>
     )
   }

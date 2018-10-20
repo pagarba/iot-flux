@@ -13,12 +13,13 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
-import DevicesIcon from '@material-ui/icons/Devices';
-import ChannelsIcon from '@material-ui/icons/Radio';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import EventIcon from '@material-ui/icons/Event';
-import IntegrationsIcon from '@material-ui/icons/SettingsInputComponent';
-import TutorialsIcon from '@material-ui/icons/School';
+import ChannelsIcon from '@material-ui/icons/GridOnOutlined';
+import DevicesIcon from '@material-ui/icons/AddToQueue';
+import EventIcon from '@material-ui/icons/VisibilityOutlined';
+import IntegrationsIcon from '@material-ui/icons/TransformOutlined';
+import TutorialsIcon from '@material-ui/icons/SchoolOutlined';
+
+import DashboardIcon from '@material-ui/icons/DashboardOutlined';
 
 import SideMenuItem from '../components/SideMenuItem';
 import { logout, resetAccount } from '../core/actions/auth';
@@ -73,6 +74,12 @@ const styles = theme => ({
   },
   logo: {
     width: '160px',
+  },
+  logoText: {
+    fontFamily: 'Nudista',
+    textAlign: 'center',
+    marginTop: '5px',
+    marginLeft: '-5px',
   },
   menuButton: {
     marginLeft: 12,
@@ -196,7 +203,7 @@ class MainLayout extends React.Component {
                 <MenuIcon />
               </IconButton>
               <Typography variant="title" color="secondary" noWrap>
-                { pageTitles[pathname] }
+                { (pageTitles[pathname] || '').toUpperCase() }
               </Typography>
               <Button
                 className={classes.btnLogout}
@@ -214,10 +221,13 @@ class MainLayout extends React.Component {
             open={this.state.open}
           >
             <div className={classes.toolbar}>
-              <img
-                className={classes.logo}
-                src={Logo}
-              />
+              <div>
+                <img
+                  className={classes.logo}
+                  src={Logo}
+                />
+                <Typography className={classes.logoText} variant="h4" color="secondary">CONTROL CENTER</Typography>
+              </div>
               <IconButton onClick={this.handleDrawerClose}>
                 {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
               </IconButton>

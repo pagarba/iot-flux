@@ -21,6 +21,7 @@ import Select from '@material-ui/core/Select';
 import { withStyles } from "@material-ui/core/styles/index";
 
 import ChannelDevicesTable from '../../../components/Tables/ChannelDevicesTable';
+import CreateConfirmDialog from '../../../components/Dialogs/CreateConfirmDialog';
 import { addDeviceToChannel, deleteDeviceFromChannel, getChannel, getChannels } from '../../../core/actions/channel'
 import { getDevices } from '../../../core/actions/device'
 
@@ -56,6 +57,7 @@ class Devices extends Component {
   state = {
     expanded: 'panel1',
     deviceId: '',
+    isCreateConfirmDialogOpen: false,
   };
 
   componentWillMount() {
@@ -78,6 +80,26 @@ class Devices extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  handleHideCreateConfirmDialog = () => {
+    this.setState({
+      isCreateConfirmDialogOpen: false,
+    })
+  }
+
+  navigateToView = () => {
+    this.setState({
+      isCreateConfirmDialogOpen: false,
+      expanded: 'panel1'
+    });
+  }
+
+  navigateToCreate = () => {
+    this.setState({
+      isCreateConfirmDialogOpen: false,
+      expanded: 'panel2'
+    });
+  }
+
   addDeviceToChannel = () => {
     const { deviceId } = this.state;
     const { id: channelId } = this.props.channel;
@@ -91,6 +113,7 @@ class Devices extends Component {
         this.props.getChannel(channelId);
         this.setState({
           deviceId: '',
+          isCreateConfirmDialogOpen: true,
         })
       });
     }
@@ -123,7 +146,7 @@ class Devices extends Component {
           onChange={this.handleChange('panel1')}
         >
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon color="primary"/>}>
-            <Typography color="primary" className={classes.heading}>Connected Devices</Typography>
+            <Typography color="primary" className={classes.heading}>CONNECTED DEVICES</Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
             <ChannelDevicesTable
@@ -135,7 +158,7 @@ class Devices extends Component {
         </ExpansionPanel>
         <ExpansionPanel expanded={expanded === 'panel2'} onChange={this.handleChange('panel2')}>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>Connect a New Device</Typography>
+            <Typography className={classes.heading}>CONNECT A NEW DEVICE</Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className={classes.root}>
             <div>
@@ -168,6 +191,16 @@ class Devices extends Component {
             </Button>
           </ExpansionPanelDetails>
         </ExpansionPanel>
+        <CreateConfirmDialog
+          open={this.state.isCreateConfirmDialogOpen}
+          onClickDismiss={this.handleHideCreateConfirmDialog}
+          onClickView={this.navigateToView}
+          onClickCreate={this.navigateToCreate}
+          contentText="Device was added to channel"
+          titleText="Confirm"
+          viewButtonText="View Devices"
+          createButtonText="Connect Device"
+        />
       </div>
     )
   }

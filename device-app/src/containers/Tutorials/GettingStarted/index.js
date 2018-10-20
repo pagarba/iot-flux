@@ -123,16 +123,21 @@ class Dashboard extends Component {
         <ol>
           <li>Insert the SD card into your computer.</li>
           <li>Open the drive called <code>boot</code></li>
-          <li><p>Add a file named <code>wpa_supplicant.conf</code> with this content:</p><p><code>
-          country=US
-          ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
-          update_config=1
-          network=&#123;
-          ssid="WiFiNetworkName"
-          psk="WiFiPassword"
-          key_mgmt=WPA-PSK
-          &#123;
-          </code></p></li>
+          <li>
+            <p>Add a file named <code>wpa_supplicant.conf</code> with this content:</p>
+            <p>
+              <code>
+                <p>country=US</p>
+                <p>ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev</p>
+                <p>update_config=1</p>
+                <p>network=&#123;</p>
+                <p>&emsp;ssid="WiFiNetworkName"</p>
+                <p>&emsp;psk="WiFiPassword"</p>
+                <p>&emsp;key_mgmt=WPA-PSK</p>
+                <p>&#125;</p>
+              </code>
+            </p>
+          </li>
           <li><p>Add a blank file named <code>ssh</code> (open a text editor and hit Save as: <code>ssh</code>).</p></li>
           <li>Insert the SD card into your Raspberry Pi.</li>
         </ol>
@@ -140,7 +145,7 @@ class Dashboard extends Component {
         <h3>Connecting over Wi-Fi (GUI setup)</h3>
 
         <ol>
-          <li>Connect a USB keyboard, USB mouse and monitor to your Raspberry Pi.</li>
+          <li><p>Connect a USB keyboard, USB mouse and monitor to your Raspberry Pi.</p></li>
           <li><p>Click on the icon on the left of the volume symbol to scan for Wi-Fi networks and start the Wi-Fi configuration process.</p></li>
           <li><p>Enter your network's Wi-Fi password.</p></li>
           <li><p>When your Pi has successfully connected to the Wi-Fi network, you will see a blue Wi-Fi icon next to the volume icon at the top right hand corner of your screen.</p></li>
@@ -158,61 +163,54 @@ class Dashboard extends Component {
           <li>The first step is to obtain the IP address for your Raspberry Pi once it is connected to the Internet. You can find instructions for obtaining your Pi's IP address using Raspberry Pi's official tutorial, <a href="https://www.raspberrypi.org/documentation/remote-access/ip-address.md">here</a>.</li>
         </ul>
 
-        <p>The easiest method find your Raspberry Pi's IP address and SSH into it is to use its mDNS hostname followed by <code>.local</code>. The default hostname for your Pi is <code>raspberrypi</code>, so on macOS and Linux, you can simply SSH into your Pi by running the following command in your computer's terminal:
+        <p>
+          The easiest method find your Raspberry Pi's IP address and SSH into it is to use its mDNS hostname followed by <code>.local</code>. The default hostname for your Pi is <code>raspberrypi</code>, so on macOS and Linux, you can simply SSH into your Pi by running the following command in your computer's terminal:
           <code>
             ssh pi@raspberrypi.local
           </code>
-          - If you are using Windows, you can download and use <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html">PuTTY</a> to SSH into your Pi.</p>
+          - If you are using Windows, you can download and use <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html">PuTTY</a> to SSH into your Pi.
+        </p>
 
-        <p>The default password for Raspberry Pi is <code>raspberry</code>. <strong>We strongly recommend you change the default password.</strong> You can do so by running the following command inside of your Raspberry Pi's terminal:
-          <code>
-            passwd
-          </code>
-          If your want to change the hostname of your Raspberry Pi to something more meaningful, or if you have multiple Raspberry Pi's on your network, you can do so by running the following command inside of your Pi's terminal:</p>
+        <p>The default password for Raspberry Pi is <code>raspberry</code>. <strong>We strongly recommend you change the default password.</strong> You can do so by running the following command inside of your Raspberry Pi's terminal:<code>passwd</code>If your want to change the hostname of your Raspberry Pi to something more meaningful, or if you have multiple Raspberry Pi's on your network, you can do so by running the following command inside of your Pi's terminal:</p>
 
-        <p><code>
-          echo newHostname | sudo tee /etc/hostname
-        </code>
-          - You will need to reboot your Pi for the new hostname to be used.</p>
+        <p><code>echo newHostname | sudo tee /etc/hostname</code>- You will need to reboot your Pi for the new hostname to be used.</p>
 
-        <p>
-          An alternate method for finding the IP address in a headless setup configuration is to ensure that your computer is connected to the same network as your Raspberry Pi device, and to run the following command in your computer's terminal:  </p>
-
+        <p>An alternate method for finding the IP address in a headless setup configuration is to ensure that your computer is connected to the same network as your Raspberry Pi device, and to run the following command in your computer's terminal:</p>
 
         <p><code>arp -a | grep b8:27:eb | grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'</code><br/>&lt;br&gt;</p>
 
         <p>As it turns out, the Raspberry Pi Foundation has their own range of MAC addresses all to themselves. The command above will scan your network for devices whose MAC address starts with the prefix, <code>b8:27:eb</code> and report their IP address. Assuming you only have one Raspberry Pi connected to the network, you should be able to easily identify your Pi's network address and SSH into it in the next step.<br/>&lt;br&gt;</p>
 
         <ul>
-          <li>Once you have your Pi's IP address, you can connect to your Pi through a secure shell (SSH). If you are using macOS or Linux, you can simply create an SSH tunnel using your <code>Terminal</code> application. If you are using Windows, download <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html">PuTTY</a>.
-          &lt;br&gt;&lt;br&gt;</li>
-          <li>SSH into your Pi using the following command, where <code>192.168.X.XXX</code> is the IP address of your Pi.
-          &lt;br&gt;
-          <code>
-            ssh pi@192.168.X.XXX
-          </code>
-          &lt;/p&gt;</li>
+          <li>Once you have your Pi's IP address, you can connect to your Pi through a secure shell (SSH). If you are using macOS or Linux, you can simply create an SSH tunnel using your <code>Terminal</code> application. If you are using Windows, download <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html">PuTTY</a>.&lt;br&gt;&lt;br&gt;</li>
+          <li>SSH into your Pi using the following command, where <code>192.168.X.XXX</code> is the IP address of your Pi.&lt;br&gt;<code>ssh pi@192.168.X.XXX</code>&lt;/p&gt;</li>
         </ul>
 
         <h3>Install MQTT on rasperry</h3>
 
         <ul>
           <li>MQTT is a machine-to-machine messaging protocol</li>
-          <li><p>It's designed to provide lightweight publish/subscribe communication to “Internet of Things” devices</p>
+          <li>
+            <p>It's designed to provide lightweight publish/subscribe communication to “Internet of Things” devices</p>
             <ul>
-              <li><p>Install MQTT on Raspbery Pi with this command:</p><p><code>
-          sudo apt-get install mosquitto mosquitto-clients
-        </code></p></li>
+              <li>
+                <p>Install MQTT on Raspbery Pi with this command:</p>
+                <p><code>sudo apt-get install mosquitto mosquitto-clients</code></p>
+              </li>
               <li><p>Test it with two SSH connections to Pi</p></li>
-              <li><p>In one window we will subscribe to messages on “test/topic” channel:</p><p><code>
-          mosquitto_sub -v -t "test/topic"
-        </code></p></li>
-              <li><p>In the other window  publish messages on same chanell:</p><p><code></code>`
-          mosquitto_pub -t "test/topic" -m "Hello, TrigX IOT World!"</p><p><code></code>`</p></li>
+              <li>
+                <p>In one window we will subscribe to messages on “test/topic” channel:</p>
+                <p><code>mosquitto_sub -v -t "test/topic"</code></p>
+              </li>
+              <li>
+                <p>In the other window  publish messages on same chanell:</p>
+                <p>` mosquitto_pub -t "test/topic" -m "Hello, TrigX IOT World!"</p>
+              </li>
             </ul>
           </li>
           <li><p>Messages published in one terminal window will pop up on other one</p></li>
-          <li>These messages are exchanging on localhost of Raspberry Pi now
+          <li>
+            These messages are exchanging on localhost of Raspberry Pi now
             <ul>
               <li>goal is for these messages to be sent to TrigX IOT platform in cloud</li>
             </ul>
@@ -225,9 +223,11 @@ class Dashboard extends Component {
           <li>You can  create users, channels and Devices on the TrigXIOT Dasboard
             <ul>
               <li>We will register over dashboard</li>
-              <li>Create two devices
+              <li>
+                Create two devices
                 <ul>
-                  <li>named
+                  <li>
+                    named
                     <ul>
                       <li>Cool-IOT-Device-1</li>
                       <li>Cool-IOT-Device-2</li>
@@ -235,9 +235,11 @@ class Dashboard extends Component {
                   </li>
                 </ul>
               </li>
-              <li>Create a Channel
+              <li>
+                Create a Channel
                 <ul>
-                  <li>named
+                  <li>
+                    named
                     <ul>
                       <li>Cool-IOT-Channel-1 </li>
                     </ul>
@@ -256,13 +258,13 @@ class Dashboard extends Component {
         <h4>Technical Documentation</h4>
 
         <ul>
-          <li><a href="/datasheets/raspberrypi-datasheet/">Raspberry Pi Pinout and Datasheet</a></li>
+          <li><a href="https://github.com/pagarba/iot-flux/blob/master/datasheets/raspberrypi-datasheet">Raspberry Pi Pinout and Datasheet</a></li>
         </ul>
 
         <h4>Projects and Examples</h4>
 
         <ul>
-          <li><a href="/guide/getting-started/examples/raspberry-pi/">Raspberry Pi tutorials</a></li>
+          <li><a href="https://github.com/pagarba/iot-flux/blob/master/guide/getting-started/examples/raspberry-pi">Raspberry Pi tutorials</a></li>
         </ul>
 
         <h4>Forums and Support</h4>
@@ -271,7 +273,6 @@ class Dashboard extends Component {
           <li><a href="https://www.raspberrypi.org/documentation/">Raspberry Pi Official Documentation</a></li>
           <li><a href="http://support.trigx-iot.com">TrigX-IOT Support Portal</a></li>
         </ul>
-
       </div>
     );
   }
