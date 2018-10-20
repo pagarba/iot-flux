@@ -71,12 +71,14 @@ const styles = theme => ({
   },
   btnLogout: {
     color: '#52cee8',
+    fontWeight: 'bold',
   },
   logo: {
     width: '160px',
   },
   logoText: {
     fontFamily: 'Nudista',
+    fontWeight: 'bold',
     textAlign: 'center',
     marginTop: '5px',
     marginLeft: '-5px',
@@ -107,6 +109,9 @@ const styles = theme => ({
     [theme.breakpoints.up('sm')]: {
       width: theme.spacing.unit * 9,
     },
+  },
+  pageName: {
+    fontWeight: 'bold',
   },
   titleBar: {
     display: 'flex',
@@ -202,7 +207,7 @@ class MainLayout extends React.Component {
               >
                 <MenuIcon />
               </IconButton>
-              <Typography variant="title" color="secondary" noWrap>
+              <Typography className={ classes.pageName } variant="title" color="secondary" noWrap>
                 { (pageTitles[pathname] || '').toUpperCase() }
               </Typography>
               <Button
