@@ -2,7 +2,7 @@
 FROM node:9.5 as node
 WORKDIR /app
 COPY package.json /app/
-RUN npm install
+RUN yarn
 COPY ./ /app/
 ARG env=prod
 RUN npm run build -- --prod --environment $env
