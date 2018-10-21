@@ -77,17 +77,22 @@ const styles = theme => ({
 });
 
 class Integrations extends Component {
-  state = {
-    expanded: null,
-    integrations: integrations,
-    newIntegrations: newIntegrations,
-  };
+
+  constructor() {
+    super()
+
+    this.state = {
+      expanded: null,
+      integrations: ['justifire', 'visualFlights'],
+      newIntegrations: ['triggerSmart', 'datalife', 'guniary']
+    }
+  }
 
   componentDidMount() {
     const obj = qs(this.props.location.search);
     this.setState({
-      expanded: obj.mode === 'create' ? 'panel2' : 'panel1'
-    })
+      expanded: obj.mode === 'create' ? 'panel2' : 'panel1',
+    });
   }
 
   handleChange = panel => (event, expanded) => {
