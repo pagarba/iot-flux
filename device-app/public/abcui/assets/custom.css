@@ -92,6 +92,34 @@
     margin: 0px 20px;
 }
 
+@media (min-width: 768px) {
+    .theme__body___1_nNM {
+        overflow: hidden;
+    }
+}
+
+/* Login iframe mobile style */
+@media (max-width: 767px) {
+    .theme__dialog___1f3Zg.theme__active___3rz6t {
+        width: 100%;
+        height: 100%;
+        max-width: initial;
+        max-height: initial;
+    }
+
+    .Container-style__topLevelDialog___1tDQX section {
+        padding: 65px 20px;
+    }
+
+    .Login-style__createNewButton___3QgPn {
+        margin: 0 !important;
+    }
+
+    .Login-style__forgotPassword___HURJK {
+        max-width: 60%;
+    }
+}
+
 a {
     color: #52cee8;
 }

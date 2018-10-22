@@ -31,9 +31,26 @@ const styles = theme => ({
     flexShrink: 0,
     fontWeight: 'bold',
   },
+  backIconButton: {
+    padding: 0,
+    margin: '0 5px',
+  },
+  nextIconButton: {
+    padding: 0,
+    margin: '0 5px',
+  },
+  paginationSpacer: {
+    display: 'none',
+  },
+  paginationToolBar: {
+    justifyContent: 'center',
+  },
   secondaryHeading: {
     fontSize: theme.typography.pxToRem(15),
     color: theme.palette.text.secondary,
+  },
+  tableWrapper: {
+    overflowX: 'auto',
   },
 });
 
@@ -191,9 +208,16 @@ class ChannelDevicesTable extends Component {
           page={page}
           backIconButtonProps={{
             'aria-label': 'Previous Page',
+            className: classes.backIconButton
           }}
+          classes={{
+            spacer: classes.paginationSpacer,
+            toolbar: classes.paginationToolBar,
+          }}
+          labelRowsPerPage="Rows:"
           nextIconButtonProps={{
             'aria-label': 'Next Page',
+            className: classes.nextIconButton,
           }}
           onChangePage={this.handleChangePage}
           onChangeRowsPerPage={this.handleChangeRowsPerPage}

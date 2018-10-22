@@ -44,7 +44,6 @@ const styles = theme => ({
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
-    flexBasis: '33.33%',
     flexShrink: 0,
     fontWeight: 'bold',
   },
@@ -60,6 +59,7 @@ const styles = theme => ({
     width: '100%',
     padding: '1em',
     borderRadius: '4px',
+    overflowX: 'scroll',
   },
   imgLogo: {
     height: '50px',

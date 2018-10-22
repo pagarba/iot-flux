@@ -30,7 +30,7 @@ const styles = theme => ({
 
 class SideMenuItem extends Component {
   render() {
-    const { classes, icon, selected, text, to } = this.props;
+    const { classes, icon, selected, text, to, onClick } = this.props;
     return (
       <Link
         className={classes.link}
@@ -46,6 +46,10 @@ class SideMenuItem extends Component {
           touchRipple="darkRed"
           selected={selected}
           TouchRippleProps={{ classes: { root: classes.menuItemRipple } }}
+          onClick={() => {
+            if (onClick)
+              onClick();
+          }}
         >
           <ListItemIcon className={selected ? classes.icon : null}>
             {icon}

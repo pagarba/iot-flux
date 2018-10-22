@@ -110,6 +110,12 @@ const styles = theme => ({
       width: theme.spacing.unit * 9,
     },
   },
+  mobileContent: {
+    display: 'none',
+  },
+  mobileDrawer: {
+    width: 0,
+  },
   pageName: {
     fontWeight: 'bold',
   },
@@ -144,12 +150,14 @@ const pageTitles = {
   'tutorials': 'Tutorials'
 };
 
+const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
 class MainLayout extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      open: true,
+      open: width >= 768,
     }
   }
 
@@ -221,7 +229,7 @@ class MainLayout extends React.Component {
           <Drawer
             variant="permanent"
             classes={{
-              paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose),
+              paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose, width < 768 && !this.state.open && classes.mobileDrawer),
             }}
             open={this.state.open}
           >
@@ -244,40 +252,46 @@ class MainLayout extends React.Component {
                 icon={<DashboardIcon/>}
                 selected={pathname === 'dashboard'}
                 text="Dashboard"
+                onClick={width < 768 && this.handleDrawerClose}
               />
               <SideMenuItem
                 to="/channels"
                 icon={<ChannelsIcon/>}
                 selected={pathname === 'channels' || pathname === 'channelDetail'}
                 text="Channels"
+                onClick={width < 768 && this.handleDrawerClose}
               />
               <SideMenuItem
                 to="/devices"
                 icon={<DevicesIcon/>}
                 selected={pathname === 'devices' || pathname === 'deviceDetail'}
                 text="Device Manager"
+                onClick={width < 768 && this.handleDrawerClose}
               />
               <SideMenuItem
                 to="/events"
                 icon={<EventIcon/>}
                 selected={pathname === 'events'}
                 text="Event Viewer"
+                onClick={width < 768 && this.handleDrawerClose}
               />
               <SideMenuItem
                 to="/integrations"
                 icon={<IntegrationsIcon/>}
                 selected={pathname === 'integrations'}
                 text="Integrations"
+                onClick={width < 768 && this.handleDrawerClose}
               />
               <SideMenuItem
                 to="/tutorials"
                 icon={<TutorialsIcon/>}
                 selected={pathname === 'tutorials'}
                 text="Tutorials"
+                onClick={width < 768 && this.handleDrawerClose}
               />
             </List>
           </Drawer>
-          <main className={classes.content}>
+          <main className={classNames(classes.content, this.state.open && width < 768 && classes.mobileContent)}>
             <div className={classes.toolbar} />
             {this.props.children}
           </main>
