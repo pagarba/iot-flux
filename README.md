@@ -1,4 +1,4 @@
-# TrigX-IOT
+# stream-IOT
 
 ![alt text](/assets/images/blocksafe.png)
 
