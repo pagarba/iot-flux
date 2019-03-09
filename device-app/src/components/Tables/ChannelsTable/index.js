@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
-import { Link } from 'react-router-dom';
 import { withStyles } from "@material-ui/core/styles/index";
 
 import Table from '@material-ui/core/Table';
@@ -137,7 +136,7 @@ class ChannelsTable extends Component {
     });
   }
 
-  handleClickConfirmDelete = event => {
+  handleClickConfirmDelete = () => {
     this.props.onDeleteChannel(this.state.deleteChannelId);
     this.setState({
       isConfirmDialogOpen: false,
@@ -145,14 +144,14 @@ class ChannelsTable extends Component {
     });
   }
 
-  handleHideConfirmDialog = event => {
+  handleHideConfirmDialog = () => {
     this.setState({
       isConfirmDialogOpen: false,
       deleteChannelId: -1,
     })
   }
 
-  handleHideEditDialog = event => {
+  handleHideEditDialog = () => {
     this.setState({
       isEditDialogOpen: false,
       channelToEdit: null,

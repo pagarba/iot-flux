@@ -22,7 +22,7 @@ export const createChannel = channel => dispatch => {
         dispatch({
           type: constants.CREATE_CHANNEL_FAILURE,
           payload: error.data
-        })
+        });
 
         reject();
       });
@@ -178,3 +178,28 @@ export const deleteDeviceFromChannel = (channelId, deviceId) => dispatch => {
       });
   });
 }
+
+export const getChannelDevices = (channelId) => dispatch => {
+  return new Promise(function(resolve, reject) {
+    dispatch({
+      type: constants.GET_CHANNEL_DEVICES_REQUEST,
+    });
+
+    axios.get(`/channels/${channelId}/things`)
+      .then(res => {
+        dispatch({
+          type: constants.GET_CHANNEL_DEVICES_SUCCESS,
+          payload: res.data
+        })
+
+        resolve();
+      })
+      .catch(error => {
+        dispatch({
+          type: constants.GET_CHANNEL_DEVICES_FAILURE,
+          payload: error.data
+        })
+        reject();
+      });
+  });
+};

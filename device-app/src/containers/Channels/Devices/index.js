@@ -3,7 +3,6 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -12,8 +11,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
@@ -22,7 +19,7 @@ import { withStyles } from "@material-ui/core/styles/index";
 
 import ChannelDevicesTable from '../../../components/Tables/ChannelDevicesTable';
 import CreateConfirmDialog from '../../../components/Dialogs/CreateConfirmDialog';
-import { addDeviceToChannel, deleteDeviceFromChannel, getChannel, getChannels } from '../../../core/actions/channel'
+import { addDeviceToChannel, deleteDeviceFromChannel, getChannel, getChannels, getChannelDevices } from '../../../core/actions/channel'
 import { getDevices } from '../../../core/actions/device'
 
 const styles = theme => ({
@@ -52,14 +49,14 @@ const styles = theme => ({
   },
 });
 
-class Devices extends Component {
+export class Devices extends Component {
   state = {
     expanded: 'panel1',
     deviceId: '',
     isCreateConfirmDialogOpen: false,
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.getDevices();
   }
 
@@ -75,7 +72,6 @@ class Devices extends Component {
   };
 
   handleInputChange = event => {
-    console.log(event.target.value);
     this.setState({ [event.target.name]: event.target.value });
   };
 
@@ -103,13 +99,13 @@ class Devices extends Component {
     const { deviceId } = this.state;
     const { id: channelId } = this.props.channel;
 
-    console.log(deviceId);
     if (deviceId) {
       this.props.addDeviceToChannel(
         channelId,
         deviceId
       ).then(() => {
         this.props.getChannel(channelId);
+        this.props.getChannelDevices(channelId);
         this.setState({
           deviceId: '',
           isCreateConfirmDialogOpen: true,
@@ -131,9 +127,9 @@ class Devices extends Component {
   }
 
   render() {
-    const { classes, history } = this.props;
+    const { classes, history, channelDevices } = this.props;
     const { expanded } = this.state;
-    const connectedDevices = this.props.channel.connected || [];
+    const connectedDevices = (channelDevices || {}).things || [];
 
     let devices = this.props.devices ? this.props.devices.things.filter(dev1 => 0 === connectedDevices.filter(dev2 => dev1.id === dev2.id).length) : [];
 
@@ -213,6 +209,7 @@ Devices.propTypes = {
 function mapStateToProps(state) {
   return {
     devices: state.rootReducer.device.devices,
+    channelDevices: state.rootReducer.channel.channelDevices,
     isAddingDeviceToChannel: state.rootReducer.channel.isAddingDeviceToChannel,
   }
 }
@@ -222,6 +219,7 @@ function mapDispatchToProps(dispatch) {
     addDeviceToChannel: (channelId, deviceId) => dispatch(addDeviceToChannel(channelId, deviceId)),
     deleteDeviceFromChannel: (channelId, deviceId) => dispatch(deleteDeviceFromChannel(channelId, deviceId)),
     getChannels: () => dispatch(getChannels()),
+    getChannelDevices: (deviceId) => dispatch(getChannelDevices(deviceId)),
     getDevices: () => dispatch(getDevices()),
     getChannel: (id) => dispatch(getChannel(id)),
   }

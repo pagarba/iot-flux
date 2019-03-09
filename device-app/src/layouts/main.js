@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import axios from 'axios';
 
 import { AppBar, Button, Divider, Drawer, IconButton, List, Toolbar, Typography } from '@material-ui/core';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
@@ -16,26 +15,25 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChannelsIcon from '@material-ui/icons/GridOnOutlined';
 import DevicesIcon from '@material-ui/icons/AddToQueue';
 import EventIcon from '@material-ui/icons/VisibilityOutlined';
-import IntegrationsIcon from '@material-ui/icons/TransformOutlined';
 import TutorialsIcon from '@material-ui/icons/SchoolOutlined';
-
 import DashboardIcon from '@material-ui/icons/DashboardOutlined';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCartOutlined';
 
 import SideMenuItem from '../components/SideMenuItem';
 import { logout, resetAccount } from '../core/actions/auth';
-import { apiKey, appId } from '../config';
 
 import BackgroundImage from '../assets/img/background.jpg';
 import Logo from '../assets/img/logo.png';
+import CoinIcon from '../assets/img/coin-icon.png';
 
 const drawerWidth = 240;
 
 const overallTheme = createMuiTheme({
   palette: {
-    primary: { main: '#fff' }, // Purple and green play nicely together.
+    primary: { main: '#fff' },
     secondary: {
       main: '#52cee8',
-    }, // This is just green.A700 as hex.
+    },
     background: {
       default: '#f7f7f7'
     }
@@ -73,6 +71,16 @@ const styles = theme => ({
     color: '#52cee8',
     fontWeight: 'bold',
   },
+  coinAmount: {
+    fontSize: '25px',
+    margin: '0 0.5rem',
+    fontWeight: 'bold',
+  },
+  coinSection: {
+    display: 'flex',
+    alignItems: 'center',
+    marginRight: '1.5rem',
+  },
   logo: {
     width: '160px',
   },
@@ -109,6 +117,11 @@ const styles = theme => ({
     [theme.breakpoints.up('sm')]: {
       width: theme.spacing.unit * 9,
     },
+    display: 'block',
+  },
+  headerRight: {
+    display: 'flex',
+    alignItems: 'center',
   },
   mobileContent: {
     display: 'none',
@@ -161,23 +174,6 @@ class MainLayout extends React.Component {
     }
   }
 
-  async componentWillMount() {
-    let { account } = this.props;
-
-    if (!account.logout) {
-      const { loginKey, username } = account;
-      const abc = require('airbitz-core-js');
-      const abcContext = abc.makeContext({
-        apiKey,
-        appId,
-      });
-
-      account = await abcContext.loginWithKey(username, loginKey);
-
-      this.props.resetAccount(account);
-    }
-  }
-
   handleDrawerOpen = () => {
     this.setState({ open: true });
   };
@@ -187,8 +183,6 @@ class MainLayout extends React.Component {
   };
 
   logout = async () => {
-    let { account } = this.props;
-    account.logout();
     this.props.logout();
   };
 
@@ -218,12 +212,19 @@ class MainLayout extends React.Component {
               <Typography className={ classes.pageName } variant="title" color="secondary" noWrap>
                 { (pageTitles[pathname] || '').toUpperCase() }
               </Typography>
-              <Button
-                className={classes.btnLogout}
-                onClick={this.logout}
-              >
-                Logout
-              </Button>
+              <div className={classes.headerRight}>
+                <div className={classes.coinSection}>
+                  <img src={CoinIcon}/>
+                  <Typography className={classes.coinAmount} color="secondary">2817.02162010</Typography>
+                  <Typography>StreamX</Typography>
+                </div>
+                <Button
+                  className={classes.btnLogout}
+                  onClick={this.logout}
+                >
+                  Logout
+                </Button>
+              </div>
             </Toolbar>
           </AppBar>
           <Drawer
@@ -239,7 +240,7 @@ class MainLayout extends React.Component {
                   className={classes.logo}
                   src={Logo}
                 />
-                <Typography className={classes.logoText} variant="h4" color="secondary">CONTROL CENTER</Typography>
+                <Typography className={classes.logoText} variant="h6" color="secondary">CONTROL CENTER</Typography>
               </div>
               <IconButton onClick={this.handleDrawerClose}>
                 {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
@@ -252,6 +253,13 @@ class MainLayout extends React.Component {
                 icon={<DashboardIcon/>}
                 selected={pathname === 'dashboard'}
                 text="Dashboard"
+                onClick={width < 768 && this.handleDrawerClose}
+              />
+              <SideMenuItem
+                to="/marketplace"
+                icon={<ShoppingCartIcon/>}
+                selected={pathname === 'marketplace'}
+                text="Marketplace"
                 onClick={width < 768 && this.handleDrawerClose}
               />
               <SideMenuItem
@@ -273,13 +281,6 @@ class MainLayout extends React.Component {
                 icon={<EventIcon/>}
                 selected={pathname === 'events'}
                 text="Event Viewer"
-                onClick={width < 768 && this.handleDrawerClose}
-              />
-              <SideMenuItem
-                to="/integrations"
-                icon={<IntegrationsIcon/>}
-                selected={pathname === 'integrations'}
-                text="Integrations"
                 onClick={width < 768 && this.handleDrawerClose}
               />
               <SideMenuItem

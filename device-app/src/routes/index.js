@@ -4,15 +4,17 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import MainLayout from '../layouts/main';
 import GuestLayout from '../layouts/guest';
 import Page404 from '../containers/Page404';
-import Login from '../containers/Login';
+import Login from '../containers/Auth/Login';
+import ResetPassword from '../containers/Auth/ResetPassword';
+import Signup from '../containers/Auth/Signup';
 import Dashboard from '../containers/Dashboard';
 import Devices from '../containers/Devices';
 import DeviceDetail from '../containers/Devices/detail';
 import Channels from '../containers/Channels';
 import ChannelDetail from '../containers/Channels/detail';
-import Events from '../containers/Events';
 import EventDetail from '../containers/Events/detail';
 import Integrations from '../containers/Integrations';
+import MarketPlace from '../containers/Marketplace';
 import Tutorials from '../containers/Tutorials';
 import GettingStartedTutorial from '../containers/Tutorials/GettingStarted';
 import IoTBasicsTutorial from '../containers/Tutorials/IoTBasics';
@@ -27,11 +29,15 @@ const userPaths = [
   'events',
   'eventDetail',
   'integrations',
-  'tutorials'
+  'marketplace',
+  'build-kits',
+  'tutorials',
 ];
 
 const guestPaths = [
   'login',
+  'reset-password',
+  'signup',
   'error'
 ]
 
@@ -50,7 +56,6 @@ class Routes extends Component {
 
     if (isAuthenticated) {
       if (pathname !== '' && userPaths.indexOf(pathname) === -1) {
-        console.log(isAuthenticated);
         return (
           <Switch>
             <GuestLayout>
@@ -72,6 +77,11 @@ class Routes extends Component {
               location={location}
               path="/dashboard"
               component={Dashboard}
+            />
+            <Route
+              location={location}
+              path="/marketplace"
+              component={MarketPlace}
             />
             <Route
               location={location}
@@ -101,7 +111,7 @@ class Routes extends Component {
               location={location}
               exact
               path="/events"
-              component={Events}
+              component={EventDetail}
             />
             <Route
               location={location}
@@ -152,6 +162,16 @@ class Routes extends Component {
             location={location}
             path="/login"
             component={Login}
+          />
+          <Route
+            location={location}
+            path="/reset-password"
+            component={ResetPassword}
+          />
+          <Route
+            location={location}
+            path="/signup"
+            component={Signup}
           />
           <Route
             component={Page404}

@@ -3,7 +3,6 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import qs from 'stringquery';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
@@ -49,7 +48,7 @@ const styles = theme => ({
   },
 });
 
-class Channels extends Component {
+export class Channels extends Component {
   state = {
     expanded: null,
     channelName: '',

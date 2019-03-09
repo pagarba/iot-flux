@@ -1,31 +1,32 @@
 import React, { Component } from 'react';
-import classnames from 'classnames';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux'
 
-import { Link } from 'react-router-dom';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import SearchIcon from '@material-ui/icons/Search';
+
 import { withStyles } from "@material-ui/core/styles/index";
 
-import { getChannel } from '../../core/actions/channel';
-import { createEvent, getEvents } from '../../core/actions/event';
+import { getChannel, getChannels, getChannelDevices } from '../../core/actions/channel';
+import { createEvent, getEvents, emptyEvents } from '../../core/actions/event';
 import { getDevices } from '../../core/actions/device';
+
 import EventsTable from '../../components/Tables/EventsTable';
 import CreateConfirmDialog from '../../components/Dialogs/CreateConfirmDialog';
-import qs from 'stringquery'
-import { connect } from 'react-redux'
+import moment from "moment/moment";
 
 const styles = theme => ({
   root: {
@@ -36,8 +37,20 @@ const styles = theme => ({
     marginTop: '2em',
     color: '#fff',
   },
+  channelFilter: {
+    backgroundColor: '#fff',
+    width: '100%',
+    display: 'flex',
+    alignItems: 'flex-end',
+    borderTopLeftRadius: '4px',
+    borderTopRightRadius: '4px',
+  },
   eventsListPanel: {
     backgroundColor: '#52cee8',
+  },
+  eventsListPanelDetails: {
+    display: 'flex',
+    flexDirection: 'column',
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
@@ -45,8 +58,8 @@ const styles = theme => ({
     fontWeight: 'bold',
   },
   formControl: {
-    margin: theme.spacing.unit,
-    minWidth: '120px'
+    minWidth: '150px',
+    margin: '0 1rem',
   },
   secondaryHeading: {
     fontSize: theme.typography.pxToRem(15),
@@ -54,44 +67,50 @@ const styles = theme => ({
   },
 });
 
-class EventsDetail extends Component {
+export class EventsDetail extends Component {
   state = {
+    channelId: '',
     expanded: 'panel1',
     eventName: '',
     deviceKey: '',
     data: '',
     isCreateConfirmDialogOpen: false,
+    searchKeyword: '',
   };
 
-  componentDidMount() {
-    const { channelId } = this.props.match.params;
+  async componentDidMount() {
 
+    /**
+     * Latest way to get channel devices. (With dropdown and with updated mainflux API)
+     */
     this.props.getDevices();
+    await this.props.getChannels();
 
-    this.props.getChannel(channelId)
-      .then(() => {
-        const { channel } = this.props;
-        if (channel && channel.connected && channel.connected.length) {
-          const deviceKey = channel.connected[0].key;
-          this.props.getEvents(channelId, deviceKey)
-            .then(() => {
-              console.log(this.props.events)
-            })
-        } else {
-          this.props.getEvents(channelId, 'random key')
-            .then(() => {
-              console.log(this.props.events)
-            })
-            .catch(() => {
-              console.log(this.props.events)
-            })
-        }
-      })
+    let { channels } = this.props;
+    channels = channels.channels;
+
+    if (channels.length) {
+      await this.props.getChannelDevices(channels[0].id);
+
+      this.setState({
+        channelId: channels[0].id,
+      });
+
+      const { channelDevices } = this.props;
+      if (channelDevices && channelDevices.things && channelDevices.things.length) {
+        const deviceKey = channelDevices.things[0].key;
+
+        this.props.getEvents(channels[0].id, deviceKey);
+      } else {
+        this.props.getEvents(channels[0].id, 'random key');
+      }
+    } else {
+      this.props.emptyEvents();
+    }
   }
 
   addEvent = () => {
-    const { channelId } = this.props.match.params;
-    const { deviceKey, data } = this.state;
+    const { channelId, deviceKey, data } = this.state;
 
     if (data && deviceKey) {
       this.props.createEvent(channelId, deviceKey, data)
@@ -104,7 +123,7 @@ class EventsDetail extends Component {
           })
         });
     }
-  }
+  };
 
   handleChange = panel => (event, expanded) => {
     this.setState({
@@ -121,10 +140,28 @@ class EventsDetail extends Component {
     this.setState({
       isCreateConfirmDialogOpen: false,
     })
-  }
+  };
 
   handleInputChange = event => {
     this.setState({ [event.target.name]: event.target.value });
+  };
+
+  handleChannelChange = async (event) => {
+    this.setState({
+      channelId: event.target.value,
+    });
+
+    this.props.getChannel(event.target.value);
+    await this.props.getChannelDevices(event.target.value);
+
+    const { channelDevices } = this.props;
+
+    if (channelDevices && channelDevices.things && channelDevices.things.length) {
+      const deviceKey = channelDevices.things[0].key;
+      this.props.getEvents(event.target.value, deviceKey);
+    } else {
+      this.props.getEvents(event.target.value, 'random key');
+    }
   };
 
   navigateToView = () => {
@@ -132,18 +169,32 @@ class EventsDetail extends Component {
       isCreateConfirmDialogOpen: false,
       expanded: 'panel1'
     });
-  }
+  };
 
   navigateToCreate = () => {
     this.setState({
       isCreateConfirmDialogOpen: false,
       expanded: 'panel2'
     });
-  }
+  };
+
+  filteredMessages = () => {
+    const { events, devices } = this.props;
+    const { searchKeyword } = this.state;
+
+    return ((events || {}).messages || []).filter((e) => {
+      const deviceName = devices && devices.things ? (devices.things.find((device) => device.id === e.publisher) || {}).name : '';
+      return e.name.indexOf(searchKeyword) !== -1 || e.protocol.indexOf(searchKeyword) !== -1
+        || e.unit.indexOf(searchKeyword) !== -1 || e.value.toString().indexOf(searchKeyword) !== -1
+        || moment(e.time).format('YYYY-MM-DD HH:mm:ss').indexOf(searchKeyword) !== -1
+        || deviceName.indexOf(searchKeyword) !== -1;
+    });
+  };
 
   render() {
-    const { classes, history, channel, devices, events } = this.props;
+    const { classes, history, channels, devices, channelDevices } = this.props;
     const { expanded } = this.state;
+
     return (
       <div className={classes.root}>
         <ExpansionPanel
@@ -154,10 +205,41 @@ class EventsDetail extends Component {
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon color="primary" />}>
             <Typography className={classes.heading} color="primary">MY EVENTS</Typography>
           </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
+          <ExpansionPanelDetails className={classes.eventsListPanelDetails}>
+            <div className={classes.channelFilter}>
+              <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="deviceKey">Select Channel</InputLabel>
+                <Select
+                  value={this.state.channelId}
+                  onChange={this.handleChannelChange}
+                  inputProps={{
+                    name: 'channelId',
+                    id: 'channelId',
+                  }}
+                >
+                  {
+                    ((channels || {}).channels || []).map((channel) => (
+                      <MenuItem value={channel.id}>{channel.name}</MenuItem>
+                    ))
+                  }
+                </Select>
+              </FormControl>
+              <FormControl className={classes.formControl}>
+                <Input
+                  id="searchKeyword"
+                  name="searchKeyword"
+                  onChange={this.handleInputChange}
+                  startAdornment={
+                    <InputAdornment position="start">
+                      <SearchIcon />
+                    </InputAdornment>
+                  }
+                />
+              </FormControl>
+            </div>
             <EventsTable
               history={history}
-              data={events ? events.messages : []}
+              data={this.filteredMessages()}
               devices={devices}
             />
           </ExpansionPanelDetails>
@@ -167,12 +249,6 @@ class EventsDetail extends Component {
             <Typography className={classes.heading}>ADD A NEW EVENT</Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className={classes.root}>
-            {/*<FormControl className={classes.formControl} error={this.state.eventName === null} fullWidth aria-describedby="component-error-text">*/}
-              {/*<InputLabel htmlFor="component-error">Event Name*</InputLabel>*/}
-              {/*<Input name="eventName" value={this.state.eventName} onChange={this.handleInputChange} onBlur={this.handleBlur} />*/}
-              {/*<FormHelperText id="component-error-text">This field is required</FormHelperText>*/}
-            {/*</FormControl>*/}
-
             <FormControl className={classes.formControl}>
               <InputLabel htmlFor="deviceKey">Device</InputLabel>
               <Select
@@ -184,7 +260,7 @@ class EventsDetail extends Component {
                 }}
               >
                 {
-                  channel && channel.connected && channel.connected.map((device) => (
+                  channelDevices && channelDevices.things && channelDevices.things.map((device) => (
                     <MenuItem value={device.key}>{device.name}</MenuItem>
                   ))
                 }
@@ -231,6 +307,8 @@ EventsDetail.propTypes = {
 function mapStateToProps(state) {
   return {
     channel: state.rootReducer.channel.channel,
+    channels: state.rootReducer.channel.channels,
+    channelDevices: state.rootReducer.channel.channelDevices,
     events: state.rootReducer.event.events,
     devices: state.rootReducer.device.devices,
     isCreatingEvent: state.rootReducer.event.isCreatingEvent,
@@ -241,8 +319,11 @@ function mapDispatchToProps(dispatch) {
   return {
     createEvent: (channelId, deviceKey, data) => dispatch(createEvent(channelId, deviceKey, data)),
     getChannel: (id) => dispatch(getChannel(id)),
+    getChannels: () => dispatch(getChannels()),
+    getChannelDevices: (id) => dispatch(getChannelDevices(id)),
     getDevices: () => dispatch(getDevices()),
     getEvents: (channelId, deviceKey) => dispatch(getEvents(channelId, deviceKey)),
+    emptyEvents: () => dispatch(emptyEvents()),
   }
 }
 

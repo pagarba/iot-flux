@@ -2,17 +2,18 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { withStyles } from '@material-ui/core/styles';
-import { Grid, Hidden, Paper, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 
 import { Link } from 'react-router-dom';
 
 import ChannelsIcon from '@material-ui/icons/GridOnOutlined';
 import AddDeviceIcon from '@material-ui/icons/AddToQueue';
 import ViewEventsIcon from '@material-ui/icons/VisibilityOutlined';
-import AddIntegration from '@material-ui/icons/TransformOutlined';
 import TutorialIcon from '@material-ui/icons/SchoolOutlined';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCartOutlined';
+import PanToolIcon from '@material-ui/icons/PanTool';
 
-const styles = theme => ({
+const styles = () => ({
   dashboard: {
     textAlign: 'center',
     marginTop: '50px'
@@ -33,7 +34,7 @@ const styles = theme => ({
   },
 });
 
-class Tutorial extends Component {
+export class Dashboard extends Component {
   constructor() {
     super();
   }
@@ -44,11 +45,31 @@ class Tutorial extends Component {
     return (
       <div className={classes.dashboard}>
         <Grid container spacing={24}>
-          <Hidden xsDown>
-            <Grid item sm={1}>
-            </Grid>
-          </Hidden>
-          <Grid item xs={4} sm={2}>
+          <Grid item xs={6} sm={4} md={2}>
+            <Link className={classes.link} to="/marketplace?mode=create">
+              <Grid item xs container direction="column" spacing={16}>
+                <Grid item>
+                  <ShoppingCartIcon className={classes.icon}/>
+                </Grid>
+                <Grid item>
+                  <Typography className={classes.text} color="secondary" gutterBottom>Marketplace</Typography>
+                </Grid>
+              </Grid>
+            </Link>
+          </Grid>
+          <Grid item xs={6} sm={4} md={2}>
+            <Link className={classes.link} to="/build-kits?mode=create">
+              <Grid item xs container direction="column" spacing={16}>
+                <Grid item>
+                  <PanToolIcon className={classes.icon}/>
+                </Grid>
+                <Grid item>
+                  <Typography className={classes.text} color="secondary" gutterBottom>Build Kits</Typography>
+                </Grid>
+              </Grid>
+            </Link>
+          </Grid>
+          <Grid item xs={6} sm={4} md={2}>
             <Link className={classes.link} to="/channels?mode=create">
               <Grid item xs container direction="column" spacing={16}>
                 <Grid item>
@@ -60,7 +81,7 @@ class Tutorial extends Component {
               </Grid>
             </Link>
           </Grid>
-          <Grid item xs={4} sm={2}>
+          <Grid item xs={6} sm={4} md={2}>
             <Link className={classes.link} to="/devices?mode=create">
               <Grid item xs container direction="column" spacing={16}>
                 <Grid item>
@@ -72,7 +93,7 @@ class Tutorial extends Component {
               </Grid>
             </Link>
           </Grid>
-          <Grid item xs={4} sm={2}>
+          <Grid item xs={6} sm={4} md={2}>
             <Link className={classes.link} to="/events?mode=create">
               <Grid item xs container direction="column" spacing={16}>
                 <Grid item>
@@ -84,19 +105,7 @@ class Tutorial extends Component {
               </Grid>
             </Link>
           </Grid>
-          <Grid item xs={6} sm={2}>
-            <Link className={classes.link} to="/integrations?mode=create">
-              <Grid item xs container direction="column" spacing={16}>
-                <Grid item>
-                  <AddIntegration className={classes.icon}/>
-                </Grid>
-                <Grid item>
-                  <Typography className={classes.text} color="secondary" gutterBottom>Add Integration</Typography>
-                </Grid>
-              </Grid>
-            </Link>
-          </Grid>
-          <Grid item xs={6} sm={2}>
+          <Grid item xs={6} sm={4} md={2}>
             <Link className={classes.link} to="/tutorials?mode=create">
               <Grid item xs container direction="column" spacing={16}>
                 <Grid item>
@@ -114,8 +123,8 @@ class Tutorial extends Component {
   }
 }
 
-Tutorial.propTypes = {
+Dashboard.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Tutorial);
+export default withStyles(styles)(Dashboard);

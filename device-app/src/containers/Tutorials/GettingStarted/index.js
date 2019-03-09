@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { withStyles } from '@material-ui/core/styles';
-import { Typography } from '@material-ui/core';
 
-const styles = theme => ({
+const styles = () => ({
   root: {
     flexGrow: 1,
   },
@@ -14,10 +13,6 @@ const styles = theme => ({
 });
 
 class Dashboard extends Component {
-  constructor() {
-    super();
-  }
-
   render() {
     const { classes } = this.props;
 

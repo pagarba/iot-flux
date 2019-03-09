@@ -37,7 +37,7 @@ App.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    isAuthenticated: !!state.rootReducer.auth.account && !!localStorage.token
+    isAuthenticated: !!state.rootReducer.auth.token && !!localStorage.token
   };
 }
 

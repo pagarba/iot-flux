@@ -39,34 +39,9 @@ export const createEvent = (channelId, deviceKey, data) => dispatch => {
   });
 }
 
-export const editDevice = (id, device) => dispatch => {
-  return new Promise(function(resolve, reject) {
-    dispatch({
-      type: constants.EDIT_DEVICE_REQUEST,
-    });
-
-    axios.put(`/things/${id}`, device)
-      .then(res => {
-        dispatch({
-          type: constants.EDIT_DEVICE_SUCCESS,
-          payload: res.data
-        });
-
-        resolve();
-      })
-      .catch(error => {
-        dispatch({
-          type: constants.EDIT_DEVICE_FAILURE,
-          payload: error.data
-        })
-
-        reject();
-      });
-  });
-}
-
 export const getEvents = (channelId, deviceKey) => dispatch => {
   delete axios.defaults.headers.common.authorization;
+
   const instance = axios.create({
     headers: {
       'Authorization': deviceKey,
@@ -78,7 +53,7 @@ export const getEvents = (channelId, deviceKey) => dispatch => {
       type: constants.GET_EVENTS_REQUEST,
     });
 
-    instance.get(`/events/channels/${channelId}/messages?limit=100`)
+    instance.get(`/reader/channels/${channelId}/messages?limit=100`)
       .then(res => {
         dispatch({
           type: constants.GET_EVENTS_SUCCESS,
@@ -98,52 +73,9 @@ export const getEvents = (channelId, deviceKey) => dispatch => {
   });
 }
 
-export const getDevice = (id) => dispatch => {
-  return new Promise(function(resolve, reject) {
-    dispatch({
-      type: constants.GET_DEVICE_REQUEST,
-    });
-
-    axios.get(`/things/${id}`)
-      .then(res => {
-        dispatch({
-          type: constants.GET_DEVICE_SUCCESS,
-          payload: res.data
-        })
-
-        resolve();
-      })
-      .catch(error => {
-        dispatch({
-          type: constants.GET_DEVICE_FAILURE,
-          payload: error.data
-        })
-        reject();
-      });
+export const emptyEvents = () => dispatch => {
+  dispatch({
+    type: constants.GET_EVENTS_SUCCESS,
+    payload: { messages: [] }
   });
-}
-
-export const deleteDevice = (id) => dispatch => {
-  return new Promise(function(resolve, reject) {
-    dispatch({
-      type: constants.DELETE_DEVICE_REQUEST,
-    });
-
-    axios.delete(`/things/${id}`)
-      .then(res => {
-        dispatch({
-          type: constants.DELETE_DEVICE_SUCCESS,
-          payload: res.data
-        })
-
-        resolve();
-      })
-      .catch(error => {
-        dispatch({
-          type: constants.DELETE_DEVICE_FAILURE,
-          payload: error.data
-        })
-        reject();
-      });
-  });
-}
+};

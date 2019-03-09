@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Events /> should render components 1`] = `
+<div>
+  <WithStyles(ExpansionPanel)
+    expanded={true}
+    onChange={[Function]}
+  >
+    <WithStyles(ExpansionPanelSummary)
+      expandIcon={
+        <pure(ExpandMoreIcon)
+          color="primary"
+        />
+      }
+    >
+      <WithStyles(Typography)
+        color="primary"
+      >
+        MY CHANNELS
+      </WithStyles(Typography)>
+    </WithStyles(ExpansionPanelSummary)>
+    <WithStyles(ExpansionPanelDetails)>
+      <WithStyles(EventChannelsTable)
+        data={Array []}
+      />
+    </WithStyles(ExpansionPanelDetails)>
+  </WithStyles(ExpansionPanel)>
+</div>
+`;

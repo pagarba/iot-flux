@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Login /> should render components 1`] = `
+<div>
+  <WithStyles(Card)
+    raised={true}
+  >
+    <WithStyles(CardContent)>
+      <img
+        src="logo.png"
+      />
+      <WithStyles(Typography)
+        variant="h5"
+      >
+        Welcome to the Stream IoT Control Center
+      </WithStyles(Typography)>
+      <WithStyles(FormControl)
+        aria-describedby="component-error-text"
+        error={false}
+        fullWidth={true}
+      >
+        <WithStyles(Input)
+          onChange={[Function]}
+          placeholder="Email"
+          type="email"
+          value=""
+        />
+      </WithStyles(FormControl)>
+      <WithStyles(FormControl)
+        aria-describedby="component-error-text"
+        error={false}
+        fullWidth={true}
+      >
+        <WithStyles(Input)
+          onChange={[Function]}
+          placeholder="Password"
+          type="password"
+          value=""
+        />
+      </WithStyles(FormControl)>
+      <WithStyles(Button)
+        color="primary"
+        onClick={[Function]}
+        variant="contained"
+      >
+        Login
+      </WithStyles(Button)>
+      <div>
+        <WithStyles(Typography)
+          onClick={[Function]}
+        >
+          Forgot Password?
+        </WithStyles(Typography)>
+        <WithStyles(Typography)
+          onClick={[Function]}
+        >
+          Create Account?
+        </WithStyles(Typography)>
+      </div>
+    </WithStyles(CardContent)>
+  </WithStyles(Card)>
+</div>
+`;

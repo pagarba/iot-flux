@@ -1,0 +1,115 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Integrations /> should render components 1`] = `
+<div>
+  <WithStyles(ExpansionPanel)
+    expanded={true}
+    key="1"
+    onChange={[Function]}
+  >
+    <WithStyles(ExpansionPanelSummary)
+      expandIcon={
+        <pure(ExpandMoreIcon)
+          color="primary"
+        />
+      }
+    >
+      <WithStyles(Typography)
+        color="primary"
+      >
+        MY INTEGRATIONS
+      </WithStyles(Typography)>
+    </WithStyles(ExpansionPanelSummary)>
+    <WithStyles(ExpansionPanelDetails)>
+      <div>
+        <div
+          key="0"
+        >
+          <img
+            src="justifire.png"
+          />
+          <WithStyles(Button)
+            color="secondary"
+            onClick={[Function]}
+            variant="contained"
+          >
+            + Delete 
+            justifire
+          </WithStyles(Button)>
+        </div>
+        <div
+          key="1"
+        >
+          <img
+            src="visual_flights.png"
+          />
+          <WithStyles(Button)
+            color="secondary"
+            onClick={[Function]}
+            variant="contained"
+          >
+            + Delete 
+            visualFlights
+          </WithStyles(Button)>
+        </div>
+      </div>
+    </WithStyles(ExpansionPanelDetails)>
+  </WithStyles(ExpansionPanel)>
+  <WithStyles(ExpansionPanel)
+    expanded={false}
+    key="2"
+    onChange={[Function]}
+  >
+    <WithStyles(ExpansionPanelSummary)
+      expandIcon={<pure(ExpandMoreIcon) />}
+    >
+      <WithStyles(Typography)>
+        ADD A NEW INTEGRATION
+      </WithStyles(Typography)>
+    </WithStyles(ExpansionPanelSummary)>
+    <WithStyles(ExpansionPanelDetails)>
+      <div>
+        <div>
+          <img
+            src="trigger_smart.png"
+          />
+          <WithStyles(Button)
+            color="secondary"
+            onClick={[Function]}
+            variant="contained"
+          >
+            + Add 
+            triggerSmart
+          </WithStyles(Button)>
+        </div>
+        <div>
+          <img
+            src="datalife.png"
+          />
+          <WithStyles(Button)
+            color="secondary"
+            onClick={[Function]}
+            variant="contained"
+          >
+            + Add 
+            datalife
+          </WithStyles(Button)>
+        </div>
+        <div>
+          <img
+            src="guniary.png"
+          />
+          <WithStyles(Button)
+            color="secondary"
+            onClick={[Function]}
+            variant="contained"
+          >
+            + Add 
+            guniary
+          </WithStyles(Button)>
+        </div>
+      </div>
+    </WithStyles(ExpansionPanelDetails)>
+  </WithStyles(ExpansionPanel)>
+</div>
+`;

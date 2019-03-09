@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
-import { Link } from 'react-router-dom';
 import { withStyles } from "@material-ui/core/styles/index";
 
 import Table from '@material-ui/core/Table';
@@ -11,8 +10,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-
-import DeleteIcon from '@material-ui/icons/Delete';
 
 import EnhancedTableHead from '../EnhancedTableHead';
 import ConfirmDialog from '../../Dialogs/ConfirmDialog';
@@ -116,7 +113,7 @@ class EventChannelsTable extends Component {
     this.setState({ rowsPerPage: event.target.value });
   };
 
-  handleClickConfirm = event => {
+  handleClickConfirm = () => {
     this.props.onDeleteChannel(this.state.deleteChannelId);
     this.setState({
       isConfirmDialogOpen: false,
@@ -124,7 +121,7 @@ class EventChannelsTable extends Component {
     })
   }
 
-  handleClickDismiss = event => {
+  handleClickDismiss = () => {
     this.setState({
       isConfirmDialogOpen: false,
       deleteChannelId: -1,
@@ -134,13 +131,6 @@ class EventChannelsTable extends Component {
   handleClick = (event, channelId) => {
     this.props.history.push(`/events/channels/${channelId}/messages`);
   };
-
-  handleDeleteIconClick = deleteChannelId => {
-    this.setState({
-      deleteChannelId,
-      isConfirmDialogOpen: true,
-    });
-  }
 
   isSelected = id => this.state.selected.indexOf(id) !== -1;
 

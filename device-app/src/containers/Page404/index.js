@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles/index'
 import { Typography } from '@material-ui/core';
 
-const styles = theme => ({
+const styles = () => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
@@ -19,7 +19,6 @@ class Page404 extends Component {
   render () {
     const { classes, isAuthenticated } = this.props;
 
-    console.log(this.props);
     return (
       <div className={classes.root}>
         <Typography variant="display3" gutterBottom>

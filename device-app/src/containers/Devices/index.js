@@ -3,7 +3,6 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -51,7 +50,7 @@ const styles = theme => ({
   },
 });
 
-class Devices extends Component {
+export class Devices extends Component {
   state = {
     expanded: null,
     deviceType: '',
@@ -168,12 +167,6 @@ class Devices extends Component {
               <Input name="deviceName" value={this.state.deviceName} onChange={this.handleInputChange} onBlur={this.handleBlur} />
               <FormHelperText id="component-error-text">This field is required</FormHelperText>
             </FormControl>
-
-            {/*<FormControl className={classes.formControl} error={this.state.deviceKey === null} fullWidth aria-describedby="component-error-text">*/}
-              {/*<InputLabel htmlFor="component-error">Device Key*</InputLabel>*/}
-              {/*<Input name="deviceKey" value={this.state.deviceKey} onChange={this.handleInputChange} onBlur={this.handleBlur} />*/}
-              {/*<FormHelperText id="component-error-text">This field is required</FormHelperText>*/}
-            {/*</FormControl>*/}
 
             <FormControl className={classes.formControl} fullWidth>
               <InputLabel htmlFor="deviceType">Device Type</InputLabel>

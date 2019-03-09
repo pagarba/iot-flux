@@ -2,12 +2,18 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 
-const styles = theme => ({})
+const styles = () => ({
+  root: {
+    height: '100%',
+  },
+});
 
 class GuestLayout extends React.Component {
   render () {
+    const { classes } = this.props;
+
     return (
-      <div>
+      <div className={classes.root}>
         {this.props.children}
       </div>
     )

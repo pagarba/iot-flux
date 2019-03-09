@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ChannelDevices /> should render components 1`] = `
+<div>
+  <WithStyles(ExpansionPanel)
+    expanded={true}
+    onChange={[Function]}
+  >
+    <WithStyles(ExpansionPanelSummary)
+      expandIcon={
+        <pure(ExpandMoreIcon)
+          color="primary"
+        />
+      }
+    >
+      <WithStyles(Typography)
+        color="primary"
+      >
+        CONNECTED DEVICES
+      </WithStyles(Typography)>
+    </WithStyles(ExpansionPanelSummary)>
+    <WithStyles(ExpansionPanelDetails)>
+      <WithStyles(ChannelDevicesTable)
+        data={Array []}
+        onDeleteDeviceFromChannel={[Function]}
+      />
+    </WithStyles(ExpansionPanelDetails)>
+  </WithStyles(ExpansionPanel)>
+  <WithStyles(ExpansionPanel)
+    expanded={false}
+    onChange={[Function]}
+  >
+    <WithStyles(ExpansionPanelSummary)
+      expandIcon={<pure(ExpandMoreIcon) />}
+    >
+      <WithStyles(Typography)>
+        CONNECT A NEW DEVICE
+      </WithStyles(Typography)>
+    </WithStyles(ExpansionPanelSummary)>
+    <WithStyles(ExpansionPanelDetails)>
+      <div>
+        <WithStyles(FormControl)>
+          <WithStyles(WithFormControlContext(InputLabel))
+            htmlFor="deviceId"
+          >
+            Device
+          </WithStyles(WithFormControlContext(InputLabel))>
+          <WithStyles(WithFormControlContext(Select))
+            inputProps={
+              Object {
+                "id": "deviceId",
+                "name": "deviceId",
+              }
+            }
+            onChange={[Function]}
+            value=""
+          />
+        </WithStyles(FormControl)>
+      </div>
+      <WithStyles(Button)
+        color="secondary"
+        onClick={[Function]}
+        variant="contained"
+      >
+        Connect Device
+      </WithStyles(Button)>
+    </WithStyles(ExpansionPanelDetails)>
+  </WithStyles(ExpansionPanel)>
+  <WithStyles(ConfirmDialog)
+    contentText="Device was added to channel"
+    createButtonText="Connect Device"
+    onClickCreate={[Function]}
+    onClickDismiss={[Function]}
+    onClickView={[Function]}
+    open={false}
+    titleText="Confirm"
+    viewButtonText="View Devices"
+  />
+</div>
+`;

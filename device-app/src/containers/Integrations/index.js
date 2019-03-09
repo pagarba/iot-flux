@@ -9,10 +9,6 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import Button from '@material-ui/core/Button';
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
 import { withStyles } from "@material-ui/core/styles/index";
 
 import JustifireLogo from '../../assets/img/justifire.png';
@@ -76,10 +72,10 @@ const styles = theme => ({
   },
 });
 
-class Integrations extends Component {
+export class Integrations extends Component {
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props);
 
     this.state = {
       expanded: null,
@@ -135,11 +131,12 @@ class Integrations extends Component {
   }
 
   render() {
-    const { classes, history } = this.props;
+    const { classes } = this.props;
     const { expanded } = this.state;
     return (
       <div className={classes.root}>
         <ExpansionPanel
+          key={1}
           className={classes.myIntegrationsPanel}
           expanded={expanded === 'panel1'}
           onChange={this.handleChange('panel1')}
@@ -150,8 +147,8 @@ class Integrations extends Component {
           <ExpansionPanelDetails>
             <div className={classes.imgList}>
               {
-                this.state.integrations.map(integration => (
-                  <div className={classes.imgContainer}>
+                this.state.integrations.map((integration, i) => (
+                  <div key={i} className={classes.imgContainer}>
                     <img className={classes.imgLogo} src={logos[integration]} />
                     <Button
                       color="secondary"
@@ -167,7 +164,11 @@ class Integrations extends Component {
             </div>
           </ExpansionPanelDetails>
         </ExpansionPanel>
-        <ExpansionPanel expanded={expanded === 'panel2'} onChange={this.handleChange('panel2')}>
+        <ExpansionPanel
+          key={2}
+          expanded={expanded === 'panel2'}
+          onChange={this.handleChange('panel2')}
+        >
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
             <Typography className={classes.heading}>ADD A NEW INTEGRATION</Typography>
           </ExpansionPanelSummary>

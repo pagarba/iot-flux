@@ -5,7 +5,7 @@ export default (state = {}, action) => {
     case constants.LOGIN_SUCCESS:
       return {
         ...state,
-        account: action.account,
+        token: action.token,
       };
     case constants.ACCOUNT_FETCH_SUCCESS:
       return {
@@ -15,7 +15,7 @@ export default (state = {}, action) => {
     case constants.LOGOUT_SUCCESS:
       return {
         ...state,
-        account: null,
+        token: null,
       };
     default:
       return state;

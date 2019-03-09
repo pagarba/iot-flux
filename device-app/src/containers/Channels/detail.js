@@ -4,16 +4,8 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-import Button from '@material-ui/core/Button';
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-
 import { withStyles } from "@material-ui/core/styles/index";
-import { getChannel, editChannel } from '../../core/actions/channel'
+import {getChannel, editChannel, getChannelDevices} from '../../core/actions/channel'
 import ChannelDevices from './Devices';
 
 const styles = theme => ({
@@ -40,7 +32,7 @@ const styles = theme => ({
   },
 });
 
-class ChannelDetail extends Component {
+export class ChannelDetail extends Component {
   constructor () {
     super();
 
@@ -52,7 +44,9 @@ class ChannelDetail extends Component {
 
   componentWillMount() {
     const channelId = this.props.match.params.channelId;
+
     this.props.getChannel(channelId);
+    this.props.getChannelDevices(channelId);
   }
 
   componentWillReceiveProps(props) {
@@ -74,13 +68,7 @@ class ChannelDetail extends Component {
         })
       });
     });
-  }
-
-  enableEdit = (isEditMode) => {
-    this.setState({
-      isEditMode,
-    })
-  }
+  };
 
   handleInputChange = event => {
     this.setState({ [event.target.name]: event.target.value });
@@ -88,70 +76,11 @@ class ChannelDetail extends Component {
 
   render() {
     const { classes } = this.props;
-    const { isEditMode } = this.state;
 
     const channel = this.props.channel || {};
 
     return (
       <div className={classes.root}>
-        {/*<table>*/}
-          {/*<tbody>*/}
-            {/*<tr>*/}
-              {/*<td><b>Channel ID: </b></td>*/}
-              {/*<td>*/}
-                {/*{channel.id}*/}
-              {/*</td>*/}
-            {/*</tr>*/}
-            {/*<tr>*/}
-              {/*<td><b>Channel Name: </b></td>*/}
-              {/*<td>*/}
-                {/*{*/}
-                  {/*isEditMode ? (*/}
-                    {/*<FormControl className={classes.formControl} error={this.state.channelName === null} fullWidth aria-describedby="component-error-text">*/}
-                      {/*<Input name="name" value={this.state.name} onChange={this.handleInputChange} />*/}
-                    {/*</FormControl>*/}
-                  {/*) : channel.name*/}
-                {/*}*/}
-              {/*</td>*/}
-            {/*</tr>*/}
-          {/*</tbody>*/}
-        {/*</table>*/}
-
-        {/*{*/}
-          {/*isEditMode ? (*/}
-            {/*<div>*/}
-              {/*<Button*/}
-                {/*className={classes.button}*/}
-                {/*color="secondary"*/}
-                {/*onClick={this.editChannel}*/}
-                {/*variant="contained"*/}
-                {/*disabled={this.props.isEditingChannel}*/}
-              {/*>*/}
-                {/*Save*/}
-              {/*</Button>*/}
-              {/*<Button*/}
-                {/*className={classes.button}*/}
-                {/*color="secondary"*/}
-                {/*onClick={() => this.enableEdit(false)}*/}
-                {/*variant="contained"*/}
-              {/*>*/}
-                {/*Cancel*/}
-              {/*</Button>*/}
-            {/*</div>*/}
-          {/*) : (*/}
-            {/*<Button*/}
-              {/*className={classes.button}*/}
-              {/*color="secondary"*/}
-              {/*onClick={() => this.enableEdit(true)}*/}
-              {/*variant="contained"*/}
-            {/*>*/}
-              {/*Edit*/}
-            {/*</Button>*/}
-          {/*)*/}
-        {/*}*/}
-
-        {/*<br/> <br/> <br/>*/}
-
         <ChannelDevices
           channel={channel}
         />
@@ -176,6 +105,7 @@ function mapDispatchToProps(dispatch) {
   return {
     getChannel: (id) => dispatch(getChannel(id)),
     editChannel: (id, data) => dispatch(editChannel(id, data)),
+    getChannelDevices: (deviceId) => dispatch(getChannelDevices(deviceId)),
   }
 }
 

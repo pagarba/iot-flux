@@ -1,0 +1,114 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Devices /> should render components 1`] = `
+<div>
+  <WithStyles(ExpansionPanel)
+    expanded={true}
+    onChange={[Function]}
+  >
+    <WithStyles(ExpansionPanelSummary)
+      expandIcon={
+        <pure(ExpandMoreIcon)
+          color="primary"
+        />
+      }
+    >
+      <WithStyles(Typography)
+        color="primary"
+      >
+        MY DEVICES
+      </WithStyles(Typography)>
+    </WithStyles(ExpansionPanelSummary)>
+    <WithStyles(ExpansionPanelDetails)>
+      <WithStyles(DevicesTable)
+        data={Array []}
+        getDevices={[Function]}
+        onDeleteDevice={[Function]}
+      />
+    </WithStyles(ExpansionPanelDetails)>
+  </WithStyles(ExpansionPanel)>
+  <WithStyles(ExpansionPanel)
+    expanded={false}
+    onChange={[Function]}
+  >
+    <WithStyles(ExpansionPanelSummary)
+      expandIcon={<pure(ExpandMoreIcon) />}
+    >
+      <WithStyles(Typography)>
+        ADD A NEW DEVICE
+      </WithStyles(Typography)>
+    </WithStyles(ExpansionPanelSummary)>
+    <WithStyles(ExpansionPanelDetails)>
+      <WithStyles(FormControl)
+        aria-describedby="component-error-text"
+        error={false}
+        fullWidth={true}
+      >
+        <WithStyles(WithFormControlContext(InputLabel))
+          htmlFor="component-error"
+        >
+          Device Name*
+        </WithStyles(WithFormControlContext(InputLabel))>
+        <WithStyles(Input)
+          name="deviceName"
+          onBlur={[Function]}
+          onChange={[Function]}
+          value=""
+        />
+        <WithStyles(WithFormControlContext(FormHelperText))
+          id="component-error-text"
+        >
+          This field is required
+        </WithStyles(WithFormControlContext(FormHelperText))>
+      </WithStyles(FormControl)>
+      <WithStyles(FormControl)
+        fullWidth={true}
+      >
+        <WithStyles(WithFormControlContext(InputLabel))
+          htmlFor="deviceType"
+        >
+          Device Type
+        </WithStyles(WithFormControlContext(InputLabel))>
+        <WithStyles(WithFormControlContext(Select))
+          inputProps={
+            Object {
+              "id": "deviceType",
+              "name": "deviceType",
+            }
+          }
+          onChange={[Function]}
+          value=""
+        >
+          <WithStyles(MenuItem)
+            value="device"
+          >
+            Device
+          </WithStyles(MenuItem)>
+          <WithStyles(MenuItem)
+            value="app"
+          >
+            App
+          </WithStyles(MenuItem)>
+        </WithStyles(WithFormControlContext(Select))>
+      </WithStyles(FormControl)>
+      <WithStyles(Button)
+        color="secondary"
+        onClick={[Function]}
+        variant="contained"
+      >
+        Add Device
+      </WithStyles(Button)>
+    </WithStyles(ExpansionPanelDetails)>
+  </WithStyles(ExpansionPanel)>
+  <WithStyles(ConfirmDialog)
+    contentText="A new device has been created"
+    createButtonText="Create Device"
+    onClickCreate={[Function]}
+    onClickDismiss={[Function]}
+    onClickView={[Function]}
+    open={false}
+    titleText="Confirm"
+    viewButtonText="View Devices"
+  />
+</div>
+`;

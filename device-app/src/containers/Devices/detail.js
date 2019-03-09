@@ -4,13 +4,8 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
 
 import { withStyles } from "@material-ui/core/styles/index";
 import { getDevice, editDevice } from '../../core/actions/device';
@@ -39,7 +34,7 @@ const styles = theme => ({
   },
 });
 
-class DeviceDetail extends Component {
+export class DeviceDetail extends Component {
   constructor () {
     super();
 
@@ -68,8 +63,6 @@ class DeviceDetail extends Component {
     const { name, type } = this.state;
     const deviceId = this.props.match.params.deviceId;
 
-    console.log(type);
-
     this.props.editDevice(deviceId, {
       name,
       type
@@ -82,14 +75,7 @@ class DeviceDetail extends Component {
     });
   }
 
-  enableEdit = (isEditMode) => {
-    this.setState({
-      isEditMode,
-    })
-  }
-
   handleInputChange = event => {
-    console.log(event.target);
     this.setState({ [event.target.name]: event.target.value });
   };
 
@@ -131,39 +117,6 @@ class DeviceDetail extends Component {
             </tr>
           </tbody>
         </table>
-
-        {/*{*/}
-          {/*isEditMode ? (*/}
-            {/*<div>*/}
-              {/*<Button*/}
-                {/*className={classes.button}*/}
-                {/*color="secondary"*/}
-                {/*onClick={this.editDevice}*/}
-                {/*variant="contained"*/}
-                {/*disabled={this.props.isEditingDevice}*/}
-              {/*>*/}
-                {/*Save*/}
-              {/*</Button>*/}
-              {/*<Button*/}
-                {/*className={classes.button}*/}
-                {/*color="secondary"*/}
-                {/*onClick={() => this.enableEdit(false)}*/}
-                {/*variant="contained"*/}
-              {/*>*/}
-                {/*Cancel*/}
-              {/*</Button>*/}
-            {/*</div>*/}
-          {/*) : (*/}
-            {/*<Button*/}
-              {/*className={classes.button}*/}
-              {/*color="secondary"*/}
-              {/*onClick={() => this.enableEdit(true)}*/}
-              {/*variant="contained"*/}
-            {/*>*/}
-              {/*Edit*/}
-            {/*</Button>*/}
-          {/*)*/}
-        {/*}*/}
       </div>
     )
   }

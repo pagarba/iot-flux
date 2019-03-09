@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { MenuItem, ListItemIcon, ListItemText, Typography } from '@material-ui/core';
 import {withStyles} from "@material-ui/core/styles/index";
 
-const styles = theme => ({
+const styles = () => ({
   icon: {
     color: '#fff',
   },
@@ -56,7 +56,7 @@ class SideMenuItem extends Component {
           </ListItemIcon>
           <ListItemText
             className={selected ? classes.text: null}
-            primary={<Typography className={selected ? classes.text : null} variant="h5">{text.toUpperCase()}</Typography>}
+            primary={<Typography className={selected ? classes.text : null} variant="subtitle1">{text.toUpperCase()}</Typography>}
           />
         </MenuItem>
       </Link>

@@ -1,0 +1,145 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<EventsDetail /> should render components 1`] = `
+<div>
+  <WithStyles(ExpansionPanel)
+    expanded={true}
+    onChange={[Function]}
+  >
+    <WithStyles(ExpansionPanelSummary)
+      expandIcon={
+        <pure(ExpandMoreIcon)
+          color="primary"
+        />
+      }
+    >
+      <WithStyles(Typography)
+        color="primary"
+      >
+        MY EVENTS
+      </WithStyles(Typography)>
+    </WithStyles(ExpansionPanelSummary)>
+    <WithStyles(ExpansionPanelDetails)>
+      <div>
+        <WithStyles(FormControl)>
+          <WithStyles(WithFormControlContext(InputLabel))
+            htmlFor="deviceKey"
+          >
+            Select Channel
+          </WithStyles(WithFormControlContext(InputLabel))>
+          <WithStyles(WithFormControlContext(Select))
+            inputProps={
+              Object {
+                "id": "channel",
+                "name": "channel",
+              }
+            }
+            onChange={[Function]}
+          >
+            <WithStyles(MenuItem)
+              value="1"
+            >
+              33 (Dan's Raspberry)
+            </WithStyles(MenuItem)>
+            <WithStyles(MenuItem)
+              value="2"
+            >
+              41 (Channel 41)
+            </WithStyles(MenuItem)>
+            <WithStyles(MenuItem)
+              value="3"
+            >
+              42 (KCOP 15)
+            </WithStyles(MenuItem)>
+          </WithStyles(WithFormControlContext(Select))>
+        </WithStyles(FormControl)>
+        <WithStyles(FormControl)>
+          <WithStyles(Input)
+            id="input-with-icon-adornment"
+            startAdornment={
+              <WithStyles(WithFormControlContext(InputAdornment))
+                position="start"
+              >
+                <pure(SearchIcon) />
+              </WithStyles(WithFormControlContext(InputAdornment))>
+            }
+          />
+        </WithStyles(FormControl)>
+      </div>
+      <WithStyles(EventsTable)
+        data={Array []}
+      />
+    </WithStyles(ExpansionPanelDetails)>
+  </WithStyles(ExpansionPanel)>
+  <WithStyles(ExpansionPanel)
+    expanded={false}
+    onChange={[Function]}
+  >
+    <WithStyles(ExpansionPanelSummary)
+      expandIcon={<pure(ExpandMoreIcon) />}
+    >
+      <WithStyles(Typography)>
+        ADD A NEW EVENT
+      </WithStyles(Typography)>
+    </WithStyles(ExpansionPanelSummary)>
+    <WithStyles(ExpansionPanelDetails)>
+      <WithStyles(FormControl)>
+        <WithStyles(WithFormControlContext(InputLabel))
+          htmlFor="deviceKey"
+        >
+          Device
+        </WithStyles(WithFormControlContext(InputLabel))>
+        <WithStyles(WithFormControlContext(Select))
+          inputProps={
+            Object {
+              "id": "deviceKey",
+              "name": "deviceKey",
+            }
+          }
+          onChange={[Function]}
+          value=""
+        />
+      </WithStyles(FormControl)>
+      <WithStyles(FormControl)
+        aria-describedby="component-error-text"
+        error={false}
+        fullWidth={true}
+      >
+        <WithStyles(WithFormControlContext(InputLabel))
+          htmlFor="component-error"
+        >
+          Data
+        </WithStyles(WithFormControlContext(InputLabel))>
+        <WithStyles(Input)
+          name="data"
+          onBlur={[Function]}
+          onChange={[Function]}
+          value=""
+        />
+        <WithStyles(WithFormControlContext(FormHelperText))
+          id="component-error-text"
+        >
+          This field is required
+        </WithStyles(WithFormControlContext(FormHelperText))>
+      </WithStyles(FormControl)>
+      <WithStyles(Button)
+        color="secondary"
+        onClick={[Function]}
+        variant="contained"
+      >
+        Add Event
+      </WithStyles(Button)>
+    </WithStyles(ExpansionPanelDetails)>
+  </WithStyles(ExpansionPanel)>
+  <WithStyles(ConfirmDialog)
+    contentText="A new event has been created"
+    createButtonText="Create Event"
+    onClickCreate={[Function]}
+    onClickDismiss={[Function]}
+    onClickView={[Function]}
+    open={false}
+    titleText="Confirm"
+    viewButtonText="View Events"
+  />
+</div>
+`;

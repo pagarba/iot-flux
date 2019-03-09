@@ -11,7 +11,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { withStyles } from "@material-ui/core/styles/index";
 
-const styles = theme => ({
+const styles = () => ({
   root: {
     display: 'block'
   },

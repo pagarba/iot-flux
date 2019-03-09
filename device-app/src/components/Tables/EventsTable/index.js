@@ -19,6 +19,8 @@ import { events } from '../../../constants/index';
 const styles = theme => ({
   root: {
     width: '100%',
+    borderTopLeftRadius: '0px',
+    borderTopRightRadius: '0px',
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
@@ -148,12 +150,12 @@ class EventsTable extends Component {
                       key={n.deviceId}
                       selected={isSelected}
                     >
-                      <TableCell component="th" scope="row">{n.Name}</TableCell>
-                      <TableCell>{devices && devices.things ? (devices.things.find((device) => device.id === n.Publisher) || {}).name : ''}</TableCell>
-                      <TableCell>{n.Protocol}</TableCell>
-                      <TableCell>{n.Unit}</TableCell>
-                      <TableCell>{n.Value}</TableCell>
-                      <TableCell>{moment(n.Time).format('YYYY-MM-DD HH:mm:ss')}</TableCell>
+                      <TableCell component="th" scope="row">{n.name}</TableCell>
+                      <TableCell>{devices && devices.things ? (devices.things.find((device) => device.id === n.publisher) || {}).name : ''}</TableCell>
+                      <TableCell>{n.protocol}</TableCell>
+                      <TableCell>{n.unit}</TableCell>
+                      <TableCell>{n.value}</TableCell>
+                      <TableCell>{moment(n.time).format('YYYY-MM-DD HH:mm:ss')}</TableCell>
                     </TableRow>
                   );
                 })}

@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Channels /> should render components 1`] = `
+<div>
+  <WithStyles(ExpansionPanel)
+    expanded={true}
+    onChange={[Function]}
+  >
+    <WithStyles(ExpansionPanelSummary)
+      expandIcon={
+        <pure(ExpandMoreIcon)
+          color="primary"
+        />
+      }
+    >
+      <WithStyles(Typography)
+        color="primary"
+      >
+        MY CHANNELS
+      </WithStyles(Typography)>
+    </WithStyles(ExpansionPanelSummary)>
+    <WithStyles(ExpansionPanelDetails)>
+      <WithStyles(ChannelsTable)
+        data={Array []}
+        getChannels={[Function]}
+        onDeleteChannel={[Function]}
+      />
+    </WithStyles(ExpansionPanelDetails)>
+  </WithStyles(ExpansionPanel)>
+  <WithStyles(ExpansionPanel)
+    expanded={false}
+    onChange={[Function]}
+  >
+    <WithStyles(ExpansionPanelSummary)
+      expandIcon={<pure(ExpandMoreIcon) />}
+    >
+      <WithStyles(Typography)>
+        ADD A NEW CHANNEL
+      </WithStyles(Typography)>
+    </WithStyles(ExpansionPanelSummary)>
+    <WithStyles(ExpansionPanelDetails)>
+      <WithStyles(FormControl)
+        aria-describedby="component-error-text"
+        error={false}
+        fullWidth={true}
+      >
+        <WithStyles(WithFormControlContext(InputLabel))
+          htmlFor="component-error"
+        >
+          Channel Name*
+        </WithStyles(WithFormControlContext(InputLabel))>
+        <WithStyles(Input)
+          name="channelName"
+          onBlur={[Function]}
+          onChange={[Function]}
+          value=""
+        />
+        <WithStyles(WithFormControlContext(FormHelperText))
+          id="component-error-text"
+        >
+          This field is required
+        </WithStyles(WithFormControlContext(FormHelperText))>
+      </WithStyles(FormControl)>
+      <WithStyles(Button)
+        color="secondary"
+        onClick={[Function]}
+        variant="contained"
+      >
+        Add Channel
+      </WithStyles(Button)>
+    </WithStyles(ExpansionPanelDetails)>
+  </WithStyles(ExpansionPanel)>
+  <WithStyles(ConfirmDialog)
+    contentText="A new channel has been created"
+    createButtonText="Create Channel"
+    onClickCreate={[Function]}
+    onClickDismiss={[Function]}
+    onClickView={[Function]}
+    open={false}
+    titleText="Confirm"
+    viewButtonText="View Channels"
+  />
+</div>
+`;

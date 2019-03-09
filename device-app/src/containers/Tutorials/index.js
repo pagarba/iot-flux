@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { withStyles } from '@material-ui/core/styles';
-import { Grid, Hidden, Paper, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 
 import { Link } from 'react-router-dom';
 
@@ -10,7 +10,7 @@ import IoTBasicsIcon from '@material-ui/icons/DeviceHub';
 import GettingStartedIcon from '@material-ui/icons/PlayCircleOutline';
 import ExamplesTemplatesIcon from '@material-ui/icons/SubtitlesOutlined';
 
-const styles = theme => ({
+const styles = () => ({
   dashboard: {
     textAlign: 'center',
     marginTop: '50px',
@@ -31,10 +31,6 @@ const styles = theme => ({
 });
 
 class Dashboard extends Component {
-  constructor() {
-    super();
-  }
-
   render() {
     const { classes } = this.props;
 

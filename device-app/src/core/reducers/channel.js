@@ -79,6 +79,22 @@ export default (state = {}, action) => {
         ...state,
         isAddingDeviceToChannel: false,
       }
+    case constants.GET_CHANNEL_DEVICES_REQUEST:
+      return {
+        ...state,
+        isLoadingChannelDevices: true,
+      }
+    case constants.GET_CHANNEL_DEVICES_SUCCESS:
+      return {
+        ...state,
+        isLoadingChannelDevices: false,
+        channelDevices: action.payload
+      }
+    case constants.GET_CHANNEL_DEVICES_FAILURE:
+      return {
+        ...state,
+        isLoadingChannelDevices: false,
+      }
     default:
       return state;
   }

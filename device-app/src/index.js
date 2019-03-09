@@ -35,7 +35,7 @@ const middleware = composeWithDevTools(
 
 if (localStorage.token)
   axios.defaults.headers.common.authorization = localStorage.token;
-axios.defaults.baseURL = 'https://69.55.54.104';
+axios.defaults.baseURL = 'http://204.48.22.18';
 
 axios.interceptors.request.use(function (config) {
   config.headers['Content-Type'] = 'application/json';

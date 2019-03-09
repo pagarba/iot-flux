@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ChannelDetail /> should render components 1`] = `
+<div>
+  <Connect(WithStyles(Devices))
+    channel={Object {}}
+  />
+</div>
+`;

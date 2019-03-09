@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
-import { Link } from 'react-router-dom';
 import { withStyles } from "@material-ui/core/styles/index";
 
 import Table from '@material-ui/core/Table';
@@ -12,11 +11,11 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-import DeleteIcon from '@material-ui/icons/DeleteOutline';
-
 import EnhancedTableHead from '../EnhancedTableHead';
 import ConfirmDialog from '../../Dialogs/ConfirmDialog';
 import { devices } from '../../../constants/index';
+
+import Row from './row';
 
 const styles = theme => ({
   root: {
@@ -115,27 +114,27 @@ class ChannelDevicesTable extends Component {
     this.setState({ order, orderBy });
   };
 
-  handleClickConfirm = event => {
+  handleClickConfirm = () => {
     this.props.onDeleteDeviceFromChannel(this.state.deleteDeviceId);
     this.setState({
       isConfirmDialogOpen: false,
       deleteDeviceId: -1,
     })
-  }
+  };
 
-  handleClickDismiss = event => {
+  handleClickDismiss = () => {
     this.setState({
       isConfirmDialogOpen: false,
       deleteDeviceId: -1,
     })
-  }
+  };
 
   handleDeleteIconClick = deleteDeviceId => {
     this.setState({
       deleteDeviceId,
       isConfirmDialogOpen: true,
     });
-  }
+  };
 
   handleChangePage = (event, page) => {
     this.setState({ page });
@@ -168,29 +167,11 @@ class ChannelDevicesTable extends Component {
               {stableSort(data, getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(n => {
-                  const isSelected = this.isSelected(n.id);
                   return (
-                    <TableRow
-                      hover
-                      role="checkbox"
-                      aria-checked={isSelected}
-                      tabIndex={-1}
-                      key={n.deviceId}
-                      selected={isSelected}
-                    >
-                      <TableCell component="th" scope="row">{n.id}</TableCell>
-                      <TableCell>{n.name}</TableCell>
-                      <TableCell>{n.key}</TableCell>
-                      <TableCell>{n.type}</TableCell>
-                      <TableCell
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <DeleteIcon
-                          className={classes.deleteIcon}
-                          onClick={() => { this.handleDeleteIconClick(n.id) }}
-                        />
-                      </TableCell>
-                    </TableRow>
+                    <Row
+                      row={n}
+                      onClickDeleteIcon={this.handleDeleteIconClick}
+                    />
                   );
                 })}
               {emptyRows > 0 && (

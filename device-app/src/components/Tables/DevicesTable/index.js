@@ -2,23 +2,23 @@ import React, { Component } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
-import { Link } from 'react-router-dom';
 import { withStyles } from "@material-ui/core/styles/index";
 
+import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-
-import DeleteIcon from '@material-ui/icons/DeleteOutlined';
-import EditIcon from '@material-ui/icons/EditOutlined';
 
 import EnhancedTableHead from '../EnhancedTableHead';
 import ConfirmDialog from '../../Dialogs/ConfirmDialog';
 import EditDeviceDialog from '../../Dialogs/EditDeviceDialog';
+import RegisterDeviceDialog from '../../Dialogs/RegisterDeviceDialog';
+import ConnectDeviceDialog from '../../Dialogs/ConnectDeviceDialog';
 import { devices } from '../../../constants/index';
+
+import Row from './row';
 
 const styles = theme => ({
   root: {
@@ -47,6 +47,14 @@ const styles = theme => ({
   paginationToolBar: {
     justifyContent: 'center',
   },
+  registerButton: {
+    marginLeft: '0.5rem',
+    cursor: 'pointer',
+  },
+  registerCell: {
+    display: 'flex',
+    alignItems: 'center',
+  },
   secondaryHeading: {
     fontSize: theme.typography.pxToRem(15),
     color: theme.palette.text.secondary,
@@ -55,12 +63,6 @@ const styles = theme => ({
     overflowX: 'auto',
   },
 });
-
-let counter = 0;
-function createData(name, calories, fat, carbs, protein) {
-  counter += 1;
-  return { id: counter, name, calories, fat, carbs, protein };
-}
 
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -90,7 +92,9 @@ const rows = [
   { id: 'id', numeric: false, disablePadding: true, label: 'Device ID' },
   { id: 'name', numeric: false, disablePadding: true, label: 'Device Name' },
   { id: 'key', numeric: false, disablePadding: true, label: 'Device Key' },
-  { id: 'type', numeric: false, disablePadding: true, label: 'Device Type' },
+  { id: 'description', numeric: false, disablePadding: true, label: 'Description' },
+  { id: 'handshake', numeric: false, disablePadding: true, label: 'Last Handshake' },
+  { id: 'registered', numeric: false, disablePadding: true, label: 'Registered At' },
   { id: 'action', numeric: false, disabledPadding: true, label: 'Actions'},
 ];
 
@@ -104,8 +108,12 @@ class DevicesTable extends Component {
     rowsPerPage: 5,
     deleteDeviceId: -1,
     deviceToEdit: null,
+    deviceToRegister: null,
+    deviceToConnect: null,
     isConfirmDialogOpen: false,
     isEditDialogOpen: false,
+    isRegisterDeviceDialogOpen: false,
+    isConnectDeviceDialogOpen: false,
   };
 
   handleRequestSort = (event, property) => {
@@ -127,13 +135,13 @@ class DevicesTable extends Component {
     this.setState({ rowsPerPage: event.target.value });
   };
 
-  handleClickConfirmDelete = event => {
+  handleClickConfirmDelete = () => {
     this.props.onDeleteDevice(this.state.deleteDeviceId);
     this.setState({
       isConfirmDialogOpen: false,
       deleteDeviceId: -1,
     })
-  }
+  };
 
   handleClickConfirmEdit = deviceName => {
     const { deviceToEdit } = this.state;
@@ -151,45 +159,68 @@ class DevicesTable extends Component {
     }).then(() => {
       this.props.getDevices()
     });
-  }
+  };
 
-  handleHideConfirmDialog = event => {
+  handleHideConfirmDialog = () => {
     this.setState({
       isConfirmDialogOpen: false,
       deleteDeviceId: -1,
     })
-  }
+  };
 
-  handleHideEditDialog = event => {
+  handleHideEditDialog = () => {
     this.setState({
       isEditDialogOpen: false,
       deviceToEdit: -1,
     })
   }
 
-  handleClick = (event, deviceId) => {
-    this.props.history.push(`/devices/${deviceId}`);
-  };
-
   handleDeleteIconClick = deleteDeviceId => {
     this.setState({
       deleteDeviceId,
       isConfirmDialogOpen: true,
     });
-  }
+  };
 
   handleEditIconClick = deviceToEdit => {
     this.setState({
       deviceToEdit,
       isEditDialogOpen: true,
     })
-  }
+  };
+
+  handleClickConnect = (device) => {
+    this.setState({
+      deviceToConnect: device,
+      isConnectDeviceDialogOpen: true,
+    });
+  };
+
+  handleHideConnectDeviceDialog = () => {
+    this.setState({
+      isConnectDeviceDialogOpen: false,
+    });
+  };
+
+  handleClickRegister = (device) => {
+    this.setState({
+      deviceToRegister: device,
+      isRegisterDeviceDialogOpen: true,
+    });
+  };
+
+  handleHideRegisterDeviceDialog = () => {
+    this.setState({
+      isRegisterDeviceDialogOpen: false,
+    });
+  };
+
 
   isSelected = id => this.state.selected.indexOf(id) !== -1;
 
   render() {
     const { classes, data } = this.props;
-    const { order, orderBy, selected, rowsPerPage, page } = this.state;
+    const { deviceToConnect, deviceToRegister, order, orderBy, selected, rowsPerPage, page } = this.state;
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
     return (
@@ -208,34 +239,15 @@ class DevicesTable extends Component {
               {stableSort(data, getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(n => {
-                  const isSelected = this.isSelected(n.id);
                   return (
-                    <TableRow
-                      hover
-                      role="checkbox"
-                      onClick={event => this.handleClick(event, n.id)}
-                      aria-checked={isSelected}
-                      tabIndex={-1}
-                      key={n.deviceId}
-                      selected={isSelected}
-                    >
-                      <TableCell component="th" scope="row">{n.id}</TableCell>
-                      <TableCell>{n.name}</TableCell>
-                      <TableCell>{n.key}</TableCell>
-                      <TableCell>{n.type}</TableCell>
-                      <TableCell
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <EditIcon
-                          className={classes.actionIcon}
-                          onClick={() => { this.handleEditIconClick(n) }}
-                        />
-                        <DeleteIcon
-                          className={classes.actionIcon}
-                          onClick={() => { this.handleDeleteIconClick(n.id) }}
-                        />
-                      </TableCell>
-                    </TableRow>
+                    <Row
+                      history={this.props.history}
+                      row={n}
+                      onClickConnect={this.handleClickConnect}
+                      onClickRegister={this.handleClickRegister}
+                      onClickEditIcon={this.handleEditIconClick}
+                      onClickDeleteIcon={this.handleDeleteIconClick}
+                    />
                   );
                 })}
               {emptyRows > 0 && (
@@ -280,6 +292,16 @@ class DevicesTable extends Component {
           device={this.state.deviceToEdit}
           open={this.state.isEditDialogOpen}
           titleText="Edit Device"
+        />
+        <RegisterDeviceDialog
+          device={deviceToRegister}
+          onClickDismiss={this.handleHideRegisterDeviceDialog}
+          open={this.state.isRegisterDeviceDialogOpen}
+        />
+        <ConnectDeviceDialog
+          device={deviceToConnect}
+          onClickDismiss={this.handleHideConnectDeviceDialog}
+          open={this.state.isConnectDeviceDialogOpen}
         />
       </Paper>
     );
